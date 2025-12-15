@@ -1,0 +1,51 @@
+---
+description: Git commit conventions for AliCooks
+globs: ["**/*"]
+---
+
+# Git Commit Rules
+
+## Author Line
+
+All commit messages MUST include an author line at the end of the body:
+
+```text
+Author: cabynum <cbynum@gmail.com>
+```
+
+## Commit Message Format
+
+```text
+<short summary line>
+
+- Bullet point describing change 1
+- Bullet point describing change 2
+- ...
+
+Next: <what comes next, if applicable>
+
+Author: cabynum <cbynum@gmail.com>
+```
+
+## Example
+
+```text
+Add meal suggestion feature
+
+- Implement random pairing algorithm
+- Add "Try Another" button
+- Handle edge case when no sides exist
+
+Next: Add meal plan persistence
+
+Author: cabynum <cbynum@gmail.com>
+```
+
+## Repository Identity
+
+This project uses personal credentials (not work):
+
+- **Name**: cabynum
+- **Email**: cbynum@gmail.com
+
+This is configured locally in `.git/config` for this repo only.
