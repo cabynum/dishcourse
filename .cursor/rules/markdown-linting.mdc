@@ -1,0 +1,52 @@
+---
+description: Markdown linting enforcement for AliCooks
+globs: ["**/*.md"]
+---
+
+# Markdown Linting Rules
+
+## Mandatory Linting Check
+
+After writing or editing ANY markdown file (`.md`):
+
+1. **Immediately** call `read_lints` on the specific file path
+2. If errors are found, fix them before proceeding
+3. Re-run `read_lints` to verify the fix
+4. Do NOT proceed to other tasks until linting passes with zero errors
+
+## Common Issues to Avoid
+
+- Multiple consecutive blank lines (MD012)
+- Missing blank lines around headings (MD022)
+- Missing blank lines around lists (MD032)
+- Missing blank lines around code fences (MD031)
+- Trailing whitespace (MD009)
+- Missing language tags on code blocks (MD040)
+
+## Formatting Preferences
+
+### Line Breaks (Preferred over Tables)
+
+For metadata or key-value pairs that need to appear on separate lines, use **two
+trailing spaces** instead of tables:
+
+```markdown
+**Feature Branch**: `001-meal-planner`  
+**Created**: 2024-12-15  
+**Status**: Draft  
+```
+
+(Each line ends with two spaces to force a line break)
+
+**Use actual tables only when**:
+- Data has multiple columns that benefit from alignment
+- Comparing items side-by-side
+- The content is truly tabular in nature
+
+When a table is the better choice, explicitly recommend it to the user.
+
+## Why This Matters
+
+Per the AliCooks Constitution (Quality Standards): Documentation MUST be written
+for a reader unfamiliar with the codebase. Clean, consistent markdown ensures
+readability and professionalism.

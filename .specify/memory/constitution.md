@@ -1,50 +1,115 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.0.0 → 1.1.0
+Amendment: Added mandatory markdown linting to Documentation quality standards
+  - New rule: All markdown files MUST pass linting before merge
+  - Enforcement: .cursor/rules/markdown-linting.mdc created
+Templates reviewed:
+  ✅ No template updates required
+Follow-up TODOs: None
+
+Previous versions:
+  - 1.0.0 (2024-12-15): Initial ratification with 5 core principles
+-->
+
+# AliCooks Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. User-First Simplicity
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+The primary user is non-technical. Every feature MUST be intuitive without requiring
+documentation or explanation. If a feature needs a manual, it is too complex.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+- All UI interactions MUST be self-explanatory
+- Error messages MUST use plain language, not technical jargon
+- The app MUST be usable by someone who has never seen it before
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### II. Delight Over Features
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+A small set of polished features beats many half-finished ones. Ship less, but make
+it feel great.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- New features MUST NOT be added until existing features are complete and refined
+- Visual polish and micro-interactions are NOT optional extras
+- "Good enough" is not acceptable for user-facing elements
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### III. Smart Defaults
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+The app MUST make sensible suggestions automatically. Users configure only when they
+want to, not because they have to.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- First-run experience MUST work without any configuration
+- Suggestions MUST be useful without user training data
+- Advanced options MUST be hidden until explicitly requested
+
+### IV. Data Ownership
+
+User data MUST be portable and never locked in.
+
+- Export functionality MUST be available from day one
+- Data format MUST be human-readable (JSON, CSV, or similar)
+- No vendor lock-in for storage or hosting
+
+### V. Mobile-Ready
+
+The interface MUST work well on phones — that's where dinner decisions happen.
+
+- Mobile viewport is the primary design target
+- Touch interactions MUST be first-class citizens
+- All features MUST be accessible on mobile (no desktop-only functionality)
+
+## Current Scope Boundaries
+
+These define what AliCooks is NOT — for now. This scope may expand in future versions,
+but these boundaries keep the initial build focused.
+
+**Out of scope for v1:**
+
+- Recipe storage or instructions
+- Grocery list generation
+- Nutritional tracking or calorie counting
+- Multi-household or social features
+- Meal scheduling/calendar integration
+
+## Quality Standards
+
+### Code Quality
+
+- All code MUST be tested before merge
+- Classes, methods, and functions MUST have clear documentation in plain language
+- Clarity and simplicity MUST be prioritized over efficiency or performance
+- Premature optimization is forbidden
+
+### Development Approach
+
+- Work incrementally: build very small, contained pieces one at a time
+- Each piece MUST be complete and working before moving to the next
+- Commits SHOULD be atomic and focused on a single change
+
+### Documentation
+
+- Code comments MUST explain "why", not "what"
+- Documentation MUST be written for a reader unfamiliar with the codebase
+- Technical jargon MUST be avoided or explained when unavoidable
+- All markdown files MUST pass linting before merge (enforced via `.cursor/rules/`)
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution establishes the foundational principles for AliCooks development.
+All implementation decisions MUST align with these principles.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Amendment Process:**
+
+1. Proposed changes MUST be documented with rationale
+2. Changes to Core Principles require version bump (MAJOR for removals, MINOR for additions)
+3. Scope Boundaries may be expanded via MINOR version bump with documented justification
+
+**Compliance:**
+
+- All code reviews MUST verify alignment with Core Principles
+- Complexity MUST be justified against Principle II (Delight Over Features)
+- Performance optimizations MUST be justified against Quality Standards (clarity over efficiency)
+
+**Version**: 1.1.0 | **Ratified**: 2024-12-15 | **Last Amended**: 2024-12-15
