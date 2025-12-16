@@ -66,12 +66,12 @@ Foundation infrastructure. Must complete before any feature work.
 
 ---
 
-### 0.6 PWA Foundation
+### 0.6 PWA Foundation ✅
 
-- [ ] Create `public/manifest.json` with app metadata
-- [ ] Add placeholder icons (can be simple colored squares for now)
-- [ ] Configure Vite for PWA (vite-plugin-pwa or manual)
-- [ ] Verify manifest is served correctly
+- [x] Create `public/manifest.json` with app metadata
+- [x] Add placeholder icons (can be simple colored squares for now)
+- [x] Configure Vite for PWA (vite-plugin-pwa or manual)
+- [x] Verify manifest is served correctly
 
 **Verify**: DevTools → Application → Manifest shows app info
 

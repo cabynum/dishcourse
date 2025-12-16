@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <!-- Background -->
+  <rect width="192" height="192" rx="32" fill="#3b82f6"/>
+  
+  <!-- Stylized "A" for AliCooks -->
+  <path 
+    d="M96 40 L140 152 L124 152 L114 124 L78 124 L68 152 L52 152 L96 40 Z M96 72 L84 108 L108 108 L96 72 Z" 
+    fill="white"
+  />
+  
+  <!-- Small fork accent -->
+  <path 
+    d="M148 48 L148 72 M144 48 L144 64 M152 48 L152 64 M148 72 L148 88" 
+    stroke="white" 
+    stroke-width="3" 
+    stroke-linecap="round"
+    fill="none"
+  />
+</svg>
+

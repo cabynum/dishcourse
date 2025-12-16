@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Full background (maskable icons need content in safe zone - inner 80%) -->
+  <rect width="512" height="512" fill="#3b82f6"/>
+  
+  <!-- Stylized "A" for AliCooks - centered in safe zone -->
+  <path 
+    d="M256 128 L352 384 L316 384 L296 320 L216 320 L196 384 L160 384 L256 128 Z M256 200 L232 280 L280 280 L256 200 Z" 
+    fill="white"
+  />
+</svg>
+
