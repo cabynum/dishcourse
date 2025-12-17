@@ -1,3 +1,8 @@
-// Custom React hooks (useDishes, usePlans, useSuggestion)
-// Re-export hooks as they're created
+/**
+ * Custom Hooks
+ *
+ * Central export point for all React hooks used in AliCooks.
+ */
 
+export { useDishes } from './useDishes';
+export type { UseDishesReturn } from './useDishes';
