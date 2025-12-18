@@ -8,9 +8,12 @@ import {
   DayAssignmentPage,
   SettingsPage,
 } from '@/pages';
+import { ErrorBoundary } from '@/components/ui';
 
 /**
  * App - Root component with routing configuration.
+ *
+ * Wrapped in ErrorBoundary to catch and display errors gracefully.
  *
  * Routes:
  * - "/" : HomePage (dish list and main actions)
@@ -24,18 +27,20 @@ import {
  */
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/add" element={<AddDishPage />} />
-        <Route path="/edit/:dishId" element={<EditDishPage />} />
-        <Route path="/suggest" element={<SuggestionPage />} />
-        <Route path="/plan" element={<PlanPage />} />
-        <Route path="/plan/:planId" element={<PlanPage />} />
-        <Route path="/plan/:planId/:date" element={<DayAssignmentPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-      </Routes>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/add" element={<AddDishPage />} />
+          <Route path="/edit/:dishId" element={<EditDishPage />} />
+          <Route path="/suggest" element={<SuggestionPage />} />
+          <Route path="/plan" element={<PlanPage />} />
+          <Route path="/plan/:planId" element={<PlanPage />} />
+          <Route path="/plan/:planId/:date" element={<DayAssignmentPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 }
 

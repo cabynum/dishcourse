@@ -110,7 +110,7 @@ export function SuggestionPage() {
               <div className="h-6 bg-stone-200 rounded-lg w-48 mx-auto" />
               <div className="h-4 bg-stone-100 rounded w-32 mx-auto" />
             </div>
-            <p className="text-stone-400 mt-6">{message}</p>
+            <p className="text-stone-500 mt-6">{message}</p>
           </div>
         )}
 
@@ -147,7 +147,7 @@ export function SuggestionPage() {
             />
 
             {/* Helpful tip */}
-            <p className="text-center text-sm text-stone-400">
+            <p className="text-center text-sm text-stone-500">
               {message}
             </p>
           </div>

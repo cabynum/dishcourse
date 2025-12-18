@@ -143,7 +143,7 @@ export function DaySlot({
             </div>
           ))}
           {extraCount > 0 && (
-            <span className="text-xs text-stone-400 pl-4">
+            <span className="text-xs text-stone-500 pl-4">
               +{extraCount} more
             </span>
           )}
@@ -153,7 +153,7 @@ export function DaySlot({
           <span className="text-2xl opacity-30" role="img" aria-hidden="true">
             🍽️
           </span>
-          <span className="text-sm text-stone-400 italic">
+          <span className="text-sm text-stone-500 italic">
             Tap to add dishes
           </span>
         </div>

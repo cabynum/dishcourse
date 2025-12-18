@@ -83,7 +83,7 @@ const DAY_COUNT_OPTIONS = [3, 5, 7, 14];
 export function PlanPage() {
   const navigate = useNavigate();
   const { planId } = useParams<{ planId?: string }>();
-  const { plans, createPlan, getPlanById, isLoading: plansLoading } = usePlans();
+  const { createPlan, getPlanById, isLoading: plansLoading } = usePlans();
   const { dishes, getDishById, isLoading: dishesLoading } = useDishes();
 
   // For new plan creation
@@ -237,9 +237,9 @@ export function PlanPage() {
 
               {/* Preview */}
               <div className="bg-white rounded-xl border border-stone-200 p-4">
-                <h3 className="text-sm font-medium text-stone-700 mb-2">
+                <h2 className="text-sm font-medium text-stone-700 mb-2">
                   Your plan will cover:
-                </h3>
+                </h2>
                 <p className="text-stone-600">
                   {formatDateHeader(today)} – {formatDateHeader(
                     new Date(

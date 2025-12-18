@@ -236,7 +236,7 @@ export function DayAssignmentPage() {
                     className={[
                       'p-2',
                       'rounded-lg',
-                      'text-stone-400',
+                      'text-stone-500',
                       'hover:text-red-500 hover:bg-red-50',
                       'focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500',
                       'transition-colors',

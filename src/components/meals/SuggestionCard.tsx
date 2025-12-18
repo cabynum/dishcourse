@@ -120,7 +120,7 @@ export function SuggestionCard({
             <div className="mb-6">
               <div className="flex items-center gap-2 mb-3">
                 <div className="flex-1 h-px bg-gradient-to-r from-transparent via-stone-200 to-transparent" />
-                <span className="text-xs font-medium text-stone-400 uppercase tracking-wider">
+                <span className="text-xs font-medium text-stone-500 uppercase tracking-wider">
                   paired with
                 </span>
                 <div className="flex-1 h-px bg-gradient-to-r from-transparent via-stone-200 to-transparent" />
@@ -154,7 +154,7 @@ export function SuggestionCard({
           {/* Empty sides message */}
           {!hasSides && (
             <div className="mb-6 text-center">
-              <p className="text-sm text-stone-400 italic">
+              <p className="text-sm text-stone-500 italic">
                 Add some side dishes for complete meal suggestions!
               </p>
             </div>

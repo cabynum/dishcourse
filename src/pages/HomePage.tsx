@@ -146,7 +146,7 @@ export function HomePage() {
             </Button>
           </div>
           {!hasEntrees && (
-            <p className="text-xs text-stone-400 text-center mt-2">
+            <p className="text-xs text-stone-500 text-center mt-2">
               Add an entree to start getting suggestions!
             </p>
           )}
@@ -170,7 +170,7 @@ export function HomePage() {
                 <div className="h-12 bg-stone-100 rounded-lg" />
                 <div className="h-12 bg-stone-100 rounded-lg" />
               </div>
-              <p className="text-stone-400 text-sm mt-4">Loading dishes...</p>
+              <p className="text-stone-500 text-sm mt-4">Loading dishes...</p>
             </div>
           ) : (
             <DishList
