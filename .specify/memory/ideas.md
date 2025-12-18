@@ -65,7 +65,7 @@ UI. Big feature, but addresses a real pain point for families.
 
 Visual and interaction improvements.
 
-*(None yet)*
+No ideas yet.
 
 ---
 
@@ -73,7 +73,7 @@ Visual and interaction improvements.
 
 Ideas for making the app more intelligent.
 
-*(None yet — but things like "don't suggest the same meal twice in a week" could go here)*
+No ideas yet. Things like "don't suggest the same meal twice in a week" could go here.
 
 ---
 
@@ -81,13 +81,12 @@ Ideas for making the app more intelligent.
 
 Under-the-hood enhancements.
 
-*(None yet)*
+No ideas yet.
 
 ---
 
 ## Review Log
 
-| Date | Action |
-|------|--------|
+| Date       | Action                             |
+| ---------- | ---------------------------------- |
 | 2024-12-18 | Created backlog with initial ideas |
-

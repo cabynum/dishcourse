@@ -9,7 +9,8 @@ development and AI pair programming.
 2. [Part 2: Specification & Planning](./part-2-specification.md) — Constitution, features, tech stack
 3. [Part 3: Building the Foundation](./part-3-foundation.md) — Types, storage, hooks, UI primitives
 4. [Part 4: The First Feature](./part-4-first-feature.md) — Add a Dish, debugging a stale cache
-5. Part 5: View My Dishes — *coming soon*
+5. [Part 5: View My Dishes](./part-5-view-dishes.md) — DishCard, DishList, HomePage polish
+6. Part 6: Meal Suggestions — *coming soon*
 
 ## About This Series
 
