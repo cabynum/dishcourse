@@ -11,7 +11,8 @@ development and AI pair programming.
 4. [Part 4: The First Feature](./part-4-first-feature.md) — Add a Dish, debugging a stale cache
 5. [Part 5: View My Dishes](./part-5-view-dishes.md) — DishCard, DishList, HomePage polish
 6. [Part 6: Meal Suggestions](./part-6-meal-suggestions.md) — Random pairing, animations, delight
-7. Part 7: Plan a Menu — *coming soon*
+7. [Part 7: Completing the Core Flow](./part-7-complete-flow.md) — Plan a Menu, Edit & Delete
+8. Part 8: Data Export — *coming soon*
 
 ## About This Series
 
