@@ -510,28 +510,28 @@ Completing FR-003: Edit or delete dishes from collection.
 
 ---
 
-## Phase 7: Data Export
+## Phase 7: Data Export ✅
 
 Completing FR-009: Export data for portability.
 
-### 7.1 Create useExport Hook
+### 7.1 Create useExport Hook ✅
 
-- [ ] Create `hooks/useExport.ts`
-- [ ] Implement `exportToFile()` - triggers JSON download
-- [ ] Implement `importFromFile(file)` - reads and imports
-- [ ] Handle import errors gracefully
+- [x] Create `hooks/useExport.ts`
+- [x] Implement `exportToFile()` - triggers JSON download
+- [x] Implement `importFromFile(file)` - reads and imports
+- [x] Handle import errors gracefully
 
 **Verify**: Can export and import data files
 
 ---
 
-### 7.2 Add Export UI
+### 7.2 Add Export UI ✅
 
-- [ ] Add settings/menu with export option
-- [ ] Implement export button that downloads file
-- [ ] Implement import with file picker
-- [ ] Show success/error feedback
-- [ ] Verify meets SC-006 (single action export)
+- [x] Add settings/menu with export option
+- [x] Implement export button that downloads file
+- [x] Implement import with file picker
+- [x] Show success/error feedback
+- [x] Verify meets SC-006 (single action export)
 
 **Verify**: User can export all data with one tap
 
@@ -595,7 +595,7 @@ Refinements for production readiness.
 | 4 | 6 | P3 - Get Meal Suggestions | ✅ |
 | 5 | 7 | P4 - Plan a Menu | ✅ |
 | 6 | 2 | Edit & Delete Dishes | ✅ |
-| 7 | 2 | Data Export | |
+| 7 | 2 | Data Export | ✅ |
 | 8 | 5 | Final Polish | |
 | **Total** | **47** | | |
 

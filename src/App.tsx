@@ -6,6 +6,7 @@ import {
   SuggestionPage,
   PlanPage,
   DayAssignmentPage,
+  SettingsPage,
 } from '@/pages';
 
 /**
@@ -19,6 +20,7 @@ import {
  * - "/plan" : PlanPage (create new meal plan)
  * - "/plan/:planId" : PlanPage (view/edit existing plan)
  * - "/plan/:planId/:date" : DayAssignmentPage (assign dishes to a day)
+ * - "/settings" : SettingsPage (export/import data)
  */
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
         <Route path="/plan" element={<PlanPage />} />
         <Route path="/plan/:planId" element={<PlanPage />} />
         <Route path="/plan/:planId/:date" element={<DayAssignmentPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
       </Routes>
     </BrowserRouter>
   );
