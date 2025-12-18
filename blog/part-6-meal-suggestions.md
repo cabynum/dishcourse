@@ -57,12 +57,12 @@ function suggest(dishes: Dish[]): MealSuggestion | null {
 
 Key edge cases handled:
 
-| Scenario    | Behavior                           |
+| Scenario | Behavior |
 | ----------- | ---------------------------------- |
-| No entrees  | Returns `null`                     |
-| No sides    | Returns entree alone (still valid) |
-| One side    | Always pairs that side             |
-| Many sides  | Picks 1-2 randomly                 |
+| No entrees | Returns `null` |
+| No sides | Returns entree alone (still valid) |
+| One side | Always pairs that side |
+| Many sides | Picks 1-2 randomly |
 
 ### Why Random for Now?
 
@@ -94,13 +94,13 @@ interface UseSuggestionReturn {
 
 The hook provides context-aware messages:
 
-| State              | Message                                        |
+| State | Message |
 | ------------------ | ---------------------------------------------- |
-| Loading            | "Loading your dishes..."                       |
-| No dishes          | "Add some dishes to get meal suggestions!"     |
-| No entrees         | "Add an entree to get meal suggestions!"       |
-| One entree         | "Add more entrees for variety..."              |
-| Ready              | "Ready to suggest meals!"                      |
+| Loading | "Loading your dishes..." |
+| No dishes | "Add some dishes to get meal suggestions!" |
+| No entrees | "Add an entree to get meal suggestions!" |
+| One entree | "Add more entrees for variety..." |
+| Ready | "Ready to suggest meals!" |
 
 This follows the constitution's principle of user-first simplicity — the app tells you
 exactly what's missing and what to do about it.
@@ -157,13 +157,13 @@ work.
 
 Phase 4 added 73 new tests:
 
-| Layer              | Tests |
+| Layer | Tests |
 | ------------------ | ----- |
-| SuggestionService  | 20    |
-| useSuggestion Hook | 17    |
-| SuggestionCard     | 17    |
-| SuggestionPage     | 16    |
-| HomePage (updated) | 3     |
+| SuggestionService | 20 |
+| useSuggestion Hook | 17 |
+| SuggestionCard | 17 |
+| SuggestionPage | 16 |
+| HomePage (updated) | 3 |
 
 Total test count: **337 passing**
 

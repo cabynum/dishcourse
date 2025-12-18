@@ -586,18 +586,18 @@ Refinements for production readiness.
 
 ## Summary
 
-| Phase     | Tasks  | Focus                                              |
+| Phase | Tasks | Focus |
 | --------- | ------ | -------------------------------------------------- |
-| 0         | 6      | Project setup (Vite, Tailwind, testing, routing)   |
-| 1         | 9      | Foundation (types, storage, hooks, UI primitives)  |
-| 2         | 5      | P1 - Add a Dish                                    |
-| 3         | 5      | P2 - View My Dishes                                |
-| 4         | 6      | P3 - Get Meal Suggestions                          |
-| 5         | 7      | P4 - Plan a Menu                                   |
-| 6         | 2      | Edit & Delete Dishes                               |
-| 7         | 2      | Data Export                                        |
-| 8         | 5      | Final Polish                                       |
-| **Total** | **47** |                                                    |
+| 0 | 6 | Project setup (Vite, Tailwind, testing, routing) |
+| 1 | 9 | Foundation (types, storage, hooks, UI primitives) |
+| 2 | 5 | P1 - Add a Dish |
+| 3 | 5 | P2 - View My Dishes |
+| 4 | 6 | P3 - Get Meal Suggestions |
+| 5 | 7 | P4 - Plan a Menu |
+| 6 | 2 | Edit & Delete Dishes |
+| 7 | 2 | Data Export |
+| 8 | 5 | Final Polish |
+| **Total** | **47** | |
 
 **Recommended approach**: Complete phases sequentially. Each phase delivers testable, working
 functionality before moving to the next. This aligns with the constitution's "work incrementally"

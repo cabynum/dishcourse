@@ -138,13 +138,13 @@ With the cache cleared, the full flow works:
 3. Submit → dish saved to localStorage
 4. Navigate back to `/` → dish appears in list
 
-| Task | Description                | Status      |
+| Task | Description | Status |
 | ---- | -------------------------- | ----------- |
-| 2.1  | DishTypeSelector component | ✅ Complete |
-| 2.2  | DishForm component         | ✅ Complete |
-| 2.3  | AddDishPage                | ✅ Complete |
-| 2.4  | Connect routing            | ✅ Complete |
-| 2.5  | Polish                     | ✅ Complete |
+| 2.1 | DishTypeSelector component | ✅ Complete |
+| 2.2 | DishForm component | ✅ Complete |
+| 2.3 | AddDishPage | ✅ Complete |
+| 2.4 | Connect routing | ✅ Complete |
+| 2.5 | Polish | ✅ Complete |
 
 All 196 tests passing. The first user story is complete.
 

@@ -5,7 +5,8 @@
 
 ## Summary
 
-Build a mobile-first Progressive Web App that lets users manage a personal meal library, get smart meal suggestions, and plan menus for any number of days. The app uses local storage for persistence and requires no backend or authentication.
+Build a mobile-first Progressive Web App that lets users manage a personal meal library, get smart meal suggestions, and
+plan menus for any number of days. The app uses local storage for persistence and requires no backend or authentication.
 
 ## Technical Context
 
@@ -24,7 +25,7 @@ Build a mobile-first Progressive Web App that lets users manage a personal meal 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
 | Principle | Requirement | Status |
-|-----------|-------------|--------|
+| ----------- | ------------- | -------- |
 | **I. User-First Simplicity** | UI self-explanatory, plain language errors | ✅ PWA with simple flows |
 | **II. Delight Over Features** | Polish before new features | ✅ 4 prioritized stories, P1 first |
 | **III. Smart Defaults** | Works without configuration | ✅ Random suggestions, no setup needed |
@@ -78,5 +79,5 @@ tests/
 > No violations. Design aligns with all constitution principles.
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
+| ----------- | ------------ | ------------------------------------- |
 | *None* | — | — |

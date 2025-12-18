@@ -11,7 +11,8 @@
 
 As a user, I want to add a new meal to my collection so that I have options to choose from when planning.
 
-A "meal" can be an entree, side dish, or other meal component. The user should be able to quickly add something without filling out extensive forms.
+A "meal" can be an entree, side dish, or other meal component. The user should be able to quickly add something without
+filling out extensive forms.
 
 **Why this priority**: This is the foundation — without meals in the system, no other feature can work. Users need to build their personal meal library before planning or getting suggestions.
 
@@ -45,9 +46,11 @@ The list should be easy to scan and organized in a sensible way (e.g., by type o
 
 ### User Story 3 - Get Meal Suggestions (Priority: P3)
 
-As a user, I want the app to suggest meal combinations that make sense so that I don't have to think about what goes together.
+As a user, I want the app to suggest meal combinations that make sense so that I don't have to think about what goes
+together.
 
-A "sensible combination" means pairing entrees with complementary sides. The app should make smart suggestions without requiring the user to configure rules.
+A "sensible combination" means pairing entrees with complementary sides. The app should make smart suggestions without
+requiring the user to configure rules.
 
 **Why this priority**: This is the "magic" feature that differentiates the app from a simple list. However, it requires meals to exist first (P1, P2).
 

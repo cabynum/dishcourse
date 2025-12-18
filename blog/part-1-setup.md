@@ -8,7 +8,9 @@
 
 "What's for dinner?"
 
-It's the question that haunts every household. My wife and I found ourselves in the familiar loop: staring at the fridge, mentally cycling through the same handful of meals, occasionally venturing into recipe rabbit holes that lead nowhere.
+It's the question that haunts every household. My wife and I found ourselves in the familiar loop:
+staring at the fridge, mentally cycling through the same handful of meals, occasionally venturing
+into recipe rabbit holes that lead nowhere.
 
 I'm a developer. Surely I could build something to help with this?
 
@@ -22,13 +24,16 @@ I wanted to create an application that would:
 - Track side dishes separately
 - **Propose meal combinations that actually make sense** for our family
 
-Simple enough in concept. But I've been down the road of jumping straight into code, only to realize halfway through that I hadn't thought through the requirements. This time, I wanted to do it right.
+Simple enough in concept. But I've been down the road of jumping straight into code, only to realize
+halfway through that I hadn't thought through the requirements. This time, I wanted to do it right.
 
 ---
 
 ## Enter Spec-Kit
 
-I discovered **Spec-Driven Development** and GitHub's open-source toolkit called **spec-kit**. The philosophy resonated with me: focus on *what* you want to build before obsessing over *how* to build it.
+I discovered **Spec-Driven Development** and GitHub's open-source toolkit called **spec-kit**.
+The philosophy resonated with me: focus on *what* you want to build before obsessing over *how*
+to build it.
 
 Spec-kit provides a structured workflow:
 
@@ -89,7 +94,8 @@ The slash commands (`/speckit.constitution`, `/speckit.specify`, etc.) now work 
 
 ## What's Next
 
-With the tooling in place, it's time to actually *think* about what we're building. In [Part 2](./part-2-specification.md), we establish the constitution and create detailed specifications.
+With the tooling in place, it's time to actually *think* about what we're building.
+In [Part 2](./part-2-specification.md), we establish the constitution and create detailed specifications.
 
 ---
 
@@ -106,4 +112,3 @@ With the tooling in place, it's time to actually *think* about what we're buildi
 **Next:** [Part 2 — Constitution, Specification & Planning](./part-2-specification.md)
 
 December 2024
-

@@ -183,7 +183,7 @@ with optional call-to-action.
 At the end of Phase 1:
 
 | Layer | Tests |
-|-------|-------|
+| ------- | ------- |
 | Storage Service | 34 |
 | useDishes Hook | 20 |
 | Button | 26 |

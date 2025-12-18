@@ -114,6 +114,6 @@ No ideas yet.
 
 ## Review Log
 
-| Date       | Action                             |
+| Date | Action |
 | ---------- | ---------------------------------- |
 | 2024-12-18 | Created backlog with initial ideas |

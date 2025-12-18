@@ -73,7 +73,7 @@ tests/                   # Test files mirror src/ structure
 ## Key Commands
 
 | Command | Description |
-|---------|-------------|
+| --------- | ------------- |
 | `npm run dev` | Start development server |
 | `npm run build` | Build for production |
 | `npm run preview` | Preview production build locally |
@@ -100,7 +100,7 @@ tests/                   # Test files mirror src/ structure
 ## Tech Stack Quick Reference
 
 | Technology | Purpose | Docs |
-|------------|---------|------|
+| ------------ | --------- | ------ |
 | React 18 | UI framework | [react.dev](https://react.dev) |
 | TypeScript | Type safety | [typescriptlang.org](https://www.typescriptlang.org/docs/) |
 | Vite | Build tool | [vitejs.dev](https://vitejs.dev) |
@@ -172,4 +172,3 @@ After setup, start with:
 4. **Task 4**: Create AddMealPage
 
 See `tasks.md` for the full implementation plan.
-

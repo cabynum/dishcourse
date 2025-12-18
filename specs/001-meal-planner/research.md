@@ -19,7 +19,7 @@ This document captures technology decisions and their rationale for the Meal Pla
 **Alternatives Considered**:
 
 | Alternative | Why Rejected |
-|-------------|--------------|
+| ------------- | -------------- |
 | Native iOS (Swift) | Platform lock-in, requires Mac for development, app store process |
 | Native Android (Kotlin) | Platform lock-in, doesn't serve iOS users |
 | React Native | More complexity for cross-platform, still needs app store |
@@ -40,7 +40,7 @@ This document captures technology decisions and their rationale for the Meal Pla
 **Alternatives Considered**:
 
 | Alternative | Why Rejected |
-|-------------|--------------|
+| ------------- | -------------- |
 | Svelte | Simpler syntax but smaller ecosystem, fewer resources |
 | Vue 3 | Good option, but React has broader adoption |
 | Vanilla JS | No compile-time type checking, harder to maintain as app grows |
@@ -61,7 +61,7 @@ This document captures technology decisions and their rationale for the Meal Pla
 **Alternatives Considered**:
 
 | Alternative | Why Rejected |
-|-------------|--------------|
+| ------------- | -------------- |
 | Create React App | Deprecated, slower, less flexible |
 | Webpack | More complex configuration, slower dev experience |
 | Parcel | Less ecosystem support, fewer plugins |
@@ -81,7 +81,7 @@ This document captures technology decisions and their rationale for the Meal Pla
 **Alternatives Considered**:
 
 | Alternative | Why Rejected |
-|-------------|--------------|
+| ------------- | -------------- |
 | CSS Modules | More boilerplate, slower iteration |
 | Styled Components | Runtime overhead, more complex setup |
 | Plain CSS | Harder to maintain consistency, more verbose |
@@ -102,7 +102,7 @@ This document captures technology decisions and their rationale for the Meal Pla
 **Alternatives Considered**:
 
 | Alternative | Why Rejected |
-|-------------|--------------|
+| ------------- | -------------- |
 | IndexedDB | More complex API, overkill for this data size |
 | SQLite (via WASM) | Adds significant bundle size, unnecessary complexity |
 | Backend + API | Requires server, authentication, hosting — out of scope for v1 |
@@ -123,7 +123,7 @@ This document captures technology decisions and their rationale for the Meal Pla
 **Alternatives Considered**:
 
 | Alternative | Why Rejected |
-|-------------|--------------|
+| ------------- | -------------- |
 | Jest | Slower, requires separate configuration from Vite |
 | Cypress | Great for E2E but heavier for unit/component tests |
 | Playwright | Better suited for E2E, not component testing |
@@ -142,7 +142,7 @@ This document captures technology decisions and their rationale for the Meal Pla
 **Alternatives Considered**:
 
 | Alternative | Why Rejected |
-|-------------|--------------|
+| ------------- | -------------- |
 | AI/ML recommendations | Way out of scope, requires data collection, backend |
 | Rule-based pairing | Requires users to define rules, violates "Smart Defaults" |
 | Weighted by recency | Adds complexity, can be added later if needed |
@@ -150,4 +150,3 @@ This document captures technology decisions and their rationale for the Meal Pla
 ## Open Questions Resolved
 
 All technical questions have been answered. No blockers for Phase 1 design.
-

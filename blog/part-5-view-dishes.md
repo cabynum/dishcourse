@@ -21,11 +21,11 @@ The DishCard displays a single dish with its type badge. Key design decisions:
 
 Each dish type gets its own color for quick visual scanning:
 
-| Type   | Color   | Tailwind Classes                  |
+| Type | Color | Tailwind Classes |
 | ------ | ------- | --------------------------------- |
-| Entree | Amber   | `bg-amber-100 text-amber-700`     |
-| Side   | Emerald | `bg-emerald-100 text-emerald-700` |
-| Other  | Stone   | `bg-stone-100 text-stone-600`     |
+| Entree | Amber | `bg-amber-100 text-amber-700` |
+| Side | Emerald | `bg-emerald-100 text-emerald-700` |
+| Other | Stone | `bg-stone-100 text-stone-600` |
 
 ### Props for Flexibility
 
@@ -116,9 +116,9 @@ Phase 3 added 68 new tests:
 
 | Component | Tests |
 | --------- | ----- |
-| DishCard  | 26    |
-| DishList  | 21    |
-| HomePage  | 21    |
+| DishCard | 26 |
+| DishList | 21 |
+| HomePage | 21 |
 
 Total test count: **264 passing**
 
