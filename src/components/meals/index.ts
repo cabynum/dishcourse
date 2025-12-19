@@ -19,3 +19,6 @@ export type { DishFormProps, DishFormValues } from './DishForm';
 export { SuggestionCard } from './SuggestionCard';
 export type { SuggestionCardProps } from './SuggestionCard';
 
+export { PlanCard } from './PlanCard';
+export type { PlanCardProps } from './PlanCard';
+

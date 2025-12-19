@@ -328,6 +328,20 @@ export function PlanPage() {
             </span>
           </div>
         </div>
+
+        {/* New Plan button */}
+        <div className="mt-4">
+          <Button
+            variant="secondary"
+            fullWidth
+            onClick={() => navigate('/plan')}
+          >
+            <span className="flex items-center justify-center gap-2">
+              <span>➕</span>
+              <span>Create New Plan</span>
+            </span>
+          </Button>
+        </div>
       </main>
     </div>
   );

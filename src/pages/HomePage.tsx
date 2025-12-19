@@ -10,8 +10,8 @@
 
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui';
-import { DishList } from '@/components/meals';
-import { useDishes } from '@/hooks';
+import { DishList, PlanCard } from '@/components/meals';
+import { useDishes, usePlans } from '@/hooks';
 
 /**
  * Plus icon for the floating action button
@@ -56,17 +56,23 @@ function SettingsIcon() {
   );
 }
 
+/**
+ * Gets today's date in YYYY-MM-DD format
+ */
+function getTodayString(): string {
+  return new Date().toISOString().split('T')[0];
+}
+
 export function HomePage() {
   const navigate = useNavigate();
-  const { dishes, isLoading } = useDishes();
+  const { dishes, isLoading: dishesLoading } = useDishes();
+  const { plans, isLoading: plansLoading } = usePlans();
 
   const handleAddClick = () => {
     navigate('/add');
   };
 
   const handleDishClick = (dish: { id: string }) => {
-    // Future: navigate to edit page
-    // For now, this is a placeholder
     navigate(`/edit/${dish.id}`);
   };
 
@@ -75,16 +81,50 @@ export function HomePage() {
   };
 
   const handlePlanClick = () => {
-    navigate('/plan');
+    // If there's a current/active plan, go to it; otherwise create new
+    const activePlan = getActivePlan();
+    if (activePlan) {
+      navigate(`/plan/${activePlan.id}`);
+    } else {
+      navigate('/plan');
+    }
   };
 
   const handleSettingsClick = () => {
     navigate('/settings');
   };
 
+  const handlePlanCardClick = (planId: string) => {
+    navigate(`/plan/${planId}`);
+  };
+
+  // Get the "active" plan - one that includes today or the most recent one
+  const getActivePlan = () => {
+    if (plans.length === 0) return null;
+
+    const today = getTodayString();
+
+    // First, look for a plan that includes today
+    const planWithToday = plans.find((plan) =>
+      plan.days.some((d) => d.date === today)
+    );
+    if (planWithToday) return planWithToday;
+
+    // Otherwise, return the most recently created plan
+    const sortedPlans = [...plans].sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+    return sortedPlans[0];
+  };
+
   // Check if we have enough dishes to suggest (at least one entree)
   const hasEntrees = dishes.some((d) => d.type === 'entree');
   const hasDishes = dishes.length > 0;
+  const isLoading = dishesLoading || plansLoading;
+
+  // Get active plan for display
+  const activePlan = getActivePlan();
+  const today = getTodayString();
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -151,6 +191,54 @@ export function HomePage() {
             </p>
           )}
         </section>
+
+        {/* My Plans Section - only show if there are plans */}
+        {plans.length > 0 && (
+          <section className="mb-6">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-lg font-semibold text-stone-800">My Plans</h2>
+              <button
+                type="button"
+                onClick={() => navigate('/plan')}
+                className="text-sm text-amber-600 hover:text-amber-700 font-medium"
+              >
+                + New
+              </button>
+            </div>
+
+            <div className="space-y-2">
+              {/* Show the active/current plan prominently */}
+              {activePlan && (
+                <PlanCard
+                  plan={activePlan}
+                  dishes={dishes}
+                  onClick={() => handlePlanCardClick(activePlan.id)}
+                  isCurrent={activePlan.days.some((d) => d.date === today)}
+                />
+              )}
+
+              {/* Show other plans (up to 2 more) */}
+              {plans
+                .filter((p) => p.id !== activePlan?.id)
+                .slice(0, 2)
+                .map((plan) => (
+                  <PlanCard
+                    key={plan.id}
+                    plan={plan}
+                    dishes={dishes}
+                    onClick={() => handlePlanCardClick(plan.id)}
+                  />
+                ))}
+
+              {/* Show "view all" if more than 3 plans */}
+              {plans.length > 3 && (
+                <p className="text-center text-sm text-stone-500 pt-1">
+                  {plans.length - 3} more {plans.length - 3 === 1 ? 'plan' : 'plans'}
+                </p>
+              )}
+            </div>
+          </section>
+        )}
 
         {/* Dishes Section */}
         <section>
