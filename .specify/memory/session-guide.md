@@ -131,7 +131,7 @@ Core features:
 
 ### Open Decisions
 
-- None currently — markdown lint issue resolved (relaxed to 120 chars)
+- **Cleanup items from user testing** — refinements identified during manual validation (address next session)
 
 ### Notes
 
