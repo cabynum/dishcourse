@@ -141,5 +141,5 @@ MIT
 
 ---
 
-Built with care for Ali, who just wants to know what's for dinner.
+Built with care for Aliya, who just wants to know what's for dinner.
 
