@@ -8,7 +8,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PlanCard } from '@/components/meals/PlanCard';
-import { type MealPlan, type Dish } from '@/types';
+import type { MealPlan } from '@/types';
 
 /**
  * Factory for creating test meal plans
@@ -33,26 +33,6 @@ function createTestPlan(overrides: Partial<MealPlan> = {}): MealPlan {
   };
 }
 
-/**
- * Factory for creating test dishes
- */
-function createTestDish(overrides: Partial<Dish> = {}): Dish {
-  return {
-    id: 'test-dish-1',
-    name: 'Grilled Chicken',
-    type: 'entree',
-    createdAt: '2024-12-15T10:30:00Z',
-    updatedAt: '2024-12-15T10:30:00Z',
-    ...overrides,
-  };
-}
-
-const testDishes: Dish[] = [
-  createTestDish({ id: 'dish-1', name: 'Chicken' }),
-  createTestDish({ id: 'dish-2', name: 'Rice', type: 'side' }),
-  createTestDish({ id: 'dish-3', name: 'Pasta' }),
-];
-
 describe('PlanCard', () => {
   // Mock Date to a fixed value for consistent testing
   const realDate = Date;
@@ -70,14 +50,14 @@ describe('PlanCard', () => {
   describe('rendering', () => {
     it('renders the plan name', () => {
       const plan = createTestPlan({ name: 'This Week' });
-      render(<PlanCard plan={plan} dishes={testDishes} />);
+      render(<PlanCard plan={plan} />);
 
       expect(screen.getByText('This Week')).toBeInTheDocument();
     });
 
     it('renders the calendar emoji', () => {
       const plan = createTestPlan();
-      render(<PlanCard plan={plan} dishes={testDishes} />);
+      render(<PlanCard plan={plan} />);
 
       expect(screen.getByText('📅')).toBeInTheDocument();
     });
@@ -91,7 +71,7 @@ describe('PlanCard', () => {
           { date: '2024-12-18', dishIds: [] },
         ],
       });
-      render(<PlanCard plan={plan} dishes={testDishes} />);
+      render(<PlanCard plan={plan} />);
 
       expect(screen.getByText('Dec 16 – Dec 18')).toBeInTheDocument();
     });
@@ -104,7 +84,7 @@ describe('PlanCard', () => {
           { date: '2024-12-18', dishIds: ['dish-2'] },
         ],
       });
-      render(<PlanCard plan={plan} dishes={testDishes} />);
+      render(<PlanCard plan={plan} />);
 
       expect(screen.getByText('2/3 days')).toBeInTheDocument();
     });
@@ -116,7 +96,7 @@ describe('PlanCard', () => {
           { date: '2024-12-17', dishIds: ['dish-3'] },
         ],
       });
-      render(<PlanCard plan={plan} dishes={testDishes} />);
+      render(<PlanCard plan={plan} />);
 
       expect(screen.getByText('3 dishes')).toBeInTheDocument();
     });
@@ -125,7 +105,7 @@ describe('PlanCard', () => {
       const plan = createTestPlan({
         days: [{ date: '2024-12-16', dishIds: ['dish-1'] }],
       });
-      render(<PlanCard plan={plan} dishes={testDishes} />);
+      render(<PlanCard plan={plan} />);
 
       expect(screen.getByText('1 dish')).toBeInTheDocument();
     });
@@ -137,7 +117,7 @@ describe('PlanCard', () => {
           { date: '2024-12-17', dishIds: [] },
         ],
       });
-      render(<PlanCard plan={plan} dishes={testDishes} />);
+      render(<PlanCard plan={plan} />);
 
       expect(screen.queryByText(/dish/)).not.toBeInTheDocument();
     });
@@ -153,7 +133,7 @@ describe('PlanCard', () => {
           { date: '2024-12-18', dishIds: [] },
         ],
       });
-      render(<PlanCard plan={plan} dishes={testDishes} isCurrent />);
+      render(<PlanCard plan={plan} isCurrent />);
 
       expect(screen.getByText('Active')).toBeInTheDocument();
     });
@@ -166,7 +146,7 @@ describe('PlanCard', () => {
           { date: '2024-12-21', dishIds: [] },
         ],
       });
-      render(<PlanCard plan={plan} dishes={testDishes} isCurrent />);
+      render(<PlanCard plan={plan} isCurrent />);
 
       expect(screen.queryByText('Active')).not.toBeInTheDocument();
     });
@@ -179,14 +159,14 @@ describe('PlanCard', () => {
           { date: '2024-12-17', dishIds: [] },
         ],
       });
-      render(<PlanCard plan={plan} dishes={testDishes} isCurrent={false} />);
+      render(<PlanCard plan={plan} isCurrent={false} />);
 
       expect(screen.queryByText('Active')).not.toBeInTheDocument();
     });
 
     it('uses amber styling when isCurrent', () => {
       const plan = createTestPlan();
-      const { container } = render(<PlanCard plan={plan} dishes={testDishes} isCurrent />);
+      const { container } = render(<PlanCard plan={plan} isCurrent />);
 
       // The outermost element is the card container
       expect(container.firstChild).toHaveClass('border-amber-400');
@@ -194,7 +174,7 @@ describe('PlanCard', () => {
 
     it('uses default styling when not isCurrent', () => {
       const plan = createTestPlan();
-      const { container } = render(<PlanCard plan={plan} dishes={testDishes} isCurrent={false} />);
+      const { container } = render(<PlanCard plan={plan} isCurrent={false} />);
 
       expect(container.firstChild).toHaveClass('border-stone-200');
     });
@@ -203,14 +183,14 @@ describe('PlanCard', () => {
   describe('interaction', () => {
     it('renders as a button when onClick is provided', () => {
       const plan = createTestPlan();
-      render(<PlanCard plan={plan} dishes={testDishes} onClick={() => {}} />);
+      render(<PlanCard plan={plan} onClick={() => {}} />);
 
       expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
     it('renders as a div when onClick is not provided', () => {
       const plan = createTestPlan();
-      render(<PlanCard plan={plan} dishes={testDishes} />);
+      render(<PlanCard plan={plan} />);
 
       expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
@@ -223,7 +203,7 @@ describe('PlanCard', () => {
       const user = userEvent.setup();
       const plan = createTestPlan();
 
-      render(<PlanCard plan={plan} dishes={testDishes} onClick={handleClick} />);
+      render(<PlanCard plan={plan} onClick={handleClick} />);
 
       await user.click(screen.getByRole('button'));
       expect(handleClick).toHaveBeenCalledTimes(1);
@@ -235,7 +215,7 @@ describe('PlanCard', () => {
 
     it('shows arrow icon when interactive', () => {
       const plan = createTestPlan();
-      render(<PlanCard plan={plan} dishes={testDishes} onClick={() => {}} />);
+      render(<PlanCard plan={plan} onClick={() => {}} />);
 
       // Arrow is an SVG with path "M9 18l6-6-6-6"
       const arrows = screen.getByRole('button').querySelectorAll('svg');
@@ -244,7 +224,7 @@ describe('PlanCard', () => {
 
     it('does not show arrow when not interactive', () => {
       const plan = createTestPlan();
-      const { container } = render(<PlanCard plan={plan} dishes={testDishes} />);
+      const { container } = render(<PlanCard plan={plan} />);
 
       // Should only have the calendar emoji, no navigation arrow
       const svgs = container.querySelectorAll('svg');
@@ -263,7 +243,7 @@ describe('PlanCard', () => {
           { date: '2024-12-18', dishIds: [] },
         ],
       });
-      render(<PlanCard plan={plan} dishes={testDishes} onClick={() => {}} />);
+      render(<PlanCard plan={plan} onClick={() => {}} />);
 
       const button = screen.getByRole('button');
       expect(button).toHaveAttribute('aria-label');
@@ -274,7 +254,7 @@ describe('PlanCard', () => {
 
     it('button has type="button" to prevent form submission', () => {
       const plan = createTestPlan();
-      render(<PlanCard plan={plan} dishes={testDishes} onClick={() => {}} />);
+      render(<PlanCard plan={plan} onClick={() => {}} />);
 
       expect(screen.getByRole('button')).toHaveAttribute('type', 'button');
     });
@@ -287,7 +267,7 @@ describe('PlanCard', () => {
       const user = userEvent.setup();
       const plan = createTestPlan();
 
-      render(<PlanCard plan={plan} dishes={testDishes} onClick={handleClick} />);
+      render(<PlanCard plan={plan} onClick={handleClick} />);
 
       await user.tab();
       expect(screen.getByRole('button')).toHaveFocus();
@@ -308,7 +288,7 @@ describe('PlanCard', () => {
       const user = userEvent.setup();
       const plan = createTestPlan();
 
-      render(<PlanCard plan={plan} dishes={testDishes} onClick={handleClick} />);
+      render(<PlanCard plan={plan} onClick={handleClick} />);
 
       await user.tab();
       await user.keyboard(' ');
@@ -323,14 +303,14 @@ describe('PlanCard', () => {
   describe('touch targets', () => {
     it('has minimum 72px height for touch accessibility', () => {
       const plan = createTestPlan();
-      render(<PlanCard plan={plan} dishes={testDishes} onClick={() => {}} />);
+      render(<PlanCard plan={plan} onClick={() => {}} />);
 
       expect(screen.getByRole('button')).toHaveClass('min-h-[72px]');
     });
 
     it('has minimum height even in non-interactive mode', () => {
       const plan = createTestPlan();
-      const { container } = render(<PlanCard plan={plan} dishes={testDishes} />);
+      const { container } = render(<PlanCard plan={plan} />);
 
       const card = container.firstChild;
       expect(card).toHaveClass('min-h-[72px]');
@@ -340,14 +320,14 @@ describe('PlanCard', () => {
   describe('interactive styling', () => {
     it('has cursor-pointer when interactive', () => {
       const plan = createTestPlan();
-      render(<PlanCard plan={plan} dishes={testDishes} onClick={() => {}} />);
+      render(<PlanCard plan={plan} onClick={() => {}} />);
 
       expect(screen.getByRole('button')).toHaveClass('cursor-pointer');
     });
 
     it('has active scale for tap feedback', () => {
       const plan = createTestPlan();
-      render(<PlanCard plan={plan} dishes={testDishes} onClick={() => {}} />);
+      render(<PlanCard plan={plan} onClick={() => {}} />);
 
       expect(screen.getByRole('button')).toHaveClass('active:scale-[0.98]');
     });

@@ -5,13 +5,11 @@
  * Designed for mobile with 44px minimum touch targets.
  */
 
-import type { MealPlan, Dish } from '@/types';
+import type { MealPlan } from '@/types';
 
 export interface PlanCardProps {
   /** The meal plan to display */
   plan: MealPlan;
-  /** Dishes to resolve IDs to names (for showing planned count) */
-  dishes: Dish[];
   /** Click handler - makes card tappable */
   onClick?: () => void;
   /** Highlight as the current/active plan */
@@ -46,14 +44,12 @@ function getTodayString(): string {
  * @example
  * <PlanCard
  *   plan={weekPlan}
- *   dishes={allDishes}
  *   onClick={() => navigate(`/plan/${weekPlan.id}`)}
  *   isCurrent={true}
  * />
  */
 export function PlanCard({
   plan,
-  dishes,
   onClick,
   isCurrent = false,
 }: PlanCardProps) {

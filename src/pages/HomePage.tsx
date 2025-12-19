@@ -211,7 +211,6 @@ export function HomePage() {
               {activePlan && (
                 <PlanCard
                   plan={activePlan}
-                  dishes={dishes}
                   onClick={() => handlePlanCardClick(activePlan.id)}
                   isCurrent={activePlan.days.some((d) => d.date === today)}
                 />
@@ -225,7 +224,6 @@ export function HomePage() {
                   <PlanCard
                     key={plan.id}
                     plan={plan}
-                    dishes={dishes}
                     onClick={() => handlePlanCardClick(plan.id)}
                   />
                 ))}
