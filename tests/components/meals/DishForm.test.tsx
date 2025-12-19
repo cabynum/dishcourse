@@ -181,6 +181,64 @@ describe('DishForm', () => {
 
       expect(handleSubmit).not.toHaveBeenCalled();
     });
+
+    it('shows error for duplicate dish name', async () => {
+      const user = userEvent.setup();
+      render(<DishForm {...defaultProps} existingNames={['Tacos', 'Pizza']} />);
+
+      await user.type(screen.getByLabelText('Dish Name'), 'Tacos');
+      await user.click(screen.getByRole('button', { name: 'Save' }));
+
+      expect(screen.getByText('You already have a dish called "Tacos"')).toBeInTheDocument();
+    });
+
+    it('detects duplicates case-insensitively', async () => {
+      const user = userEvent.setup();
+      render(<DishForm {...defaultProps} existingNames={['Tacos']} />);
+
+      await user.type(screen.getByLabelText('Dish Name'), 'TACOS');
+      await user.click(screen.getByRole('button', { name: 'Save' }));
+
+      expect(screen.getByText('You already have a dish called "TACOS"')).toBeInTheDocument();
+    });
+
+    it('does not call onSubmit when duplicate is detected', async () => {
+      const handleSubmit = vi.fn();
+      const user = userEvent.setup();
+      render(<DishForm {...defaultProps} onSubmit={handleSubmit} existingNames={['Tacos']} />);
+
+      await user.type(screen.getByLabelText('Dish Name'), 'Tacos');
+      await user.click(screen.getByRole('button', { name: 'Save' }));
+
+      expect(handleSubmit).not.toHaveBeenCalled();
+    });
+
+    it('clears duplicate error when name changes to unique value', async () => {
+      const user = userEvent.setup();
+      render(<DishForm {...defaultProps} existingNames={['Tacos']} />);
+
+      // Trigger duplicate error
+      await user.type(screen.getByLabelText('Dish Name'), 'Tacos');
+      await user.click(screen.getByRole('button', { name: 'Save' }));
+      expect(screen.getByText('You already have a dish called "Tacos"')).toBeInTheDocument();
+
+      // Change to unique name
+      await user.clear(screen.getByLabelText('Dish Name'));
+      await user.type(screen.getByLabelText('Dish Name'), 'Burritos');
+
+      expect(screen.queryByText(/You already have a dish/)).not.toBeInTheDocument();
+    });
+
+    it('allows submission when existingNames is empty', async () => {
+      const handleSubmit = vi.fn();
+      const user = userEvent.setup();
+      render(<DishForm {...defaultProps} onSubmit={handleSubmit} existingNames={[]} />);
+
+      await user.type(screen.getByLabelText('Dish Name'), 'Tacos');
+      await user.click(screen.getByRole('button', { name: 'Save' }));
+
+      expect(handleSubmit).toHaveBeenCalledWith({ name: 'Tacos', type: 'entree' });
+    });
   });
 
   describe('submission', () => {

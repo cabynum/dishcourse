@@ -108,6 +108,16 @@ describe('Storage Service - Dishes', () => {
       expect(dish.name).toBe('Pasta');
     });
 
+    it('converts name to title case', () => {
+      const dish = saveDish({ name: 'chicken tacos' });
+      expect(dish.name).toBe('Chicken Tacos');
+    });
+
+    it('handles mixed case input', () => {
+      const dish = saveDish({ name: 'GRILLED CHEESE' });
+      expect(dish.name).toBe('Grilled Cheese');
+    });
+
     it('uses provided type', () => {
       const dish = saveDish({ name: 'Rice', type: 'side' });
       expect(dish.type).toBe('side');
@@ -141,6 +151,13 @@ describe('Storage Service - Dishes', () => {
 
       expect(updated?.name).toBe('New Name');
       expect(updated?.type).toBe('entree'); // unchanged
+    });
+
+    it('converts updated name to title case', () => {
+      const dish = saveDish({ name: 'Original' });
+      const updated = updateDish(dish.id, { name: 'mashed potatoes' });
+
+      expect(updated?.name).toBe('Mashed Potatoes');
     });
 
     it('updates dish type', () => {

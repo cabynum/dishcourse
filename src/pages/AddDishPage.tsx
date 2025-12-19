@@ -12,7 +12,10 @@ import { Card } from '@/components/ui';
 
 export function AddDishPage() {
   const navigate = useNavigate();
-  const { addDish } = useDishes();
+  const { dishes, addDish } = useDishes();
+
+  // Get existing dish names for duplicate detection
+  const existingNames = dishes.map((dish) => dish.name);
 
   /**
    * Handle form submission - save the dish and navigate home
@@ -46,6 +49,7 @@ export function AddDishPage() {
             onSubmit={handleSubmit}
             onCancel={handleCancel}
             submitLabel="Add Dish"
+            existingNames={existingNames}
           />
         </Card>
       </div>

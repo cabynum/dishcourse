@@ -42,6 +42,18 @@ Link a dish to an external recipe source:
 *Consideration*: This is about reference, not storage. AliCooks isn't a recipe manager
 (out of scope per constitution), but linking to where Aliya learned a dish could be helpful.
 
+### Household Favorites Tagging
+
+**Added**: 2024-12-19
+
+Tag dishes with which household members especially like them. Could help with:
+
+- Filtering suggestions to please picky eaters
+- Planning meals around who's home that night
+- Remembering that "Olivia loves this one" when meal planning
+
+*Consideration*: Keep it simple — maybe just a multi-select of household member names. Would need a way to define household members first (settings?). Aligns well with the "Smart Defaults" principle if suggestions can weight toward favorites.
+
 ---
 
 ## Social & Sharing

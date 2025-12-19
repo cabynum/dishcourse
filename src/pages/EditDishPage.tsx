@@ -37,11 +37,16 @@ function TrashIcon() {
 export function EditDishPage() {
   const navigate = useNavigate();
   const { dishId } = useParams<{ dishId: string }>();
-  const { getDishById, updateDish, deleteDish, isLoading } = useDishes();
+  const { dishes, getDishById, updateDish, deleteDish, isLoading } = useDishes();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // Get the dish to edit
   const dish = dishId ? getDishById(dishId) : undefined;
+
+  // Get existing dish names for duplicate detection, excluding the current dish
+  const existingNames = dishes
+    .filter((d) => d.id !== dishId)
+    .map((d) => d.name);
 
   /**
    * Handle form submission - update the dish and navigate home
@@ -133,6 +138,7 @@ export function EditDishPage() {
             onSubmit={handleSubmit}
             onCancel={handleCancel}
             submitLabel="Save Changes"
+            existingNames={existingNames}
           />
         </Card>
 

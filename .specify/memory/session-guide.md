@@ -38,19 +38,23 @@ Before we end, please:
 
 ## Current Status
 
-**Last Updated**: 2024-12-18  
+**Last Updated**: 2024-12-19  
 **Current Branch**: `001-meal-planner`  
-**Current Phase**: Phase 8 complete ✅ — All phases complete!
+**Current Phase**: Phase 8 complete ✅ — Post-testing polish
 
 ### Completed This Session
 
-- ✅ **Phase 8 complete**: Final Polish
-  - 8.1 Loading states already implemented (skeletons on all pages)
-  - 8.2 Error handling: `ErrorBoundary` component with friendly messages
-  - 8.3 Accessibility: Fixed heading hierarchy, improved color contrast (WCAG AA)
-  - 8.4 Performance: Bundle size is 364KB (well under 5MB limit)
-  - 8.5 Mobile testing: Verified layout at 375px viewport
-- ✅ 505 tests passing (14 new tests for ErrorBoundary)
+- ✅ **Duplicate dish detection**: Prevent users from adding the same dish twice
+  - Case-insensitive matching ("Tacos" = "tacos")
+  - Friendly inline error: "You already have a dish called 'Tacos'"
+  - Works on both Add and Edit pages
+  - 6 new tests for DishForm validation
+- ✅ **Title case normalization**: Dish names automatically capitalized
+  - "chicken tacos" → "Chicken Tacos"
+  - Applied on save and update
+  - 3 new tests for storage service
+- ✅ **Backlog idea captured**: Household favorites tagging
+- ✅ 513 tests passing (8 new tests this session)
 
 ### Phase Summary
 
@@ -80,7 +84,7 @@ Core features:
 
 | Layer | Tests |
 | ------------------ | ------- |
-| Storage Service | 39 |
+| Storage Service | 42 |
 | Suggestion Service | 20 |
 | useDishes Hook | 15 |
 | useSuggestion Hook | 17 |
@@ -96,7 +100,7 @@ Core features:
 | DishList | 21 |
 | SuggestionCard | 17 |
 | DaySlot | 22 |
-| DishForm | 28 |
+| DishForm | 33 |
 | AddDishPage | 14 |
 | EditDishPage | 26 |
 | SettingsPage | 23 |
@@ -105,11 +109,11 @@ Core features:
 | DayAssignmentPage | 22 |
 | HomePage | 26 |
 | App | 2 |
-| **Total** | **505** |
+| **Total** | **513** |
 
 ### Recommended Next Steps
 
-1. **Merge to main** — Feature branch is complete
+1. **Merge to main** — Feature branch is complete and polished
 2. Optional: Add dish type filtering (Task 3.4, deferred)
 3. Optional: Deploy to production (Vercel, Netlify, etc.)
 
@@ -131,7 +135,7 @@ Core features:
 
 ### Open Decisions
 
-- **Cleanup items from user testing** — refinements identified during manual validation (address next session)
+- None — ready to merge!
 
 ### Notes
 

@@ -38,6 +38,18 @@ function now(): string {
 }
 
 /**
+ * Converts a string to title case (first letter of each word capitalized).
+ * Example: "chicken tacos" → "Chicken Tacos"
+ */
+function toTitleCase(str: string): string {
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+/**
  * Safely parses JSON from localStorage, returning a fallback on error.
  */
 function parseFromStorage<T>(key: string, fallback: T): T {
@@ -90,7 +102,7 @@ export function saveDish(input: CreateDishInput): Dish {
 
   const newDish: Dish = {
     id: generateId(),
-    name: input.name.trim(),
+    name: toTitleCase(input.name.trim()),
     type: input.type ?? 'entree',
     createdAt: now(),
     updatedAt: now(),
@@ -122,7 +134,7 @@ export function updateDish(
   const existing = dishes[index];
   const updated: Dish = {
     ...existing,
-    name: input.name !== undefined ? input.name.trim() : existing.name,
+    name: input.name !== undefined ? toTitleCase(input.name.trim()) : existing.name,
     type: input.type !== undefined ? input.type : existing.type,
     updatedAt: now(),
   };

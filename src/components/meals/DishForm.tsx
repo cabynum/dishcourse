@@ -28,6 +28,11 @@ export interface DishFormProps {
   submitLabel?: string;
   /** Show loading state on submit button */
   isSubmitting?: boolean;
+  /** 
+   * Existing dish names for duplicate detection (case-insensitive).
+   * When editing, exclude the current dish's name from this list.
+   */
+  existingNames?: string[];
 }
 
 /**
@@ -61,6 +66,7 @@ export function DishForm({
   onCancel,
   submitLabel = 'Save',
   isSubmitting = false,
+  existingNames = [],
 }: DishFormProps) {
   // Form state
   const [name, setName] = useState(initialValues?.name ?? '');
@@ -69,7 +75,8 @@ export function DishForm({
   const [touched, setTouched] = useState(false);
 
   /**
-   * Validate the form and return error message if invalid
+   * Validate the form and return error message if invalid.
+   * Checks for: empty name, max length, and duplicates.
    */
   const validate = (value: string): string | undefined => {
     const trimmed = value.trim();
@@ -78,6 +85,14 @@ export function DishForm({
     }
     if (trimmed.length > 100) {
       return 'Name must be 100 characters or less';
+    }
+    // Check for duplicates (case-insensitive)
+    const normalizedInput = trimmed.toLowerCase();
+    const isDuplicate = existingNames.some(
+      (existingName) => existingName.toLowerCase() === normalizedInput
+    );
+    if (isDuplicate) {
+      return `You already have a dish called "${trimmed}"`;
     }
     return undefined;
   };
