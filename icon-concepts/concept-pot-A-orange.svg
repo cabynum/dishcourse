@@ -1,84 +1,91 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background -->
+  <!-- Background - Warm Orange -->
   <rect width="512" height="512" rx="112" fill="url(#bg-gradient)"/>
   
   <!-- Pot shadow -->
-  <ellipse cx="256" cy="385" rx="125" ry="22" fill="#000" fill-opacity="0.18"/>
+  <ellipse cx="256" cy="390" rx="120" ry="20" fill="#000" fill-opacity="0.18"/>
   
-  <!-- Pot body with more refined shape -->
-  <path d="M131 235 
-           C131 235 125 370 256 370 
-           C387 370 381 235 381 235 
-           L131 235 Z" 
+  <!-- Pot body -->
+  <path d="M136 240 
+           C136 240 130 375 256 375 
+           C382 375 376 240 376 240 
+           L136 240 Z" 
         fill="url(#pot-body)"/>
   
-  <!-- Pot body side highlight -->
-  <path d="M145 250 C145 250 142 355 256 355" 
-        stroke="url(#side-highlight)" 
-        stroke-width="8" 
+  <!-- Script A on pot body -->
+  <text x="256" y="320" 
+        font-family="Brush Script MT, Segoe Script, Bradley Hand, cursive" 
+        font-size="130" 
+        font-weight="400" 
+        font-style="italic"
+        fill="url(#letter-gradient)" 
+        text-anchor="middle" 
+        dominant-baseline="middle">A</text>
+  
+  <!-- Body highlight -->
+  <path d="M152 255 C152 255 148 360 256 360" 
+        stroke="white" 
+        stroke-width="6" 
         stroke-linecap="round"
         fill="none"
-        opacity="0.4"/>
+        opacity="0.35"/>
   
-  <!-- Pot rim - thicker and more dimensional -->
-  <ellipse cx="256" cy="235" rx="140" ry="32" fill="url(#rim-base)"/>
-  <ellipse cx="256" cy="230" rx="140" ry="32" fill="url(#rim-top)"/>
+  <!-- Pot rim -->
+  <ellipse cx="256" cy="240" rx="135" ry="30" fill="url(#rim-base)"/>
+  <ellipse cx="256" cy="235" rx="135" ry="30" fill="url(#rim-top)"/>
   
   <!-- Inner pot opening -->
-  <ellipse cx="256" cy="230" rx="115" ry="22" fill="url(#inner-gradient)"/>
+  <ellipse cx="256" cy="235" rx="110" ry="20" fill="url(#inner-gradient)"/>
   
   <!-- Left handle -->
-  <path d="M115 255 Q65 255 65 300 Q65 345 115 345" 
+  <path d="M120 260 Q70 260 70 305 Q70 350 120 350" 
         stroke="url(#handle-gradient)" 
-        stroke-width="24" 
+        stroke-width="22" 
         stroke-linecap="round" 
         fill="none"/>
-  <!-- Handle highlight -->
-  <path d="M112 260 Q72 260 72 300 Q72 340 112 340" 
+  <path d="M118 265 Q78 265 78 305 Q78 345 118 345" 
         stroke="white" 
-        stroke-width="4" 
+        stroke-width="3" 
         stroke-linecap="round" 
         fill="none"
-        opacity="0.3"/>
+        opacity="0.25"/>
   
   <!-- Right handle -->
-  <path d="M397 255 Q447 255 447 300 Q447 345 397 345" 
+  <path d="M392 260 Q442 260 442 305 Q442 350 392 350" 
         stroke="url(#handle-gradient)" 
-        stroke-width="24" 
+        stroke-width="22" 
         stroke-linecap="round" 
         fill="none"/>
-  <!-- Handle highlight -->
-  <path d="M400 260 Q440 260 440 300 Q440 340 400 340" 
+  <path d="M394 265 Q434 265 434 305 Q434 345 394 345" 
         stroke="white" 
-        stroke-width="4" 
+        stroke-width="3" 
         stroke-linecap="round" 
         fill="none"
-        opacity="0.3"/>
+        opacity="0.25"/>
   
   <!-- Lid -->
-  <ellipse cx="256" cy="210" rx="105" ry="28" fill="url(#lid-shadow)"/>
-  <ellipse cx="256" cy="205" rx="105" ry="28" fill="url(#lid-gradient)"/>
+  <ellipse cx="256" cy="215" rx="100" ry="26" fill="url(#lid-shadow)"/>
+  <ellipse cx="256" cy="210" rx="100" ry="26" fill="url(#lid-gradient)"/>
   
-  <!-- Lid highlight arc -->
-  <path d="M170 195 Q256 175 342 195" 
+  <!-- Lid highlight -->
+  <path d="M175 198 Q256 178 337 198" 
         stroke="white" 
         stroke-width="4" 
         stroke-linecap="round"
         fill="none"
         opacity="0.5"/>
   
-  <!-- Lid knob base -->
-  <ellipse cx="256" cy="175" rx="22" ry="10" fill="#444"/>
-  <!-- Lid knob top -->
-  <ellipse cx="256" cy="170" rx="18" ry="7" fill="url(#knob-gradient)"/>
-  <ellipse cx="256" cy="167" rx="12" ry="4" fill="#666"/>
+  <!-- Lid knob -->
+  <ellipse cx="256" cy="180" rx="20" ry="9" fill="#444"/>
+  <ellipse cx="256" cy="176" rx="16" ry="6" fill="url(#knob-gradient)"/>
+  <ellipse cx="256" cy="173" rx="10" ry="3" fill="#666"/>
   
-  <!-- Steam - more organic curves -->
-  <path d="M215 135 Q200 110 215 85 Q225 65 215 50" 
+  <!-- Steam -->
+  <path d="M218 145 Q203 115 218 85" 
         stroke="white" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.4"/>
-  <path d="M256 125 Q241 95 256 65 Q266 45 256 30" 
+  <path d="M256 135 Q241 100 256 65" 
         stroke="white" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.6"/>
-  <path d="M297 135 Q282 110 297 85 Q307 65 297 50" 
+  <path d="M294 145 Q279 115 294 85" 
         stroke="white" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.4"/>
   
   <defs>
@@ -87,30 +94,30 @@
       <stop offset="100%" stop-color="#E8430A"/>
     </linearGradient>
     
-    <linearGradient id="pot-body" x1="131" y1="235" x2="381" y2="370">
+    <linearGradient id="pot-body" x1="136" y1="240" x2="376" y2="375">
       <stop offset="0%" stop-color="#FFFFFF"/>
       <stop offset="40%" stop-color="#F8F8F8"/>
-      <stop offset="100%" stop-color="#E5E5E5"/>
+      <stop offset="100%" stop-color="#E8E8E8"/>
     </linearGradient>
     
-    <linearGradient id="side-highlight" x1="145" y1="250" x2="256" y2="355">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    <linearGradient id="letter-gradient" x1="190" y1="260" x2="322" y2="380">
+      <stop offset="0%" stop-color="#FF8C42"/>
+      <stop offset="100%" stop-color="#D64800"/>
     </linearGradient>
     
-    <linearGradient id="rim-base" x1="116" y1="235" x2="396" y2="235">
+    <linearGradient id="rim-base" x1="121" y1="240" x2="391" y2="240">
       <stop offset="0%" stop-color="#D0D0D0"/>
       <stop offset="50%" stop-color="#E8E8E8"/>
       <stop offset="100%" stop-color="#C8C8C8"/>
     </linearGradient>
     
-    <linearGradient id="rim-top" x1="116" y1="198" x2="396" y2="262">
+    <linearGradient id="rim-top" x1="121" y1="205" x2="391" y2="265">
       <stop offset="0%" stop-color="#F5F5F5"/>
       <stop offset="50%" stop-color="#FFFFFF"/>
       <stop offset="100%" stop-color="#E0E0E0"/>
     </linearGradient>
     
-    <linearGradient id="inner-gradient" x1="141" y1="208" x2="371" y2="252">
+    <linearGradient id="inner-gradient" x1="146" y1="215" x2="366" y2="255">
       <stop offset="0%" stop-color="#FFD4A8"/>
       <stop offset="100%" stop-color="#FFAA5C"/>
     </linearGradient>
@@ -121,18 +128,18 @@
       <stop offset="100%" stop-color="#CCCCCC"/>
     </linearGradient>
     
-    <linearGradient id="lid-shadow" x1="151" y1="182" x2="361" y2="238">
+    <linearGradient id="lid-shadow" x1="156" y1="189" x2="356" y2="241">
       <stop offset="0%" stop-color="#D8D8D8"/>
       <stop offset="100%" stop-color="#C0C0C0"/>
     </linearGradient>
     
-    <linearGradient id="lid-gradient" x1="151" y1="177" x2="361" y2="233">
+    <linearGradient id="lid-gradient" x1="156" y1="184" x2="356" y2="236">
       <stop offset="0%" stop-color="#FAFAFA"/>
       <stop offset="50%" stop-color="#F5F5F5"/>
       <stop offset="100%" stop-color="#E8E8E8"/>
     </linearGradient>
     
-    <linearGradient id="knob-gradient" x1="238" y1="163" x2="274" y2="177">
+    <linearGradient id="knob-gradient" x1="240" y1="170" x2="272" y2="182">
       <stop offset="0%" stop-color="#5A5A5A"/>
       <stop offset="100%" stop-color="#3A3A3A"/>
     </linearGradient>

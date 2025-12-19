@@ -1,0 +1,109 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bg-gradient)"/>
+  
+  <!-- Shadow -->
+  <ellipse cx="256" cy="425" rx="105" ry="18" fill="#000" fill-opacity="0.15"/>
+  
+  <!-- Shaker body - slightly wider/rounder -->
+  <path d="M160 170 
+           L148 385 
+           Q148 420 256 420 
+           Q364 420 364 385 
+           L352 170 
+           Z" 
+        fill="url(#body-gradient)"/>
+  
+  <!-- Body left highlight -->
+  <path d="M176 190 L166 375" 
+        stroke="white" 
+        stroke-width="7" 
+        stroke-linecap="round"
+        opacity="0.45"/>
+  
+  <!-- Body right shadow -->
+  <path d="M336 190 L346 375" 
+        stroke="#000" 
+        stroke-width="5" 
+        stroke-linecap="round"
+        opacity="0.06"/>
+  
+  <!-- Decorative band near bottom -->
+  <path d="M158 340 Q256 355 354 340" 
+        stroke="url(#band-gradient)" 
+        stroke-width="8" 
+        stroke-linecap="round"
+        fill="none"/>
+  
+  <!-- Cap base -->
+  <ellipse cx="256" cy="170" rx="100" ry="22" fill="#B8B8B8"/>
+  
+  <!-- Cap dome -->
+  <path d="M160 170 
+           Q160 95 256 95 
+           Q352 95 352 170 
+           Z" 
+        fill="url(#cap-gradient)"/>
+  
+  <!-- Cap highlight -->
+  <path d="M195 148 Q256 115 317 148" 
+        stroke="white" 
+        stroke-width="5" 
+        stroke-linecap="round"
+        fill="none"
+        opacity="0.55"/>
+  
+  <!-- Holes arranged as letter A -->
+  <!-- Left leg of A -->
+  <circle cx="210" cy="165" r="7" fill="#505050"/>
+  <circle cx="218" cy="145" r="7" fill="#505050"/>
+  <circle cx="228" cy="125" r="7" fill="#505050"/>
+  
+  <!-- Right leg of A -->
+  <circle cx="302" cy="165" r="7" fill="#505050"/>
+  <circle cx="294" cy="145" r="7" fill="#505050"/>
+  <circle cx="284" cy="125" r="7" fill="#505050"/>
+  
+  <!-- Top of A -->
+  <circle cx="256" cy="110" r="7" fill="#505050"/>
+  
+  <!-- Crossbar of A -->
+  <circle cx="238" cy="150" r="6" fill="#505050"/>
+  <circle cx="256" cy="152" r="6" fill="#505050"/>
+  <circle cx="274" cy="150" r="6" fill="#505050"/>
+  
+  <!-- Salt particles coming out in A shape -->
+  <circle cx="256" cy="68" r="4" fill="white" opacity="0.7"/>
+  <circle cx="232" cy="78" r="3" fill="white" opacity="0.5"/>
+  <circle cx="280" cy="78" r="3" fill="white" opacity="0.5"/>
+  <circle cx="218" cy="58" r="3" fill="white" opacity="0.4"/>
+  <circle cx="294" cy="58" r="3" fill="white" opacity="0.4"/>
+  <circle cx="245" cy="50" r="2.5" fill="white" opacity="0.35"/>
+  <circle cx="267" cy="50" r="2.5" fill="white" opacity="0.35"/>
+  
+  <defs>
+    <linearGradient id="bg-gradient" x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%" stop-color="#FF9147"/>
+      <stop offset="100%" stop-color="#E74C3C"/>
+    </linearGradient>
+    
+    <linearGradient id="body-gradient" x1="148" y1="170" x2="364" y2="420">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="40%" stop-color="#FAFAFA"/>
+      <stop offset="100%" stop-color="#EDEDED"/>
+    </linearGradient>
+    
+    <linearGradient id="band-gradient" x1="158" y1="340" x2="354" y2="340">
+      <stop offset="0%" stop-color="#E0E0E0"/>
+      <stop offset="50%" stop-color="#D0D0D0"/>
+      <stop offset="100%" stop-color="#E0E0E0"/>
+    </linearGradient>
+    
+    <linearGradient id="cap-gradient" x1="160" y1="95" x2="352" y2="170">
+      <stop offset="0%" stop-color="#E5E5E5"/>
+      <stop offset="50%" stop-color="#D8D8D8"/>
+      <stop offset="100%" stop-color="#C5C5C5"/>
+    </linearGradient>
+  </defs>
+</svg>
+

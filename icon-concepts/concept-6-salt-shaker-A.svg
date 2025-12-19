@@ -1,0 +1,97 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bg-gradient)"/>
+  
+  <!-- Shadow -->
+  <ellipse cx="256" cy="420" rx="100" ry="18" fill="#000" fill-opacity="0.15"/>
+  
+  <!-- Shaker body -->
+  <path d="M176 180 
+           L166 380 
+           Q166 410 256 410 
+           Q346 410 346 380 
+           L336 180 
+           Z" 
+        fill="url(#body-gradient)"/>
+  
+  <!-- Body highlight -->
+  <path d="M190 200 L182 370" 
+        stroke="white" 
+        stroke-width="6" 
+        stroke-linecap="round"
+        opacity="0.4"/>
+  
+  <!-- Body shadow edge -->
+  <path d="M322 200 L330 370" 
+        stroke="#000" 
+        stroke-width="4" 
+        stroke-linecap="round"
+        opacity="0.08"/>
+  
+  <!-- Letter A on body -->
+  <text x="256" y="320" 
+        font-family="SF Pro Display, -apple-system, Helvetica Neue, sans-serif" 
+        font-size="120" 
+        font-weight="600" 
+        fill="url(#letter-gradient)" 
+        text-anchor="middle" 
+        dominant-baseline="middle">A</text>
+  
+  <!-- Cap base -->
+  <ellipse cx="256" cy="180" rx="85" ry="20" fill="#C0C0C0"/>
+  
+  <!-- Cap top section -->
+  <path d="M175 180 
+           Q175 120 256 120 
+           Q337 120 337 180 
+           Z" 
+        fill="url(#cap-gradient)"/>
+  
+  <!-- Cap highlight -->
+  <path d="M200 160 Q256 130 312 160" 
+        stroke="white" 
+        stroke-width="4" 
+        stroke-linecap="round"
+        fill="none"
+        opacity="0.5"/>
+  
+  <!-- Salt holes in cap - arranged nicely -->
+  <circle cx="230" cy="145" r="8" fill="#555"/>
+  <circle cx="256" cy="140" r="8" fill="#555"/>
+  <circle cx="282" cy="145" r="8" fill="#555"/>
+  <circle cx="243" cy="162" r="8" fill="#555"/>
+  <circle cx="269" cy="162" r="8" fill="#555"/>
+  
+  <!-- Salt particles floating -->
+  <circle cx="220" cy="95" r="4" fill="white" opacity="0.7"/>
+  <circle cx="245" cy="80" r="3" fill="white" opacity="0.5"/>
+  <circle cx="270" cy="88" r="4" fill="white" opacity="0.6"/>
+  <circle cx="290" cy="100" r="3" fill="white" opacity="0.4"/>
+  <circle cx="235" cy="65" r="3" fill="white" opacity="0.4"/>
+  <circle cx="275" cy="70" r="3" fill="white" opacity="0.5"/>
+  
+  <defs>
+    <linearGradient id="bg-gradient" x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%" stop-color="#FF9147"/>
+      <stop offset="100%" stop-color="#E74C3C"/>
+    </linearGradient>
+    
+    <linearGradient id="body-gradient" x1="166" y1="180" x2="346" y2="410">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#F8F8F8"/>
+      <stop offset="100%" stop-color="#EBEBEB"/>
+    </linearGradient>
+    
+    <linearGradient id="letter-gradient" x1="200" y1="250" x2="312" y2="370">
+      <stop offset="0%" stop-color="#FF8C42"/>
+      <stop offset="100%" stop-color="#E55A00"/>
+    </linearGradient>
+    
+    <linearGradient id="cap-gradient" x1="175" y1="120" x2="337" y2="180">
+      <stop offset="0%" stop-color="#E8E8E8"/>
+      <stop offset="50%" stop-color="#D8D8D8"/>
+      <stop offset="100%" stop-color="#C0C0C0"/>
+    </linearGradient>
+  </defs>
+</svg>
+

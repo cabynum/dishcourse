@@ -1,0 +1,53 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bg-gradient)"/>
+  
+  <!-- Bottom plate (furthest back) -->
+  <ellipse cx="256" cy="320" rx="150" ry="45" fill="#FFFFFF" fill-opacity="0.3"/>
+  <ellipse cx="256" cy="310" rx="150" ry="45" fill="url(#plate-gradient-3)"/>
+  
+  <!-- Middle plate -->
+  <ellipse cx="256" cy="260" rx="150" ry="45" fill="#FFFFFF" fill-opacity="0.5"/>
+  <ellipse cx="256" cy="250" rx="150" ry="45" fill="url(#plate-gradient-2)"/>
+  
+  <!-- Top plate -->
+  <ellipse cx="256" cy="200" rx="150" ry="45" fill="url(#plate-gradient-1)"/>
+  <ellipse cx="256" cy="200" rx="120" ry="32" fill="url(#plate-inner)"/>
+  
+  <!-- Food icon on top plate -->
+  <circle cx="256" cy="195" r="45" fill="url(#food-gradient)"/>
+  <path d="M235 195 L250 180 L265 200 L280 175" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <defs>
+    <linearGradient id="bg-gradient" x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%" stop-color="#F39C12"/>
+      <stop offset="100%" stop-color="#E74C3C"/>
+    </linearGradient>
+    
+    <linearGradient id="plate-gradient-1" x1="106" y1="155" x2="406" y2="245">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F0F0F0"/>
+    </linearGradient>
+    
+    <linearGradient id="plate-gradient-2" x1="106" y1="205" x2="406" y2="295">
+      <stop offset="0%" stop-color="#FAFAFA"/>
+      <stop offset="100%" stop-color="#E5E5E5"/>
+    </linearGradient>
+    
+    <linearGradient id="plate-gradient-3" x1="106" y1="265" x2="406" y2="355">
+      <stop offset="0%" stop-color="#F5F5F5"/>
+      <stop offset="100%" stop-color="#DCDCDC"/>
+    </linearGradient>
+    
+    <linearGradient id="plate-inner" x1="136" y1="168" x2="376" y2="232">
+      <stop offset="0%" stop-color="#F8F8F8"/>
+      <stop offset="100%" stop-color="#EBEBEB"/>
+    </linearGradient>
+    
+    <linearGradient id="food-gradient" x1="211" y1="150" x2="301" y2="240">
+      <stop offset="0%" stop-color="#FF6B6B"/>
+      <stop offset="100%" stop-color="#C0392B"/>
+    </linearGradient>
+  </defs>
+</svg>
+

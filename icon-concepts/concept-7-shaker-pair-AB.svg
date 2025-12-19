@@ -1,0 +1,137 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bg-gradient)"/>
+  
+  <!-- Shadows -->
+  <ellipse cx="185" cy="405" rx="75" ry="14" fill="#000" fill-opacity="0.12"/>
+  <ellipse cx="327" cy="405" rx="75" ry="14" fill="#000" fill-opacity="0.12"/>
+  
+  <!-- SALT SHAKER (Left - A) -->
+  <!-- Body -->
+  <path d="M120 175 
+           L112 365 
+           Q112 390 185 390 
+           Q258 390 258 365 
+           L250 175 
+           Z" 
+        fill="url(#salt-body)"/>
+  
+  <!-- Body highlight -->
+  <path d="M132 190 L126 350" 
+        stroke="white" 
+        stroke-width="5" 
+        stroke-linecap="round"
+        opacity="0.4"/>
+  
+  <!-- Letter A -->
+  <text x="185" y="295" 
+        font-family="SF Pro Display, -apple-system, Helvetica Neue, sans-serif" 
+        font-size="90" 
+        font-weight="600" 
+        fill="url(#letter-A-gradient)" 
+        text-anchor="middle" 
+        dominant-baseline="middle">A</text>
+  
+  <!-- Cap -->
+  <ellipse cx="185" cy="175" rx="70" ry="16" fill="#C8C8C8"/>
+  <path d="M118 175 Q118 125 185 125 Q252 125 252 175 Z" fill="url(#cap-gradient)"/>
+  
+  <!-- Cap highlight -->
+  <path d="M140 158 Q185 135 230 158" 
+        stroke="white" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.5"/>
+  
+  <!-- Salt holes -->
+  <circle cx="165" cy="148" r="6" fill="#555"/>
+  <circle cx="185" cy="143" r="6" fill="#555"/>
+  <circle cx="205" cy="148" r="6" fill="#555"/>
+  <circle cx="175" cy="160" r="6" fill="#555"/>
+  <circle cx="195" cy="160" r="6" fill="#555"/>
+  
+  <!-- Salt particles -->
+  <circle cx="165" cy="105" r="3" fill="white" opacity="0.6"/>
+  <circle cx="185" cy="95" r="2.5" fill="white" opacity="0.5"/>
+  <circle cx="205" cy="100" r="3" fill="white" opacity="0.5"/>
+  
+  <!-- PEPPER SHAKER (Right - B) -->
+  <!-- Body -->
+  <path d="M262 175 
+           L254 365 
+           Q254 390 327 390 
+           Q400 390 400 365 
+           L392 175 
+           Z" 
+        fill="url(#pepper-body)"/>
+  
+  <!-- Body highlight -->
+  <path d="M274 190 L268 350" 
+        stroke="white" 
+        stroke-width="5" 
+        stroke-linecap="round"
+        opacity="0.25"/>
+  
+  <!-- Letter B -->
+  <text x="327" y="295" 
+        font-family="SF Pro Display, -apple-system, Helvetica Neue, sans-serif" 
+        font-size="90" 
+        font-weight="600" 
+        fill="url(#letter-B-gradient)" 
+        text-anchor="middle" 
+        dominant-baseline="middle">B</text>
+  
+  <!-- Cap -->
+  <ellipse cx="327" cy="175" rx="70" ry="16" fill="#A0A0A0"/>
+  <path d="M260 175 Q260 125 327 125 Q394 125 394 175 Z" fill="url(#pepper-cap-gradient)"/>
+  
+  <!-- Cap highlight -->
+  <path d="M282 158 Q327 135 372 158" 
+        stroke="white" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.35"/>
+  
+  <!-- Pepper holes (fewer, larger) -->
+  <circle cx="312" cy="150" r="7" fill="#333"/>
+  <circle cx="342" cy="150" r="7" fill="#333"/>
+  <circle cx="327" cy="163" r="7" fill="#333"/>
+  
+  <!-- Pepper particles -->
+  <circle cx="310" cy="102" r="3" fill="#4A3728" opacity="0.7"/>
+  <circle cx="327" cy="92" r="2.5" fill="#4A3728" opacity="0.6"/>
+  <circle cx="345" cy="98" r="3" fill="#4A3728" opacity="0.6"/>
+  
+  <defs>
+    <linearGradient id="bg-gradient" x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%" stop-color="#FF9147"/>
+      <stop offset="100%" stop-color="#E55039"/>
+    </linearGradient>
+    
+    <linearGradient id="salt-body" x1="112" y1="175" x2="258" y2="390">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F0F0F0"/>
+    </linearGradient>
+    
+    <linearGradient id="pepper-body" x1="254" y1="175" x2="400" y2="390">
+      <stop offset="0%" stop-color="#4A4A4A"/>
+      <stop offset="50%" stop-color="#3A3A3A"/>
+      <stop offset="100%" stop-color="#2A2A2A"/>
+    </linearGradient>
+    
+    <linearGradient id="letter-A-gradient" x1="140" y1="240" x2="230" y2="340">
+      <stop offset="0%" stop-color="#FF8C42"/>
+      <stop offset="100%" stop-color="#E55A00"/>
+    </linearGradient>
+    
+    <linearGradient id="letter-B-gradient" x1="282" y1="240" x2="372" y2="340">
+      <stop offset="0%" stop-color="#FFD4A8"/>
+      <stop offset="100%" stop-color="#FFAA5C"/>
+    </linearGradient>
+    
+    <linearGradient id="cap-gradient" x1="118" y1="125" x2="252" y2="175">
+      <stop offset="0%" stop-color="#E8E8E8"/>
+      <stop offset="100%" stop-color="#C8C8C8"/>
+    </linearGradient>
+    
+    <linearGradient id="pepper-cap-gradient" x1="260" y1="125" x2="394" y2="175">
+      <stop offset="0%" stop-color="#B8B8B8"/>
+      <stop offset="100%" stop-color="#909090"/>
+    </linearGradient>
+  </defs>
+</svg>
+

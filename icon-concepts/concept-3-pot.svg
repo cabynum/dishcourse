@@ -1,0 +1,71 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bg-gradient)"/>
+  
+  <!-- Pot shadow -->
+  <ellipse cx="256" cy="380" rx="130" ry="25" fill="#000" fill-opacity="0.15"/>
+  
+  <!-- Pot body -->
+  <path d="M126 230 L126 330 Q126 370 256 370 Q386 370 386 330 L386 230 Z" fill="url(#pot-body)"/>
+  
+  <!-- Pot rim -->
+  <rect x="110" y="215" width="292" height="30" rx="15" fill="url(#pot-rim)"/>
+  
+  <!-- Left handle -->
+  <path d="M110 230 Q70 230 70 270 Q70 310 110 310" stroke="url(#handle-gradient)" stroke-width="20" stroke-linecap="round" fill="none"/>
+  
+  <!-- Right handle -->
+  <path d="M402 230 Q442 230 442 270 Q442 310 402 310" stroke="url(#handle-gradient)" stroke-width="20" stroke-linecap="round" fill="none"/>
+  
+  <!-- Lid -->
+  <ellipse cx="256" cy="200" rx="120" ry="35" fill="url(#lid-gradient)"/>
+  
+  <!-- Lid knob -->
+  <ellipse cx="256" cy="165" rx="25" ry="12" fill="url(#knob-gradient)"/>
+  <ellipse cx="256" cy="160" rx="20" ry="8" fill="url(#knob-top)"/>
+  
+  <!-- Steam -->
+  <path d="M220 130 Q210 105 225 85" stroke="white" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.5"/>
+  <path d="M256 120 Q246 90 261 65" stroke="white" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.7"/>
+  <path d="M292 130 Q282 105 297 85" stroke="white" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.5"/>
+  
+  <defs>
+    <linearGradient id="bg-gradient" x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%" stop-color="#FF8C42"/>
+      <stop offset="100%" stop-color="#D63031"/>
+    </linearGradient>
+    
+    <linearGradient id="pot-body" x1="126" y1="230" x2="386" y2="370">
+      <stop offset="0%" stop-color="#FEFEFE"/>
+      <stop offset="50%" stop-color="#F5F5F5"/>
+      <stop offset="100%" stop-color="#E0E0E0"/>
+    </linearGradient>
+    
+    <linearGradient id="pot-rim" x1="110" y1="215" x2="402" y2="245">
+      <stop offset="0%" stop-color="#E8E8E8"/>
+      <stop offset="50%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#D0D0D0"/>
+    </linearGradient>
+    
+    <linearGradient id="handle-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0F0F0"/>
+      <stop offset="100%" stop-color="#C0C0C0"/>
+    </linearGradient>
+    
+    <linearGradient id="lid-gradient" x1="136" y1="165" x2="376" y2="235">
+      <stop offset="0%" stop-color="#FAFAFA"/>
+      <stop offset="100%" stop-color="#E0E0E0"/>
+    </linearGradient>
+    
+    <linearGradient id="knob-gradient" x1="231" y1="153" x2="281" y2="177">
+      <stop offset="0%" stop-color="#555"/>
+      <stop offset="100%" stop-color="#333"/>
+    </linearGradient>
+    
+    <linearGradient id="knob-top" x1="236" y1="152" x2="276" y2="168">
+      <stop offset="0%" stop-color="#666"/>
+      <stop offset="100%" stop-color="#444"/>
+    </linearGradient>
+  </defs>
+</svg>
+
