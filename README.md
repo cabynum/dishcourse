@@ -1,12 +1,20 @@
-```
-     _    _ _  ____            _        
-    / \  | (_)/ ___|___   ___ | | _____ 
-   / _ \ | | | |   / _ \ / _ \| |/ / __|
-  / ___ \| | | |__| (_) | (_) |   <\__ \
- /_/   \_\_|_|\____\___/ \___/|_|\_\___/
-                                        
-        Your Meal Planning Companion
-```
+<p align="center">
+  <img src="public/icons/icon-512.png" alt="AliCooks" width="128" height="128" style="border-radius: 28px;">
+</p>
+
+<h1 align="center">AliCooks</h1>
+
+<p align="center">
+  <strong>Your Meal Planning Companion</strong>
+</p>
+
+<p align="center">
+  <a href="https://alicooks.vercel.app">Live App</a> •
+  <a href="#features">Features</a> •
+  <a href="#getting-started">Getting Started</a>
+</p>
+
+---
 
 # AliCooks
 
