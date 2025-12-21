@@ -38,17 +38,22 @@ Before we end, please:
 
 ## Current Status
 
-**Last Updated**: 2024-12-19  
+**Last Updated**: 2024-12-21  
 **Current Branch**: `master`  
-**Repository**: https://github.com/cabynum/alicooks  
-**Live URL**: https://alicooks.vercel.app  
-**Current Phase**: Deployed to production ✅
+**Repository**: <https://github.com/cabynum/alicooks>  
+**Live URL**: <https://alicooks.vercel.app>  
+**Current Phase**: Logo & Icon redesign (paused)
 
 ### Completed This Session
 
-- ✅ **UX Polish**: Two small fixes based on testing
-  - Dish names always left-aligned (was centering when no icons)
-  - "Add more details" section starts collapsed when editing (cleaner look)
+- 🔍 **Logo exploration**: Explored 3 rounds of logo concepts
+  - v1: Single-color minimal icons (too thick/rounded)
+  - v2: Refined line art (not memorable enough)
+  - v3: Brand-worthy marks with black/white/yellow (closer but not right yet)
+- 📝 **Direction established**: Want memorable logos like Crumbl/Starbucks/Chick-fil-A
+  - Can use up to 3 colors: black, white, and a shade of yellow
+  - Should be distinctive and ownable, not generic icons
+- 🧹 **Cleaned up**: Removed concept files, will restart fresh next session
 
 ### Phase Summary
 
@@ -110,10 +115,13 @@ Core features:
 
 ### Recommended Next Steps
 
-1. **Use the app!** — Add real dishes and try the meal planning flow
-2. **Share with Aliya** — Get feedback from the primary user
-3. Optional: Add polish based on real usage feedback
-4. Optional: Start next feature from ideas backlog (see `.specify/memory/ideas.md`)
+1. **Logo redesign (fresh start)** — Create a memorable brand mark
+   - Reference: Crumbl, Starbucks, Chick-fil-A style logos
+   - Palette: Black, white, and yellow
+   - Goal: Distinctive, ownable, works at any size
+2. **Icon set** — Once logo is finalized, create matching UI icons to replace emojis:
+   - 🥗 (side dish), 🔄 (try another), ✓ (accept), 🎲 (suggest), 📅 (plan), ➕ (new plan)
+3. **Share with Aliya** — Get feedback from the primary user
 
 ### Key Files
 
@@ -135,7 +143,10 @@ Core features:
 
 ### Open Decisions
 
-- None — merged and pushed to GitHub!
+- **Logo direction**: Need a memorable, brand-worthy mark (not generic icons)
+  - Palette: Black, white, yellow
+  - Inspiration: Major brand logos (Crumbl, Starbucks, Chick-fil-A)
+  - Previous attempts were too generic or not memorable enough
 
 ### Notes
 
