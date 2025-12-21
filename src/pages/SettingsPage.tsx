@@ -7,96 +7,9 @@
 
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Download, Upload, Check } from 'lucide-react';
 import { Button, Card } from '@/components/ui';
 import { useExport, useDishes, usePlans } from '@/hooks';
-
-/**
- * Back arrow icon for navigation
- */
-function BackIcon() {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M19 12H5M12 19l-7-7 7-7" />
-    </svg>
-  );
-}
-
-/**
- * Download icon for export button
- */
-function DownloadIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-      <polyline points="7 10 12 15 17 10" />
-      <line x1="12" y1="15" x2="12" y2="3" />
-    </svg>
-  );
-}
-
-/**
- * Upload icon for import button
- */
-function UploadIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-      <polyline points="17 8 12 3 7 8" />
-      <line x1="12" y1="3" x2="12" y2="15" />
-    </svg>
-  );
-}
-
-/**
- * Check icon for success state
- */
-function CheckIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  );
-}
 
 export function SettingsPage() {
   const navigate = useNavigate();
@@ -200,29 +113,39 @@ export function SettingsPage() {
       : `${dishes.length} dish${dishes.length !== 1 ? 'es' : ''}, ${plans.length} plan${plans.length !== 1 ? 's' : ''}`;
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-stone-50/95 backdrop-blur-sm border-b border-stone-200">
+      <header
+        className="sticky top-0 z-10 border-b backdrop-blur-sm"
+        style={{
+          backgroundColor: 'rgba(255, 254, 247, 0.95)',
+          borderColor: 'var(--color-bg-muted)',
+        }}
+      >
         <div className="max-w-lg mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={handleBack}
-              className={[
-                'p-2 -ml-2',
-                'text-stone-600 hover:text-stone-900',
-                'hover:bg-stone-100',
-                'rounded-lg',
-                'transition-colors duration-150',
-                'focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500',
-              ].join(' ')}
+              className="p-2 -ml-2 rounded-xl transition-colors hover:bg-black/5 focus:outline-none focus-visible:ring-2"
+              style={{ color: 'var(--color-text)' }}
               aria-label="Go back"
             >
-              <BackIcon />
+              <ArrowLeft size={20} strokeWidth={2} />
             </button>
             <div>
-              <h1 className="text-xl font-bold text-stone-900">Settings</h1>
-              <p className="text-sm text-stone-500">Manage your data</p>
+              <h1
+                className="text-xl font-bold"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  color: 'var(--color-text)',
+                }}
+              >
+                Settings
+              </h1>
+              <p style={{ color: 'var(--color-text-muted)' }} className="text-sm">
+                Manage your data
+              </p>
             </div>
           </div>
         </div>
@@ -233,42 +156,50 @@ export function SettingsPage() {
         {/* Success message */}
         {successMessage && (
           <div
-            className={[
-              'mb-6 p-4',
-              'bg-emerald-50 border border-emerald-200',
-              'rounded-xl',
-              'flex items-center gap-3',
-              'animate-fade-in',
-            ].join(' ')}
+            className="mb-6 p-4 rounded-xl flex items-center gap-3 animate-fade-in"
+            style={{
+              backgroundColor: 'rgba(34, 197, 94, 0.1)',
+              border: '1px solid rgba(34, 197, 94, 0.3)',
+            }}
             role="status"
           >
-            <span className="text-emerald-600">
-              <CheckIcon />
+            <span style={{ color: 'var(--color-success)' }}>
+              <Check size={20} strokeWidth={2.5} />
             </span>
-            <p className="text-emerald-800 text-sm">{successMessage}</p>
+            <p className="text-sm" style={{ color: 'var(--color-success)' }}>
+              {successMessage}
+            </p>
           </div>
         )}
 
         {/* Error message */}
         {error && (
           <div
-            className={[
-              'mb-6 p-4',
-              'bg-red-50 border border-red-200',
-              'rounded-xl',
-            ].join(' ')}
+            className="mb-6 p-4 rounded-xl"
+            style={{
+              backgroundColor: 'rgba(239, 68, 68, 0.1)',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+            }}
             role="alert"
           >
-            <p className="text-red-800 text-sm">{error}</p>
+            <p className="text-sm" style={{ color: 'var(--color-error)' }}>
+              {error}
+            </p>
           </div>
         )}
 
         {/* Data Export Section */}
         <section className="mb-8">
-          <h2 className="text-lg font-semibold text-stone-800 mb-2">
+          <h2
+            className="text-lg font-semibold mb-2"
+            style={{
+              fontFamily: 'var(--font-display)',
+              color: 'var(--color-text)',
+            }}
+          >
             Export Your Data
           </h2>
-          <p className="text-stone-600 text-sm mb-4">
+          <p className="text-sm mb-4" style={{ color: 'var(--color-text-muted)' }}>
             Download all your dishes and meal plans as a JSON file. You can use
             this to back up your data or transfer it to another device.
           </p>
@@ -276,8 +207,12 @@ export function SettingsPage() {
           <Card padding="md">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-stone-700 font-medium">Your data</p>
-                <p className="text-stone-500 text-sm">{itemSummary}</p>
+                <p className="font-medium" style={{ color: 'var(--color-text)' }}>
+                  Your data
+                </p>
+                <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
+                  {itemSummary}
+                </p>
               </div>
               <Button
                 variant="primary"
@@ -286,7 +221,7 @@ export function SettingsPage() {
                 aria-label="Export data"
               >
                 <span className="flex items-center gap-2">
-                  <DownloadIcon />
+                  <Download size={20} strokeWidth={2} />
                   <span>Export</span>
                 </span>
               </Button>
@@ -296,10 +231,16 @@ export function SettingsPage() {
 
         {/* Data Import Section */}
         <section>
-          <h2 className="text-lg font-semibold text-stone-800 mb-2">
+          <h2
+            className="text-lg font-semibold mb-2"
+            style={{
+              fontFamily: 'var(--font-display)',
+              color: 'var(--color-text)',
+            }}
+          >
             Import Data
           </h2>
-          <p className="text-stone-600 text-sm mb-4">
+          <p className="text-sm mb-4" style={{ color: 'var(--color-text-muted)' }}>
             Restore from a backup or transfer data from another device. This
             will replace your current data.
           </p>
@@ -307,10 +248,12 @@ export function SettingsPage() {
           <Card padding="md">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-stone-700 font-medium">
+                <p className="font-medium" style={{ color: 'var(--color-text)' }}>
                   Select a backup file
                 </p>
-                <p className="text-stone-500 text-sm">JSON format only</p>
+                <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
+                  JSON format only
+                </p>
               </div>
               <Button
                 variant="secondary"
@@ -319,7 +262,7 @@ export function SettingsPage() {
                 aria-label="Import data"
               >
                 <span className="flex items-center gap-2">
-                  <UploadIcon />
+                  <Upload size={20} strokeWidth={2} />
                   <span>{isImporting ? 'Importing...' : 'Import'}</span>
                 </span>
               </Button>
@@ -340,7 +283,8 @@ export function SettingsPage() {
         {/* Import Confirmation Modal */}
         {showImportConfirm && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
             role="dialog"
             aria-modal="true"
             aria-labelledby="import-confirm-title"
@@ -349,11 +293,15 @@ export function SettingsPage() {
               <div className="space-y-4">
                 <h3
                   id="import-confirm-title"
-                  className="text-lg font-semibold text-stone-900 text-center"
+                  className="text-lg font-semibold text-center"
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    color: 'var(--color-text)',
+                  }}
                 >
                   Replace existing data?
                 </h3>
-                <p className="text-stone-600 text-center">
+                <p className="text-center" style={{ color: 'var(--color-text-muted)' }}>
                   You have {dishes.length} dish{dishes.length !== 1 ? 'es' : ''}{' '}
                   and {plans.length} plan{plans.length !== 1 ? 's' : ''}.
                   Importing will replace all of this.
@@ -382,4 +330,3 @@ export function SettingsPage() {
     </div>
   );
 }
-

@@ -63,28 +63,34 @@ describe('DishCard', () => {
   });
 
   describe('badge styling', () => {
-    it('uses amber colors for entree badge', () => {
+    it('uses warm colors for entree badge', () => {
       const dish = createTestDish({ type: 'entree' });
       render(<DishCard dish={dish} />);
 
       const badge = screen.getByText('Entree');
-      expect(badge).toHaveClass('bg-amber-100', 'text-amber-700');
+      // Uses design system CSS variables via inline styles
+      expect(badge.style.backgroundColor).toBe('var(--color-entree-bg)');
+      expect(badge.style.color).toBe('rgb(146, 64, 14)'); // #92400E
     });
 
-    it('uses emerald colors for side badge', () => {
+    it('uses green colors for side badge', () => {
       const dish = createTestDish({ type: 'side' });
       render(<DishCard dish={dish} />);
 
       const badge = screen.getByText('Side');
-      expect(badge).toHaveClass('bg-emerald-100', 'text-emerald-700');
+      // Uses design system CSS variables via inline styles
+      expect(badge.style.backgroundColor).toBe('var(--color-side-bg)');
+      expect(badge.style.color).toBe('rgb(22, 101, 52)'); // #166534
     });
 
-    it('uses stone colors for other badge', () => {
+    it('uses muted colors for other badge', () => {
       const dish = createTestDish({ type: 'other' });
       render(<DishCard dish={dish} />);
 
       const badge = screen.getByText('Other');
-      expect(badge).toHaveClass('bg-stone-100', 'text-stone-600');
+      // Uses design system CSS variables via inline styles
+      expect(badge.style.backgroundColor).toBe('var(--color-bg-muted)');
+      expect(badge.style.color).toBe('var(--color-text-muted)');
     });
   });
 
@@ -131,7 +137,8 @@ describe('DishCard', () => {
       render(<DishCard dish={dish} selected />);
 
       const card = screen.getByText(dish.name).closest('div');
-      expect(card).toHaveClass('border-amber-500', 'ring-2');
+      // Uses design system accent color for selected state border
+      expect(card?.style.borderColor).toBe('var(--color-accent)');
     });
 
     it('shows default styling when selected is false', () => {
@@ -139,8 +146,8 @@ describe('DishCard', () => {
       render(<DishCard dish={dish} selected={false} />);
 
       const card = screen.getByText(dish.name).closest('div');
-      expect(card).toHaveClass('border-stone-200');
-      expect(card).not.toHaveClass('border-amber-500');
+      // Unselected cards have transparent border
+      expect(card?.style.borderColor).toBe('transparent');
     });
   });
 

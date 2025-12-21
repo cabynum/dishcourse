@@ -6,53 +6,10 @@
  */
 
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Sparkles } from 'lucide-react';
 import { useSuggestion } from '@/hooks';
 import { SuggestionCard } from '@/components/meals';
 import { Button, EmptyState } from '@/components/ui';
-
-/**
- * Back arrow icon for navigation
- */
-function BackIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M19 12H5M12 19l-7-7 7-7" />
-    </svg>
-  );
-}
-
-/**
- * Sparkles icon for the empty/unavailable state
- */
-function SparklesIcon() {
-  return (
-    <svg
-      width="48"
-      height="48"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="text-amber-400"
-    >
-      <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" />
-      <path d="M5 19l.5 1.5L7 21l-1.5.5L5 23l-.5-1.5L3 21l1.5-.5L5 19z" />
-      <path d="M19 14l.5 1.5L21 16l-1.5.5L19 18l-.5-1.5L17 16l1.5-.5L19 14z" />
-    </svg>
-  );
-}
 
 export function SuggestionPage() {
   const navigate = useNavigate();
@@ -68,31 +25,37 @@ export function SuggestionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-stone-50 to-amber-50/30">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-stone-50/95 backdrop-blur-sm border-b border-stone-200">
+      <header
+        className="sticky top-0 z-10 border-b backdrop-blur-sm"
+        style={{
+          backgroundColor: 'rgba(255, 254, 247, 0.95)',
+          borderColor: 'var(--color-bg-muted)',
+        }}
+      >
         <div className="max-w-lg mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={handleBack}
-              className={[
-                'p-2 -ml-2',
-                'rounded-lg',
-                'text-stone-600',
-                'hover:bg-stone-100',
-                'focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500',
-                'transition-colors',
-              ].join(' ')}
+              className="p-2 -ml-2 rounded-xl transition-colors hover:bg-black/5 focus:outline-none focus-visible:ring-2"
+              style={{ color: 'var(--color-text)' }}
               aria-label="Go back"
             >
-              <BackIcon />
+              <ArrowLeft size={20} strokeWidth={2} />
             </button>
             <div>
-              <h1 className="text-xl font-bold text-stone-900">
+              <h1
+                className="text-xl font-bold"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  color: 'var(--color-text)',
+                }}
+              >
                 Meal Suggestion
               </h1>
-              <p className="text-sm text-stone-500">
+              <p style={{ color: 'var(--color-text-muted)' }} className="text-sm">
                 What should I make for dinner?
               </p>
             </div>
@@ -106,11 +69,22 @@ export function SuggestionPage() {
         {isLoading && (
           <div className="text-center py-12">
             <div className="animate-pulse space-y-4">
-              <div className="w-16 h-16 bg-amber-200 rounded-full mx-auto" />
-              <div className="h-6 bg-stone-200 rounded-lg w-48 mx-auto" />
-              <div className="h-4 bg-stone-100 rounded w-32 mx-auto" />
+              <div
+                className="w-16 h-16 rounded-full mx-auto"
+                style={{ backgroundColor: 'var(--color-accent)' }}
+              />
+              <div
+                className="h-6 rounded-lg w-48 mx-auto"
+                style={{ backgroundColor: 'var(--color-bg-muted)' }}
+              />
+              <div
+                className="h-4 rounded w-32 mx-auto"
+                style={{ backgroundColor: 'var(--color-bg-muted)' }}
+              />
             </div>
-            <p className="text-stone-500 mt-6">{message}</p>
+            <p className="mt-6" style={{ color: 'var(--color-text-muted)' }}>
+              {message}
+            </p>
           </div>
         )}
 
@@ -118,7 +92,13 @@ export function SuggestionPage() {
         {!isLoading && !isAvailable && (
           <div className="py-8">
             <EmptyState
-              icon={<SparklesIcon />}
+              icon={
+                <Sparkles
+                  size={48}
+                  strokeWidth={1.5}
+                  style={{ color: 'var(--color-accent)' }}
+                />
+              }
               title="Need More Dishes"
               message={message}
               action={{
@@ -129,7 +109,7 @@ export function SuggestionPage() {
 
             {/* Additional encouragement */}
             <div className="mt-8 text-center">
-              <p className="text-sm text-stone-500">
+              <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
                 Add at least one entree to start getting suggestions.
                 <br />
                 Side dishes make suggestions even better!
@@ -147,7 +127,10 @@ export function SuggestionPage() {
             />
 
             {/* Helpful tip */}
-            <p className="text-center text-sm text-stone-500">
+            <p
+              className="text-center text-sm"
+              style={{ color: 'var(--color-text-muted)' }}
+            >
               {message}
             </p>
           </div>
@@ -165,4 +148,3 @@ export function SuggestionPage() {
     </div>
   );
 }
-

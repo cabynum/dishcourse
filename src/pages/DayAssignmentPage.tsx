@@ -7,72 +7,10 @@
 
 import { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ArrowLeft, Check, Plus, X, Dices } from 'lucide-react';
 import { usePlans, useDishes, useSuggestion } from '@/hooks';
 import { DishCard } from '@/components/meals';
 import { Button, EmptyState } from '@/components/ui';
-
-/**
- * Back arrow icon for navigation
- */
-function BackIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M19 12H5M12 19l-7-7 7-7" />
-    </svg>
-  );
-}
-
-/**
- * Check icon for assigned dishes
- */
-function CheckIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  );
-}
-
-/**
- * Plus icon for adding dishes
- */
-function PlusIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M12 5v14M5 12h14" />
-    </svg>
-  );
-}
 
 /**
  * Formats a date string for display (e.g., "Monday, December 16")
@@ -158,10 +96,19 @@ export function DayAssignmentPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-stone-50">
-        <header className="sticky top-0 z-10 bg-stone-50/95 backdrop-blur-sm border-b border-stone-200">
+      <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
+        <header
+          className="sticky top-0 z-10 border-b backdrop-blur-sm"
+          style={{
+            backgroundColor: 'rgba(255, 254, 247, 0.95)',
+            borderColor: 'var(--color-bg-muted)',
+          }}
+        >
           <div className="max-w-lg mx-auto px-4 py-4">
-            <div className="h-7 bg-stone-200 rounded w-48 animate-pulse" />
+            <div
+              className="h-7 rounded w-48 animate-pulse"
+              style={{ backgroundColor: 'var(--color-bg-muted)' }}
+            />
           </div>
         </header>
         <main className="max-w-lg mx-auto px-4 py-6">
@@ -169,7 +116,8 @@ export function DayAssignmentPage() {
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="h-14 bg-stone-100 rounded-xl animate-pulse"
+                className="h-14 rounded-xl animate-pulse"
+                style={{ backgroundColor: 'var(--color-bg-muted)' }}
               />
             ))}
           </div>
@@ -179,31 +127,37 @@ export function DayAssignmentPage() {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-stone-50/95 backdrop-blur-sm border-b border-stone-200">
+      <header
+        className="sticky top-0 z-10 border-b backdrop-blur-sm"
+        style={{
+          backgroundColor: 'rgba(255, 254, 247, 0.95)',
+          borderColor: 'var(--color-bg-muted)',
+        }}
+      >
         <div className="max-w-lg mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={handleBack}
-              className={[
-                'p-2 -ml-2',
-                'rounded-lg',
-                'text-stone-600',
-                'hover:bg-stone-100',
-                'focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500',
-                'transition-colors',
-              ].join(' ')}
+              className="p-2 -ml-2 rounded-xl transition-colors hover:bg-black/5 focus:outline-none focus-visible:ring-2"
+              style={{ color: 'var(--color-text)' }}
               aria-label="Go back"
             >
-              <BackIcon />
+              <ArrowLeft size={20} strokeWidth={2} />
             </button>
             <div>
-              <h1 className="text-xl font-bold text-stone-900">
+              <h1
+                className="text-xl font-bold"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  color: 'var(--color-text)',
+                }}
+              >
                 {date ? formatDateLong(date) : 'Plan Day'}
               </h1>
-              <p className="text-sm text-stone-500">
+              <p style={{ color: 'var(--color-text-muted)' }} className="text-sm">
                 {assignedDishes.length === 0
                   ? 'No dishes assigned yet'
                   : `${assignedDishes.length} ${assignedDishes.length === 1 ? 'dish' : 'dishes'} assigned`}
@@ -218,7 +172,10 @@ export function DayAssignmentPage() {
         {/* Currently assigned dishes */}
         {assignedDishes.length > 0 && (
           <section className="mb-8">
-            <h2 className="text-sm font-semibold text-stone-500 uppercase tracking-wide mb-3">
+            <h2
+              className="text-sm font-semibold uppercase tracking-wide mb-3"
+              style={{ color: 'var(--color-text-muted)' }}
+            >
               Today's Meal
             </h2>
             <div className="space-y-2">
@@ -233,29 +190,19 @@ export function DayAssignmentPage() {
                   <button
                     type="button"
                     onClick={() => handleRemoveDish(dish.id)}
-                    className={[
-                      'p-2',
-                      'rounded-lg',
-                      'text-stone-500',
-                      'hover:text-red-500 hover:bg-red-50',
-                      'focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500',
-                      'transition-colors',
-                    ].join(' ')}
+                    className="p-2 rounded-xl transition-colors focus:outline-none focus-visible:ring-2"
+                    style={{ color: 'var(--color-text-muted)' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--color-error)';
+                      e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'var(--color-text-muted)';
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
                     aria-label={`Remove ${dish.name}`}
                   >
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <line x1="18" y1="6" x2="6" y2="18" />
-                      <line x1="6" y1="6" x2="18" y2="18" />
-                    </svg>
+                    <X size={20} strokeWidth={2} />
                   </button>
                 </div>
               ))}
@@ -266,16 +213,25 @@ export function DayAssignmentPage() {
         {/* Suggestion section */}
         {canSuggest && (
           <section className="mb-8">
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl border border-amber-200 p-4">
-              <h3 className="text-sm font-semibold text-amber-700 mb-2">
+            <div
+              className="rounded-xl p-4"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 184, 0, 0.1) 0%, rgba(218, 165, 32, 0.1) 100%)',
+                border: '1px solid rgba(255, 184, 0, 0.3)',
+              }}
+            >
+              <h3
+                className="text-sm font-semibold mb-2"
+                style={{ color: 'var(--color-secondary)' }}
+              >
                 Need inspiration?
               </h3>
               {suggestion ? (
                 <div className="space-y-3">
-                  <div className="text-sm text-stone-700">
+                  <div className="text-sm" style={{ color: 'var(--color-text)' }}>
                     <span className="font-medium">{suggestion.entree.name}</span>
                     {suggestion.sides.length > 0 && (
-                      <span className="text-stone-500">
+                      <span style={{ color: 'var(--color-text-muted)' }}>
                         {' '}with {suggestion.sides.map((s) => s.name).join(', ')}
                       </span>
                     )}
@@ -287,7 +243,7 @@ export function DayAssignmentPage() {
                       onClick={handleAddSuggestion}
                     >
                       <span className="flex items-center gap-1">
-                        <CheckIcon />
+                        <Check size={16} strokeWidth={2.5} />
                         Add This
                       </span>
                     </Button>
@@ -307,7 +263,7 @@ export function DayAssignmentPage() {
                   onClick={handleSuggest}
                 >
                   <span className="flex items-center gap-1">
-                    <span>🎲</span>
+                    <Dices size={16} strokeWidth={2} />
                     Get a Suggestion
                   </span>
                 </Button>
@@ -318,12 +274,21 @@ export function DayAssignmentPage() {
 
         {/* Available dishes to add */}
         <section>
-          <h2 className="text-sm font-semibold text-stone-500 uppercase tracking-wide mb-3">
+          <h2
+            className="text-sm font-semibold uppercase tracking-wide mb-3"
+            style={{ color: 'var(--color-text-muted)' }}
+          >
             Add Dishes
           </h2>
 
           {availableDishes.length === 0 ? (
-            <div className="text-center py-8 bg-white rounded-xl border border-stone-200">
+            <div
+              className="text-center py-8 rounded-xl"
+              style={{
+                backgroundColor: 'var(--color-card)',
+                border: '1px solid var(--color-bg-muted)',
+              }}
+            >
               {dishes.length === 0 ? (
                 <EmptyState
                   title="No Dishes Yet"
@@ -334,7 +299,7 @@ export function DayAssignmentPage() {
                   }}
                 />
               ) : (
-                <p className="text-stone-500 text-sm">
+                <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
                   All dishes are already assigned to this day!
                 </p>
               )}
@@ -346,42 +311,49 @@ export function DayAssignmentPage() {
                   key={dish.id}
                   type="button"
                   onClick={() => handleAddDish(dish.id)}
-                  className={[
-                    'w-full',
-                    'flex items-center gap-3',
-                    'bg-white rounded-xl',
-                    'border border-stone-200',
-                    'px-4 py-3',
-                    'text-left',
-                    'cursor-pointer',
-                    'transition-all duration-150',
-                    'hover:border-amber-300 hover:bg-amber-50/50',
-                    'focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2',
-                    'active:scale-[0.99]',
-                  ].join(' ')}
+                  className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-left cursor-pointer transition-all duration-150 active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                  style={{
+                    backgroundColor: 'var(--color-card)',
+                    border: '1px solid var(--color-bg-muted)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--color-accent)';
+                    e.currentTarget.style.backgroundColor = 'rgba(255, 184, 0, 0.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--color-bg-muted)';
+                    e.currentTarget.style.backgroundColor = 'var(--color-card)';
+                  }}
                 >
                   <span className="flex-1 flex items-center gap-3">
-                    <span className="font-medium text-stone-800 truncate">
+                    <span
+                      className="font-medium truncate"
+                      style={{ color: 'var(--color-text)' }}
+                    >
                       {dish.name}
                     </span>
                     <span
-                      className={[
-                        'shrink-0',
-                        'px-2 py-0.5',
-                        'text-xs font-medium',
-                        'rounded-full',
-                        dish.type === 'entree'
-                          ? 'bg-amber-100 text-amber-700'
-                          : dish.type === 'side'
-                          ? 'bg-emerald-100 text-emerald-700'
-                          : 'bg-stone-100 text-stone-600',
-                      ].join(' ')}
+                      className="shrink-0 px-2 py-0.5 text-xs font-medium rounded-full"
+                      style={{
+                        backgroundColor:
+                          dish.type === 'entree'
+                            ? 'var(--color-entree-bg)'
+                            : dish.type === 'side'
+                            ? 'var(--color-side-bg)'
+                            : 'var(--color-bg-muted)',
+                        color:
+                          dish.type === 'entree'
+                            ? '#92400E'
+                            : dish.type === 'side'
+                            ? '#166534'
+                            : 'var(--color-text-muted)',
+                      }}
                     >
                       {dish.type === 'entree' ? 'Entree' : dish.type === 'side' ? 'Side' : 'Other'}
                     </span>
                   </span>
-                  <span className="text-amber-500">
-                    <PlusIcon />
+                  <span style={{ color: 'var(--color-accent)' }}>
+                    <Plus size={16} strokeWidth={2} />
                   </span>
                 </button>
               ))}
@@ -392,4 +364,3 @@ export function DayAssignmentPage() {
     </div>
   );
 }
-

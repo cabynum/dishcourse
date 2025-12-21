@@ -121,8 +121,8 @@ describe('EmptyState', () => {
         />
       );
 
-      // Primary buttons have amber background
-      expect(screen.getByRole('button')).toHaveClass('bg-amber-500');
+      // Primary buttons use btn-primary class with design system styles
+      expect(screen.getByRole('button')).toHaveClass('btn-primary');
     });
   });
 

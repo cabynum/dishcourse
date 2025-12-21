@@ -51,7 +51,9 @@ describe('Button', () => {
       );
 
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-amber-500');
+      // Uses design system CSS variables via inline styles
+      expect(button).toHaveClass('btn-primary');
+      expect(button).toHaveStyle({ backgroundColor: 'var(--color-accent)' });
     });
 
     it('renders secondary variant with correct styles', () => {
@@ -62,7 +64,9 @@ describe('Button', () => {
       );
 
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-stone-100');
+      // Uses design system CSS variables via inline styles
+      expect(button).toHaveClass('btn-secondary');
+      expect(button).toHaveStyle({ backgroundColor: 'var(--color-bg-muted)' });
     });
 
     it('renders ghost variant with correct styles', () => {
@@ -73,7 +77,10 @@ describe('Button', () => {
       );
 
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-transparent');
+      // Uses design system CSS variables via inline styles
+      expect(button).toHaveClass('btn-ghost');
+      // Ghost variant has transparent background
+      expect(button.style.backgroundColor).toBe('transparent');
     });
   });
 
@@ -288,7 +295,7 @@ describe('Button', () => {
 
       const button = screen.getByRole('button');
       expect(button).toHaveClass('custom-class');
-      expect(button).toHaveClass('bg-amber-500'); // Still has variant styles
+      expect(button).toHaveClass('btn-primary'); // Still has variant styles
     });
   });
 

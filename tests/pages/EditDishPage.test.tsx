@@ -87,7 +87,7 @@ describe('EditDishPage', () => {
       renderEditDishPage(dish.id);
 
       expect(
-        screen.getByText('Update or remove this dish from your collection')
+        screen.getByText('Update or remove this dish')
       ).toBeInTheDocument();
     });
 

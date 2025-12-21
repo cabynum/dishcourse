@@ -199,7 +199,8 @@ describe('PlanPage', () => {
 
         await waitFor(() => {
           const sevenButton = screen.getByRole('button', { name: '7' });
-          expect(sevenButton).toHaveClass('bg-amber-500');
+          // Selected day count uses accent color via inline style
+          expect(sevenButton.style.backgroundColor).toBe('var(--color-accent)');
         });
       });
 
@@ -213,8 +214,9 @@ describe('PlanPage', () => {
 
         await user.click(screen.getByRole('button', { name: '3' }));
 
-        expect(screen.getByRole('button', { name: '3' })).toHaveClass('bg-amber-500');
-        expect(screen.getByRole('button', { name: '7' })).not.toHaveClass('bg-amber-500');
+        // Selected uses accent color, unselected uses card background
+        expect(screen.getByRole('button', { name: '3' }).style.backgroundColor).toBe('var(--color-accent)');
+        expect(screen.getByRole('button', { name: '7' }).style.backgroundColor).toBe('var(--color-card)');
       });
 
       it('has Create Plan button', async () => {

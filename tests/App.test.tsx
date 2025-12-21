@@ -8,9 +8,10 @@ describe('App', () => {
     expect(screen.getByText('AliCooks')).toBeInTheDocument()
   })
 
-  it('renders the tagline', () => {
+  it('renders the greeting', () => {
     render(<App />)
-    expect(screen.getByText('Your meal planning companion')).toBeInTheDocument()
+    // The redesigned HomePage shows a greeting instead of tagline
+    expect(screen.getByText(/Good evening/)).toBeInTheDocument()
   })
 })
 

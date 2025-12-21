@@ -6,6 +6,7 @@
  */
 
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { useDishes } from '@/hooks';
 import { DishForm, type DishFormValues } from '@/components/meals';
 import { Card } from '@/components/ui';
@@ -33,17 +34,46 @@ export function AddDishPage() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50 p-4">
-      <div className="max-w-md mx-auto">
-        {/* Header */}
-        <header className="mb-6">
-          <h1 className="text-2xl font-bold text-stone-900">Add a Dish</h1>
-          <p className="text-stone-600 mt-1">
-            Add a new dish to your collection
-          </p>
-        </header>
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
+      {/* Header */}
+      <header
+        className="sticky top-0 z-10 border-b backdrop-blur-sm"
+        style={{
+          backgroundColor: 'rgba(255, 254, 247, 0.95)',
+          borderColor: 'var(--color-bg-muted)',
+        }}
+      >
+        <div className="max-w-lg mx-auto px-4 py-4">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="p-2 -ml-2 rounded-xl transition-colors hover:bg-black/5 focus:outline-none focus-visible:ring-2"
+              style={{ color: 'var(--color-text)' }}
+              aria-label="Go back"
+            >
+              <ArrowLeft size={20} strokeWidth={2} />
+            </button>
+            <div>
+              <h1
+                className="text-xl font-bold"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  color: 'var(--color-text)',
+                }}
+              >
+                Add a Dish
+              </h1>
+              <p style={{ color: 'var(--color-text-muted)' }} className="text-sm">
+                Add a new dish to your collection
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
 
-        {/* Form in a card */}
+      {/* Main content */}
+      <main className="max-w-lg mx-auto px-4 py-6">
         <Card padding="lg">
           <DishForm
             onSubmit={handleSubmit}
@@ -52,7 +82,7 @@ export function AddDishPage() {
             existingNames={existingNames}
           />
         </Card>
-      </div>
+      </main>
     </div>
   );
 }

@@ -108,10 +108,11 @@ describe('HomePage', () => {
       expect(screen.getByRole('heading', { name: 'AliCooks' })).toBeInTheDocument();
     });
 
-    it('renders subtitle', () => {
+    it('renders greeting', () => {
       renderHomePage();
 
-      expect(screen.getByText('Your meal planning companion')).toBeInTheDocument();
+      // The redesigned HomePage shows a greeting instead of subtitle
+      expect(screen.getByText(/Good evening/)).toBeInTheDocument();
     });
 
     it('renders My Dishes section heading', () => {

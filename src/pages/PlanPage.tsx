@@ -7,54 +7,10 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ArrowLeft, Calendar } from 'lucide-react';
 import { usePlans, useDishes } from '@/hooks';
 import { DaySlot } from '@/components/meals';
 import { Button, EmptyState } from '@/components/ui';
-
-/**
- * Back arrow icon for navigation
- */
-function BackIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M19 12H5M12 19l-7-7 7-7" />
-    </svg>
-  );
-}
-
-/**
- * Calendar icon for empty state
- */
-function CalendarIcon() {
-  return (
-    <svg
-      width="48"
-      height="48"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="text-amber-400"
-    >
-      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-      <line x1="16" y1="2" x2="16" y2="6" />
-      <line x1="8" y1="2" x2="8" y2="6" />
-      <line x1="3" y1="10" x2="21" y2="10" />
-    </svg>
-  );
-}
 
 /**
  * Formats a date to display as "Mon, Dec 16"
@@ -136,10 +92,19 @@ export function PlanPage() {
   // If loading, show skeleton
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-stone-50">
-        <header className="sticky top-0 z-10 bg-stone-50/95 backdrop-blur-sm border-b border-stone-200">
+      <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
+        <header
+          className="sticky top-0 z-10 border-b backdrop-blur-sm"
+          style={{
+            backgroundColor: 'rgba(255, 254, 247, 0.95)',
+            borderColor: 'var(--color-bg-muted)',
+          }}
+        >
           <div className="max-w-lg mx-auto px-4 py-4">
-            <div className="h-7 bg-stone-200 rounded w-32 animate-pulse" />
+            <div
+              className="h-7 rounded w-32 animate-pulse"
+              style={{ backgroundColor: 'var(--color-bg-muted)' }}
+            />
           </div>
         </header>
         <main className="max-w-lg mx-auto px-4 py-6">
@@ -147,7 +112,8 @@ export function PlanPage() {
             {[1, 2, 3, 4, 5, 6, 7].map((i) => (
               <div
                 key={i}
-                className="h-20 bg-stone-100 rounded-xl animate-pulse"
+                className="h-20 rounded-xl animate-pulse"
+                style={{ backgroundColor: 'var(--color-bg-muted)' }}
               />
             ))}
           </div>
@@ -159,29 +125,37 @@ export function PlanPage() {
   // Show create plan UI if no planId or creating new plan
   if (isCreatingPlan || !currentPlan) {
     return (
-      <div className="min-h-screen bg-stone-50">
+      <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
         {/* Header */}
-        <header className="sticky top-0 z-10 bg-stone-50/95 backdrop-blur-sm border-b border-stone-200">
+        <header
+          className="sticky top-0 z-10 border-b backdrop-blur-sm"
+          style={{
+            backgroundColor: 'rgba(255, 254, 247, 0.95)',
+            borderColor: 'var(--color-bg-muted)',
+          }}
+        >
           <div className="max-w-lg mx-auto px-4 py-4">
             <div className="flex items-center gap-3">
               <button
                 type="button"
                 onClick={handleBack}
-                className={[
-                  'p-2 -ml-2',
-                  'rounded-lg',
-                  'text-stone-600',
-                  'hover:bg-stone-100',
-                  'focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500',
-                  'transition-colors',
-                ].join(' ')}
+                className="p-2 -ml-2 rounded-xl transition-colors hover:bg-black/5 focus:outline-none focus-visible:ring-2"
+                style={{ color: 'var(--color-text)' }}
                 aria-label="Go back"
               >
-                <BackIcon />
+                <ArrowLeft size={20} strokeWidth={2} />
               </button>
               <div>
-                <h1 className="text-xl font-bold text-stone-900">Plan a Menu</h1>
-                <p className="text-sm text-stone-500">
+                <h1
+                  className="text-xl font-bold"
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    color: 'var(--color-text)',
+                  }}
+                >
+                  Plan a Menu
+                </h1>
+                <p style={{ color: 'var(--color-text-muted)' }} className="text-sm">
                   Choose how many days to plan
                 </p>
               </div>
@@ -193,7 +167,13 @@ export function PlanPage() {
         <main className="max-w-lg mx-auto px-4 py-8">
           {dishes.length === 0 ? (
             <EmptyState
-              icon={<CalendarIcon />}
+              icon={
+                <Calendar
+                  size={48}
+                  strokeWidth={1.5}
+                  style={{ color: 'var(--color-accent)' }}
+                />
+              }
               title="Add Some Dishes First"
               message="You'll need dishes in your collection before you can plan meals."
               action={{
@@ -205,7 +185,10 @@ export function PlanPage() {
             <div className="space-y-8">
               {/* Day count selector */}
               <div>
-                <label className="block text-sm font-medium text-stone-700 mb-3">
+                <label
+                  className="block text-sm font-medium mb-3"
+                  style={{ color: 'var(--color-text)' }}
+                >
                   How many days?
                 </label>
                 <div className="grid grid-cols-4 gap-2">
@@ -214,33 +197,45 @@ export function PlanPage() {
                       key={count}
                       type="button"
                       onClick={() => setSelectedDayCount(count)}
-                      className={[
-                        'py-3 px-4',
-                        'rounded-xl',
-                        'text-center',
-                        'font-medium',
-                        'transition-all duration-150',
-                        'focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2',
+                      className="py-3 px-4 rounded-xl text-center font-medium transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                      style={
                         selectedDayCount === count
-                          ? 'bg-amber-500 text-white shadow-md'
-                          : 'bg-white border border-stone-200 text-stone-700 hover:border-stone-300',
-                      ].join(' ')}
+                          ? {
+                              backgroundColor: 'var(--color-accent)',
+                              color: 'var(--color-primary)',
+                              boxShadow: 'var(--shadow-md)',
+                            }
+                          : {
+                              backgroundColor: 'var(--color-card)',
+                              color: 'var(--color-text)',
+                              border: '1px solid var(--color-bg-muted)',
+                            }
+                      }
                     >
                       {count}
                     </button>
                   ))}
                 </div>
-                <p className="text-sm text-stone-500 mt-2">
+                <p className="text-sm mt-2" style={{ color: 'var(--color-text-muted)' }}>
                   Starting from today
                 </p>
               </div>
 
               {/* Preview */}
-              <div className="bg-white rounded-xl border border-stone-200 p-4">
-                <h2 className="text-sm font-medium text-stone-700 mb-2">
+              <div
+                className="rounded-xl p-4"
+                style={{
+                  backgroundColor: 'var(--color-card)',
+                  border: '1px solid var(--color-bg-muted)',
+                }}
+              >
+                <h2
+                  className="text-sm font-medium mb-2"
+                  style={{ color: 'var(--color-text)' }}
+                >
                   Your plan will cover:
                 </h2>
-                <p className="text-stone-600">
+                <p style={{ color: 'var(--color-text-muted)' }}>
                   {formatDateHeader(today)} – {formatDateHeader(
                     new Date(
                       new Date().getTime() + (selectedDayCount - 1) * 24 * 60 * 60 * 1000
@@ -254,7 +249,7 @@ export function PlanPage() {
               {/* Create button */}
               <Button variant="primary" fullWidth onClick={handleCreatePlan}>
                 <span className="flex items-center justify-center gap-2">
-                  <span>📅</span>
+                  <Calendar size={20} strokeWidth={2} />
                   <span>Create Plan</span>
                 </span>
               </Button>
@@ -267,31 +262,37 @@ export function PlanPage() {
 
   // Show existing plan
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-stone-50/95 backdrop-blur-sm border-b border-stone-200">
+      <header
+        className="sticky top-0 z-10 border-b backdrop-blur-sm"
+        style={{
+          backgroundColor: 'rgba(255, 254, 247, 0.95)',
+          borderColor: 'var(--color-bg-muted)',
+        }}
+      >
         <div className="max-w-lg mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={handleBack}
-              className={[
-                'p-2 -ml-2',
-                'rounded-lg',
-                'text-stone-600',
-                'hover:bg-stone-100',
-                'focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500',
-                'transition-colors',
-              ].join(' ')}
+              className="p-2 -ml-2 rounded-xl transition-colors hover:bg-black/5 focus:outline-none focus-visible:ring-2"
+              style={{ color: 'var(--color-text)' }}
               aria-label="Go back"
             >
-              <BackIcon />
+              <ArrowLeft size={20} strokeWidth={2} />
             </button>
             <div>
-              <h1 className="text-xl font-bold text-stone-900">
+              <h1
+                className="text-xl font-bold"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  color: 'var(--color-text)',
+                }}
+              >
                 {currentPlan.name}
               </h1>
-              <p className="text-sm text-stone-500">
+              <p style={{ color: 'var(--color-text-muted)' }} className="text-sm">
                 {formatDateHeader(currentPlan.startDate)} – {formatDateHeader(
                   currentPlan.days[currentPlan.days.length - 1]?.date || currentPlan.startDate
                 )}
@@ -320,10 +321,16 @@ export function PlanPage() {
         </div>
 
         {/* Stats */}
-        <div className="mt-6 p-4 bg-white rounded-xl border border-stone-200">
+        <div
+          className="mt-6 p-4 rounded-xl"
+          style={{
+            backgroundColor: 'var(--color-card)',
+            border: '1px solid var(--color-bg-muted)',
+          }}
+        >
           <div className="flex justify-between text-sm">
-            <span className="text-stone-500">Days planned</span>
-            <span className="font-medium text-stone-700">
+            <span style={{ color: 'var(--color-text-muted)' }}>Days planned</span>
+            <span className="font-medium" style={{ color: 'var(--color-text)' }}>
               {daysWithDishes.filter((d) => d.dishes.length > 0).length} of {daysWithDishes.length}
             </span>
           </div>
@@ -346,4 +353,3 @@ export function PlanPage() {
     </div>
   );
 }
-
