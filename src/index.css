@@ -1,9 +1,72 @@
 @import "tailwindcss";
 
-/* Base styles - will be customized as we build components */
+/* ============================================================================
+   AliCooks Design System: Sunflower & Charcoal
+   ============================================================================ */
+
+:root {
+  /* Primary Colors */
+  --color-primary: #2C2C2C;           /* Charcoal - headers, nav */
+  --color-primary-light: #454545;     /* Lighter charcoal for hover */
+  
+  /* Accent Colors */
+  --color-secondary: #DAA520;         /* Goldenrod - links, badges */
+  --color-accent: #FFB800;            /* Sunflower - buttons, FAB */
+  --color-accent-hover: #E5A600;      /* Darker sunflower for hover */
+  
+  /* Backgrounds */
+  --color-bg: #FFFEF7;                /* Warm white */
+  --color-card: #FFFFFF;              /* Pure white cards */
+  --color-bg-muted: #F5F4F0;          /* Muted background */
+  
+  /* Text */
+  --color-text: #2C2C2C;              /* Primary text */
+  --color-text-muted: #6B6B6B;        /* Secondary text */
+  --color-text-light: #9A9A9A;        /* Tertiary text */
+  
+  /* Semantic Colors */
+  --color-success: #22C55E;
+  --color-error: #EF4444;
+  
+  /* Dish Type Colors (flat) */
+  --color-entree-bg: #FFE4B5;         /* Warm peach */
+  --color-side-bg: #C8E6C9;           /* Sage green */
+  
+  /* Typography */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  /* Spacing & Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+  
+  /* Shadows (subtle) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Base styles */
 body {
   margin: 0;
   min-height: 100vh;
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography utilities */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
 }
 
 /* ============================================================================
@@ -30,11 +93,11 @@ body {
 @keyframes gentle-pulse {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 10px 15px -3px rgba(251, 191, 36, 0.3);
+    box-shadow: 0 10px 15px -3px rgba(255, 184, 0, 0.3);
   }
   50% {
     transform: scale(1.02);
-    box-shadow: 0 20px 25px -5px rgba(251, 191, 36, 0.4);
+    box-shadow: 0 20px 25px -5px rgba(255, 184, 0, 0.4);
   }
 }
 
@@ -69,9 +132,9 @@ body {
 .animate-shimmer {
   background: linear-gradient(
     90deg,
-    rgba(251, 191, 36, 0.1) 0%,
-    rgba(251, 191, 36, 0.3) 50%,
-    rgba(251, 191, 36, 0.1) 100%
+    rgba(255, 184, 0, 0.1) 0%,
+    rgba(255, 184, 0, 0.3) 50%,
+    rgba(255, 184, 0, 0.1) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;

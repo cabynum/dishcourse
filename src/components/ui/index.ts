@@ -1,6 +1,7 @@
 // UI primitives (Button, Input, Card, EmptyState, ErrorBoundary, etc.)
 // Re-export components as they're created
 
+export { BottomNav } from './BottomNav';
 export { Button, type ButtonProps } from './Button';
 export { Card, type CardProps } from './Card';
 export { CookTimePicker, type CookTimePickerProps, formatCookTime } from './CookTimePicker';

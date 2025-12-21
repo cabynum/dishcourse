@@ -25,22 +25,29 @@ export interface DishCardProps {
 
 /**
  * Badge styling for each dish type
+ * Uses CSS custom properties from the design system
  */
-const typeBadgeStyles: Record<DishType, { bg: string; text: string; label: string }> = {
+const typeBadgeStyles: Record<DishType, { label: string; style: React.CSSProperties }> = {
   entree: {
-    bg: 'bg-amber-100',
-    text: 'text-amber-700',
     label: 'Entree',
+    style: {
+      backgroundColor: 'var(--color-entree-bg)',
+      color: '#92400E', // Warm brown for contrast
+    },
   },
   side: {
-    bg: 'bg-emerald-100',
-    text: 'text-emerald-700',
     label: 'Side',
+    style: {
+      backgroundColor: 'var(--color-side-bg)',
+      color: '#166534', // Deep green for contrast
+    },
   },
   other: {
-    bg: 'bg-stone-100',
-    text: 'text-stone-600',
     label: 'Other',
+    style: {
+      backgroundColor: 'var(--color-bg-muted)',
+      color: 'var(--color-text-muted)',
+    },
   },
 };
 
@@ -94,9 +101,8 @@ export function DishCard({
   const containerClasses = [
     // Base styles
     'w-full',
-    'bg-white rounded-xl',
+    'rounded-xl',
     'border',
-    selected ? 'border-amber-500 ring-2 ring-amber-500/20' : 'border-stone-200',
     // Padding based on compact mode
     compact ? 'px-3 py-2' : 'px-4 py-3',
     // Minimum touch target
@@ -107,20 +113,28 @@ export function DishCard({
     isInteractive && !shouldShowIcons && [
       'cursor-pointer',
       'transition-all duration-150',
-      'hover:border-stone-300 hover:shadow-sm',
-      'focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2',
+      'hover:shadow-md',
+      'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
       'active:scale-[0.98]',
     ],
     // Interactive styles when we have icons (div container)
     isInteractive && shouldShowIcons && [
       'cursor-pointer',
       'transition-all duration-150',
-      'hover:border-stone-300 hover:shadow-sm',
+      'hover:shadow-md',
     ],
   ]
     .flat()
     .filter(Boolean)
     .join(' ');
+
+  const containerStyle: React.CSSProperties = {
+    backgroundColor: 'var(--color-card)',
+    borderColor: selected ? 'var(--color-accent)' : 'transparent',
+    boxShadow: selected 
+      ? '0 0 0 3px rgba(255, 184, 0, 0.2), var(--shadow-sm)' 
+      : 'var(--shadow-sm)',
+  };
 
   /**
    * Handle card click - only when container is a div (when we have recipe icons)
@@ -151,6 +165,7 @@ export function DishCard({
         role="button"
         tabIndex={0}
         className={containerClasses}
+        style={containerStyle}
         onClick={handleCardClick}
         onKeyDown={handleKeyDown}
         aria-label={`${dish.name}, ${badge.label}`}
@@ -161,8 +176,8 @@ export function DishCard({
             'truncate flex-1 text-left',
             'font-medium',
             compact ? 'text-sm' : 'text-base',
-            'text-stone-800',
           ].join(' ')}
+          style={{ color: 'var(--color-text)' }}
         >
           {dish.name}
         </span>
@@ -194,13 +209,8 @@ export function DishCard({
           {/* Type badge */}
           {showType && (
             <span
-              className={[
-                'px-2 py-0.5',
-                'text-xs font-medium',
-                'rounded-full',
-                badge.bg,
-                badge.text,
-              ].join(' ')}
+              className="px-2.5 py-1 text-xs font-semibold rounded-full"
+              style={badge.style}
             >
               {badge.label}
             </span>
@@ -219,8 +229,8 @@ export function DishCard({
           'truncate flex-1 text-left',
           'font-medium',
           compact ? 'text-sm' : 'text-base',
-          'text-stone-800',
         ].join(' ')}
+        style={{ color: 'var(--color-text)' }}
       >
         {dish.name}
       </span>
@@ -253,13 +263,8 @@ export function DishCard({
         {/* Type badge */}
         {showType && (
           <span
-            className={[
-              'px-2 py-0.5',
-              'text-xs font-medium',
-              'rounded-full',
-              badge.bg,
-              badge.text,
-            ].join(' ')}
+            className="px-2.5 py-1 text-xs font-semibold rounded-full"
+            style={badge.style}
           >
             {badge.label}
           </span>
@@ -274,6 +279,7 @@ export function DishCard({
       <button
         type="button"
         className={containerClasses}
+        style={containerStyle}
         onClick={onClick}
         aria-label={`${dish.name}, ${badge.label}`}
       >
@@ -283,5 +289,9 @@ export function DishCard({
   }
 
   // Non-interactive
-  return <div className={containerClasses}>{content}</div>;
+  return (
+    <div className={containerClasses} style={containerStyle}>
+      {content}
+    </div>
+  );
 }

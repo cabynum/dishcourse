@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import {
   HomePage,
   AddDishPage,
@@ -8,12 +8,37 @@ import {
   DayAssignmentPage,
   SettingsPage,
 } from '@/pages';
-import { ErrorBoundary } from '@/components/ui';
+import { ErrorBoundary, BottomNav } from '@/components/ui';
+
+/**
+ * Pages where the bottom nav should be hidden (forms, detail views)
+ */
+const HIDE_NAV_PATHS = ['/add', '/edit', '/plan/'];
+
+/**
+ * Layout wrapper that conditionally shows the bottom navigation
+ */
+function AppLayout({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  
+  // Hide nav on form pages and detail views
+  const showNav = !HIDE_NAV_PATHS.some((path) => 
+    location.pathname.startsWith(path) && location.pathname !== '/plan'
+  );
+
+  return (
+    <>
+      {children}
+      {showNav && <BottomNav />}
+    </>
+  );
+}
 
 /**
  * App - Root component with routing configuration.
  *
  * Wrapped in ErrorBoundary to catch and display errors gracefully.
+ * Includes bottom navigation on main pages.
  *
  * Routes:
  * - "/" : HomePage (dish list and main actions)
@@ -29,16 +54,18 @@ function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/add" element={<AddDishPage />} />
-          <Route path="/edit/:dishId" element={<EditDishPage />} />
-          <Route path="/suggest" element={<SuggestionPage />} />
-          <Route path="/plan" element={<PlanPage />} />
-          <Route path="/plan/:planId" element={<PlanPage />} />
-          <Route path="/plan/:planId/:date" element={<DayAssignmentPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-        </Routes>
+        <AppLayout>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/add" element={<AddDishPage />} />
+            <Route path="/edit/:dishId" element={<EditDishPage />} />
+            <Route path="/suggest" element={<SuggestionPage />} />
+            <Route path="/plan" element={<PlanPage />} />
+            <Route path="/plan/:planId" element={<PlanPage />} />
+            <Route path="/plan/:planId/:date" element={<DayAssignmentPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+          </Routes>
+        </AppLayout>
       </BrowserRouter>
     </ErrorBoundary>
   );

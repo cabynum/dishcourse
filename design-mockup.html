@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AliCooks Design Mockup</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Color Scheme A: Forest & Cream (Starbucks-inspired) */
+      --scheme-a-primary: #1E3932;
+      --scheme-a-primary-light: #2D5A4A;
+      --scheme-a-secondary: #00754A;
+      --scheme-a-accent: #D4A574;
+      --scheme-a-bg: #F7F4EF;
+      --scheme-a-card: #FFFFFF;
+      --scheme-a-text: #1E3932;
+      --scheme-a-text-muted: #5A6B5C;
+
+      /* Color Scheme B: Sage & Sand (Soft Earth) */
+      --scheme-b-primary: #4A5D4A;
+      --scheme-b-primary-light: #6B7D6B;
+      --scheme-b-secondary: #8BA888;
+      --scheme-b-accent: #E07B53;
+      --scheme-b-bg: #FAF8F5;
+      --scheme-b-card: #FFFFFF;
+      --scheme-b-text: #3D4A3D;
+      --scheme-b-text-muted: #7A8A7A;
+
+      /* Color Scheme C: Deep Teal & Warm Gold */
+      --scheme-c-primary: #1A4D4D;
+      --scheme-c-primary-light: #2A6B6B;
+      --scheme-c-secondary: #3D8B8B;
+      --scheme-c-accent: #D4915A;
+      --scheme-c-bg: #F5F7F6;
+      --scheme-c-card: #FFFFFF;
+      --scheme-c-text: #1A3D3D;
+      --scheme-c-text-muted: #5A7A7A;
+
+      /* Active scheme (defaults to A) */
+      --primary: var(--scheme-a-primary);
+      --primary-light: var(--scheme-a-primary-light);
+      --secondary: var(--scheme-a-secondary);
+      --accent: var(--scheme-a-accent);
+      --bg: var(--scheme-a-bg);
+      --card: var(--scheme-a-card);
+      --text: var(--scheme-a-text);
+      --text-muted: var(--scheme-a-text-muted);
+
+      /* Constants */
+      --radius: 20px;
+      --radius-lg: 28px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      gap: 40px;
+      padding: 40px;
+    }
+
+    /* ========== Color Picker Panel ========== */
+    .color-panel {
+      width: 320px;
+      flex-shrink: 0;
+      color: #fff;
+    }
+
+    .color-panel h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+
+    .scheme-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .scheme-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .scheme-btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .scheme-btn.active {
+      border-color: var(--accent);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .scheme-colors {
+      display: flex;
+      gap: 4px;
+    }
+
+    .scheme-swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+    }
+
+    .scheme-name {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .color-var {
+      margin-bottom: 16px;
+    }
+
+    .color-var label {
+      display: block;
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .color-input-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .color-input-row input[type="color"] {
+      width: 44px;
+      height: 36px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .color-input-row input[type="text"] {
+      flex: 1;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      color: #fff;
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 24px 0;
+    }
+
+    .tip {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    .photo-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .photo-btn {
+      aspect-ratio: 1;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      background: rgba(255,255,255,0.1);
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .photo-btn:hover {
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .photo-btn.active {
+      border-color: var(--accent);
+    }
+
+    .photo-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ========== Phone Mockup ========== */
+    .phone-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      background: #000;
+      border-radius: 50px;
+      padding: 12px;
+      box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      border-radius: 40px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ========== App UI ========== */
+    .app-header {
+      background: var(--primary);
+      padding: 56px 20px 24px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-header.with-photo {
+      background: none;
+    }
+
+    .header-photo {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+
+    .header-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.5) 0%,
+        rgba(0, 0, 0, 0.7) 100%
+      );
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .greeting {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 4px;
+    }
+
+    .app-title {
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .action-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      border-radius: var(--radius);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    .action-btn.accent {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    .action-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Main Content */
+    .app-content {
+      padding: 20px;
+      height: calc(100% - 180px);
+      overflow-y: auto;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .section-action {
+      font-size: 14px;
+      color: var(--secondary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Plan Card */
+    .plan-card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .plan-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .plan-title {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .plan-badge {
+      background: var(--secondary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .plan-days {
+      display: flex;
+      gap: 6px;
+    }
+
+    .day-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .day-dot.filled {
+      background: var(--secondary);
+      color: #fff;
+    }
+
+    .day-dot span:first-child {
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    /* Dish Cards */
+    .dish-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dish-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .dish-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .dish-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .dish-icon.entree {
+      background: #FFE4B5;
+    }
+
+    .dish-icon.side {
+      background: #C8E6C9;
+    }
+
+    .dish-info {
+      flex: 1;
+    }
+
+    .dish-name {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .dish-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .dish-arrow {
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+
+    /* FAB */
+    .fab {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      background: var(--accent);
+      border: none;
+      border-radius: 50%;
+      color: var(--primary);
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 16px;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-item svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Utilities */
+    .mt-4 { margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <!-- Color Picker Panel -->
+  <div class="color-panel">
+    <h2>Color Schemes</h2>
+    
+    <div class="scheme-selector">
+      <button class="scheme-btn active" onclick="setScheme('a')">
+        <div class="scheme-colors">
+          <div class="scheme-swatch" style="background: #1E3932"></div>
+          <div class="scheme-swatch" style="background: #00754A"></div>
+          <div class="scheme-swatch" style="background: #D4A574"></div>
+          <div class="scheme-swatch" style="background: #F7F4EF"></div>
+        </div>
+        <span class="scheme-name">Forest & Cream</span>
+      </button>
+      
+      <button class="scheme-btn" onclick="setScheme('b')">
+        <div class="scheme-colors">
+          <div class="scheme-swatch" style="background: #4A5D4A"></div>
+          <div class="scheme-swatch" style="background: #8BA888"></div>
+          <div class="scheme-swatch" style="background: #E07B53"></div>
+          <div class="scheme-swatch" style="background: #FAF8F5"></div>
+        </div>
+        <span class="scheme-name">Sage & Terracotta</span>
+      </button>
+      
+      <button class="scheme-btn" onclick="setScheme('c')">
+        <div class="scheme-colors">
+          <div class="scheme-swatch" style="background: #1A4D4D"></div>
+          <div class="scheme-swatch" style="background: #3D8B8B"></div>
+          <div class="scheme-swatch" style="background: #D4915A"></div>
+          <div class="scheme-swatch" style="background: #F5F7F6"></div>
+        </div>
+        <span class="scheme-name">Deep Teal & Gold</span>
+      </button>
+      
+      <button class="scheme-btn" onclick="setScheme('d')">
+        <div class="scheme-colors">
+          <div class="scheme-swatch" style="background: #3D3A2E"></div>
+          <div class="scheme-swatch" style="background: #C9A227"></div>
+          <div class="scheme-swatch" style="background: #E5A833"></div>
+          <div class="scheme-swatch" style="background: #FBF8F1"></div>
+        </div>
+        <span class="scheme-name">Honey & Olive</span>
+      </button>
+      
+      <button class="scheme-btn" onclick="setScheme('e')">
+        <div class="scheme-colors">
+          <div class="scheme-swatch" style="background: #2C2C2C"></div>
+          <div class="scheme-swatch" style="background: #DAA520"></div>
+          <div class="scheme-swatch" style="background: #FFB800"></div>
+          <div class="scheme-swatch" style="background: #FFFEF7"></div>
+        </div>
+        <span class="scheme-name">Sunflower & Charcoal</span>
+      </button>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2>Fine-Tune Colors</h2>
+    
+    <div class="color-var">
+      <label>Primary (Header, Nav)</label>
+      <div class="color-input-row">
+        <input type="color" id="primary-picker" value="#1E3932" onchange="updateColor('primary', this.value)">
+        <input type="text" id="primary-text" value="#1E3932" onchange="updateColor('primary', this.value)">
+      </div>
+    </div>
+
+    <div class="color-var">
+      <label>Secondary (Buttons, Links)</label>
+      <div class="color-input-row">
+        <input type="color" id="secondary-picker" value="#00754A" onchange="updateColor('secondary', this.value)">
+        <input type="text" id="secondary-text" value="#00754A" onchange="updateColor('secondary', this.value)">
+      </div>
+    </div>
+
+    <div class="color-var">
+      <label>Accent (FAB, Highlights)</label>
+      <div class="color-input-row">
+        <input type="color" id="accent-picker" value="#D4A574" onchange="updateColor('accent', this.value)">
+        <input type="text" id="accent-text" value="#D4A574" onchange="updateColor('accent', this.value)">
+      </div>
+    </div>
+
+    <div class="color-var">
+      <label>Background</label>
+      <div class="color-input-row">
+        <input type="color" id="bg-picker" value="#F7F4EF" onchange="updateColor('bg', this.value)">
+        <input type="text" id="bg-text" value="#F7F4EF" onchange="updateColor('bg', this.value)">
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="tip">
+      💡 <strong>Tip:</strong> Click the color swatches or type hex values to experiment. 
+      The phone mockup updates in real-time!
+    </p>
+
+    <div class="divider"></div>
+
+    <h2>Header Photo</h2>
+    <p class="tip" style="margin-bottom: 12px;">
+      All photos from <a href="https://unsplash.com" target="_blank" style="color: var(--accent);">Unsplash</a> (free, high-quality)
+    </p>
+    
+    <div class="photo-selector">
+      <button class="photo-btn active" onclick="setPhoto(0)" title="Colorful salad bowl">
+        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=100&q=60" alt="Salad">
+      </button>
+      <button class="photo-btn" onclick="setPhoto(1)" title="Pasta dish">
+        <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=100&q=60" alt="Pasta">
+      </button>
+      <button class="photo-btn" onclick="setPhoto(2)" title="Fresh vegetables">
+        <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=100&q=60" alt="Vegetables">
+      </button>
+      <button class="photo-btn" onclick="setPhoto(3)" title="Breakfast spread">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=100&q=60" alt="Breakfast">
+      </button>
+      <button class="photo-btn" onclick="setPhoto(4)" title="Grilled salmon">
+        <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=100&q=60" alt="Salmon">
+      </button>
+      <button class="photo-btn" onclick="setPhoto(5)" title="No photo (solid color)">
+        <span style="font-size: 18px;">✕</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Phone Mockup -->
+  <div class="phone-container">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <!-- Header with Food Photo -->
+        <div class="app-header with-photo">
+          <!-- Rotating food photos from Unsplash (free, high-quality) -->
+          <div class="header-photo" id="headerPhoto" style="background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80')"></div>
+          
+          <div class="header-content">
+            <div class="header-top">
+              <div>
+                <div class="greeting">Good evening, Aliya 👋</div>
+                <div class="app-title">AliCooks</div>
+              </div>
+              <div class="avatar">🍳</div>
+            </div>
+            <div class="quick-actions">
+              <button class="action-btn">
+                <!-- Calendar icon - Lucide style, stroke-width 2 -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                Plan
+              </button>
+              <button class="action-btn accent">
+                <!-- Dice/Shuffle icon - Lucide style, stroke-width 2 -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="2.5"></rect>
+                  <circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none"></circle>
+                  <circle cx="16" cy="8" r="1.5" fill="currentColor" stroke="none"></circle>
+                  <circle cx="8" cy="16" r="1.5" fill="currentColor" stroke="none"></circle>
+                  <circle cx="16" cy="16" r="1.5" fill="currentColor" stroke="none"></circle>
+                  <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"></circle>
+                </svg>
+                Suggest
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="app-content">
+          <!-- Current Plan -->
+          <div class="section-header">
+            <h2 class="section-title">This Week</h2>
+            <a href="#" class="section-action">View all</a>
+          </div>
+
+          <div class="plan-card">
+            <div class="plan-header">
+              <span class="plan-title">Week of Dec 21</span>
+              <span class="plan-badge">Active</span>
+            </div>
+            <div class="plan-days">
+              <div class="day-dot filled">
+                <span>S</span>
+                <span>21</span>
+              </div>
+              <div class="day-dot filled">
+                <span>M</span>
+                <span>22</span>
+              </div>
+              <div class="day-dot">
+                <span>T</span>
+                <span>23</span>
+              </div>
+              <div class="day-dot">
+                <span>W</span>
+                <span>24</span>
+              </div>
+              <div class="day-dot filled">
+                <span>T</span>
+                <span>25</span>
+              </div>
+              <div class="day-dot">
+                <span>F</span>
+                <span>26</span>
+              </div>
+              <div class="day-dot">
+                <span>S</span>
+                <span>27</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dishes -->
+          <div class="section-header mt-4">
+            <h2 class="section-title">My Dishes</h2>
+            <a href="#" class="section-action">+ Add</a>
+          </div>
+
+          <div class="dish-list">
+            <div class="dish-card">
+              <div class="dish-icon entree">🍝</div>
+              <div class="dish-info">
+                <div class="dish-name">Spaghetti Bolognese</div>
+                <div class="dish-meta">Entree · 45 min</div>
+              </div>
+              <div class="dish-arrow">›</div>
+            </div>
+
+            <div class="dish-card">
+              <div class="dish-icon entree">🍗</div>
+              <div class="dish-info">
+                <div class="dish-name">Lemon Herb Chicken</div>
+                <div class="dish-meta">Entree · 35 min</div>
+              </div>
+              <div class="dish-arrow">›</div>
+            </div>
+
+            <div class="dish-card">
+              <div class="dish-icon side">🥗</div>
+              <div class="dish-info">
+                <div class="dish-name">Garden Salad</div>
+                <div class="dish-meta">Side · 10 min</div>
+              </div>
+              <div class="dish-arrow">›</div>
+            </div>
+
+            <div class="dish-card">
+              <div class="dish-icon side">🍞</div>
+              <div class="dish-info">
+                <div class="dish-name">Garlic Bread</div>
+                <div class="dish-meta">Side · 15 min</div>
+              </div>
+              <div class="dish-arrow">›</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAB -->
+        <button class="fab">+</button>
+
+        <!-- Bottom Nav - All icons stroke-width 2 for consistency -->
+        <div class="bottom-nav">
+          <div class="nav-item active">
+            <!-- Home icon - stroke-width 2 -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            Home
+          </div>
+          <div class="nav-item">
+            <!-- Search icon - stroke-width 2 -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+            Search
+          </div>
+          <div class="nav-item">
+            <!-- Calendar icon - stroke-width 2 -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Plans
+          </div>
+          <div class="nav-item">
+            <!-- Settings icon - stroke-width 2 -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+            Settings
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const schemes = {
+      a: {
+        primary: '#1E3932',
+        'primary-light': '#2D5A4A',
+        secondary: '#00754A',
+        accent: '#D4A574',
+        bg: '#F7F4EF',
+        card: '#FFFFFF',
+        text: '#1E3932',
+        'text-muted': '#5A6B5C'
+      },
+      b: {
+        primary: '#4A5D4A',
+        'primary-light': '#6B7D6B',
+        secondary: '#8BA888',
+        accent: '#E07B53',
+        bg: '#FAF8F5',
+        card: '#FFFFFF',
+        text: '#3D4A3D',
+        'text-muted': '#7A8A7A'
+      },
+      c: {
+        primary: '#1A4D4D',
+        'primary-light': '#2A6B6B',
+        secondary: '#3D8B8B',
+        accent: '#D4915A',
+        bg: '#F5F7F6',
+        card: '#FFFFFF',
+        text: '#1A3D3D',
+        'text-muted': '#5A7A7A'
+      },
+      d: {
+        primary: '#3D3A2E',
+        'primary-light': '#5A5744',
+        secondary: '#C9A227',
+        accent: '#E5A833',
+        bg: '#FBF8F1',
+        card: '#FFFFFF',
+        text: '#3D3A2E',
+        'text-muted': '#7A7660'
+      },
+      e: {
+        primary: '#2C2C2C',
+        'primary-light': '#454545',
+        secondary: '#DAA520',
+        accent: '#FFB800',
+        bg: '#FFFEF7',
+        card: '#FFFFFF',
+        text: '#2C2C2C',
+        'text-muted': '#6B6B6B'
+      }
+    };
+
+    function setScheme(scheme) {
+      const colors = schemes[scheme];
+      const root = document.documentElement;
+      
+      // Update CSS variables
+      Object.entries(colors).forEach(([key, value]) => {
+        root.style.setProperty(`--${key}`, value);
+      });
+
+      // Update input fields
+      ['primary', 'secondary', 'accent', 'bg'].forEach(key => {
+        document.getElementById(`${key}-picker`).value = colors[key];
+        document.getElementById(`${key}-text`).value = colors[key];
+      });
+
+      // Update active button
+      document.querySelectorAll('.scheme-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`[onclick="setScheme('${scheme}')"]`).classList.add('active');
+    }
+
+    function updateColor(name, value) {
+      // Validate hex
+      if (!/^#[0-9A-Fa-f]{6}$/.test(value)) return;
+      
+      document.documentElement.style.setProperty(`--${name}`, value);
+      document.getElementById(`${name}-picker`).value = value;
+      document.getElementById(`${name}-text`).value = value;
+
+      // Clear active scheme since we're custom now
+      document.querySelectorAll('.scheme-btn').forEach(btn => btn.classList.remove('active'));
+    }
+
+    // Food photos from Unsplash (free, open source)
+    const photos = [
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80', // Colorful salad
+      'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=800&q=80', // Pasta
+      'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80', // Vegetables
+      'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80', // Breakfast
+      'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&q=60', // Salmon
+      null // No photo option
+    ];
+
+    function setPhoto(index) {
+      const header = document.querySelector('.app-header');
+      const photoEl = document.getElementById('headerPhoto');
+      
+      if (photos[index]) {
+        header.classList.add('with-photo');
+        photoEl.style.backgroundImage = `url('${photos[index]}')`;
+        photoEl.style.display = 'block';
+      } else {
+        header.classList.remove('with-photo');
+        photoEl.style.display = 'none';
+      }
+
+      // Update active button
+      document.querySelectorAll('.photo-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+      });
+    }
+  </script>
+</body>
+</html>
+

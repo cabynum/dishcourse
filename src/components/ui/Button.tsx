@@ -64,8 +64,8 @@ const baseStyles = [
   'font-semibold',
   // Touch target & sizing (minimum 44px height for mobile)
   'min-h-[44px] px-4',
-  // Rounded corners
-  'rounded-lg',
+  // Rounded corners (using design system radius)
+  'rounded-xl',
   // Transitions for smooth interactions
   'transition-all duration-150 ease-out',
   // Focus ring for accessibility
@@ -78,27 +78,31 @@ const baseStyles = [
 
 /**
  * Variant-specific styles for different visual treatments
+ * Uses CSS custom properties from the design system
  */
 const variantStyles = {
-  primary: [
-    'bg-amber-500 text-white',
-    'hover:bg-amber-600',
-    'focus-visible:ring-amber-500',
-    'shadow-sm hover:shadow-md',
-  ].join(' '),
+  primary: 'btn-primary shadow-sm hover:shadow-md',
+  secondary: 'btn-secondary border',
+  ghost: 'btn-ghost',
+};
 
-  secondary: [
-    'bg-stone-100 text-stone-800',
-    'hover:bg-stone-200',
-    'focus-visible:ring-stone-400',
-    'border border-stone-300',
-  ].join(' '),
-
-  ghost: [
-    'bg-transparent text-stone-700',
-    'hover:bg-stone-100',
-    'focus-visible:ring-stone-400',
-  ].join(' '),
+/**
+ * Inline styles for variants (using CSS variables)
+ */
+const variantInlineStyles: Record<string, React.CSSProperties> = {
+  primary: {
+    backgroundColor: 'var(--color-accent)',
+    color: 'var(--color-primary)',
+  },
+  secondary: {
+    backgroundColor: 'var(--color-bg-muted)',
+    color: 'var(--color-text)',
+    borderColor: 'var(--color-text-light)',
+  },
+  ghost: {
+    backgroundColor: 'transparent',
+    color: 'var(--color-text)',
+  },
 };
 
 /**
@@ -160,6 +164,7 @@ export function Button({
     <button
       type={type}
       className={classes}
+      style={variantInlineStyles[variant]}
       disabled={isDisabled}
       onClick={onClick}
       aria-busy={loading}
