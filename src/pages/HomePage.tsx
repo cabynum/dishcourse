@@ -11,7 +11,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Calendar, Dices } from 'lucide-react';
-import { Button } from '@/components/ui';
 import { DishList, PlanCard } from '@/components/meals';
 import { useDishes, usePlans } from '@/hooks';
 
