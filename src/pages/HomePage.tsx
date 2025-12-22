@@ -206,25 +206,15 @@ export function HomePage() {
         {/* My Plans Section - only show if there are plans */}
         {plans.length > 0 && (
           <section className="mb-6">
-            <div className="flex items-center justify-between mb-3">
-              <h2
-                className="text-xl font-semibold"
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  color: 'var(--color-text)',
-                }}
-              >
-                This Week
-              </h2>
-              <button
-                type="button"
-                onClick={() => navigate('/plan')}
-                className="text-sm font-medium"
-                style={{ color: 'var(--color-secondary)' }}
-              >
-                + New
-              </button>
-            </div>
+            <h2
+              className="text-xl font-semibold mb-3"
+              style={{
+                fontFamily: 'var(--font-display)',
+                color: 'var(--color-text)',
+              }}
+            >
+              This Week
+            </h2>
 
             <div className="space-y-2">
               {/* Show the active/current plan prominently */}
@@ -314,14 +304,13 @@ export function HomePage() {
         </section>
       </main>
 
-      {/* Floating Action Button */}
-      {dishes.length > 0 && (
-        <button
+      {/* Floating Action Button - always visible for adding dishes */}
+      <button
           type="button"
           onClick={handleAddClick}
           className={[
-            // Positioning
-            'fixed bottom-6 right-6',
+            // Positioning - above the bottom nav bar
+            'fixed bottom-24 right-6 z-50',
             // Size and shape
             'w-14 h-14 rounded-full',
             // Shadow
@@ -344,7 +333,6 @@ export function HomePage() {
         >
           <Plus size={24} strokeWidth={2.5} />
         </button>
-      )}
     </div>
   );
 }
