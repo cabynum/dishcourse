@@ -42,17 +42,13 @@ Before we end, please:
 **Current Branch**: `master`  
 **Repository**: <https://github.com/cabynum/alicooks>  
 **Live URL**: <https://alicooks.vercel.app>  
-**Current Phase**: UI Redesign complete - all pages updated
+**Current Phase**: UI Polish - FAB improvements
 
 ### Completed This Session
 
-- ✅ **Design system applied to ALL pages**:
-  - SuggestionPage, PlanPage, AddDishPage, EditDishPage, SettingsPage, DayAssignmentPage
-  - Consistent use of CSS variables (`--color-*`) for theming
-  - Fraunces font for headings, Lucide icons throughout
-  - Unified header component pattern with back navigation
-- 🔧 **DishForm enhancement**: Auto-expands extended details when editing dishes with existing cook time/URLs
-- 🧪 **Tests updated**: 627 tests passing, updated to verify design system implementation
+- ✅ **FAB always visible**: Circular + button for adding dishes now shows at all times (was hidden when no dishes existed)
+- ✅ **FAB positioning fixed**: Raised button above bottom nav bar (`bottom-28`) with proper z-index for full visibility
+- ✅ **Removed redundant UI**: Removed "+ New Plan" link from "This Week" section (Plan button in header already handles this)
 - ✅ **Deployed to Vercel**: All changes pushed to origin
 
 ### Phase Summary
