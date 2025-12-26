@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DishCourse Logo — Typography First</title>
+  <title>DishCourse Logo Exploration</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Nunito:wght@300;400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Pacifico&family=Lobster&family=Satisfy&family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=Dancing+Script:wght@400;500;600;700&family=Comfortaa:wght@300;400;500;600;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Nunito:wght@300;400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Archivo:wght@400;500;600;700;800;900&family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
     * {
@@ -18,11 +18,14 @@
     }
 
     :root {
-      --black: #000000;
+      --black: #1A1A1A;
       --white: #FFFFFF;
       --yellow: #FFB800;
-      --gray-100: #F5F5F5;
+      --yellow-dark: #E5A600;
+      --charcoal: #2D2D2D;
+      --gray-100: #F7F7F7;
       --gray-200: #E5E5E5;
+      --gray-400: #A3A3A3;
       --gray-500: #737373;
       --gray-900: #171717;
     }
@@ -31,7 +34,7 @@
       font-family: 'DM Sans', sans-serif;
       background: var(--gray-100);
       min-height: 100vh;
-      padding: 48px;
+      padding: 48px 24px;
     }
 
     .header {
@@ -41,21 +44,42 @@
 
     .header h1 {
       font-family: 'Outfit', sans-serif;
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 700;
       color: var(--gray-900);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
     .header p {
       color: var(--gray-500);
-      font-size: 15px;
+      font-size: 16px;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    .section-header {
+      text-align: center;
+      margin: 64px 0 32px;
+    }
+
+    .section-header h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 8px;
+    }
+
+    .section-header p {
+      color: var(--gray-500);
+      font-size: 14px;
     }
 
     /* Grid */
     .logo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       gap: 24px;
       max-width: 1400px;
       margin: 0 auto;
@@ -67,7 +91,7 @@
       padding: 48px 32px;
       text-align: center;
       box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-      border: 2px solid transparent;
+      border: 3px solid transparent;
       cursor: pointer;
       transition: all 0.2s ease;
     }
@@ -84,14 +108,14 @@
     .logo-card h3 {
       font-size: 11px;
       font-weight: 600;
-      color: var(--gray-500);
+      color: var(--gray-400);
       text-transform: uppercase;
       letter-spacing: 1.5px;
       margin-bottom: 32px;
     }
 
     .logo-display {
-      min-height: 100px;
+      min-height: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -100,314 +124,450 @@
     .logo-notes {
       font-size: 13px;
       color: var(--gray-500);
-      margin-top: 32px;
+      margin-top: 28px;
       line-height: 1.5;
     }
 
     /* ============================================
-       LOGO STYLES - Each is a unique treatment
+       WEIGHT CONTRAST APPROACHES
        ============================================ */
 
-    /* A: Stacked with weight contrast (Outfit) */
-    .logo-a {
+    /* 1: CamelCase with weight contrast */
+    .logo-1 {
       font-family: 'Outfit', sans-serif;
-      line-height: 0.85;
-    }
-    .logo-a .top {
-      font-size: 72px;
-      font-weight: 800;
-      color: var(--black);
-      letter-spacing: -2px;
-      display: block;
-    }
-    .logo-a .bottom {
-      font-size: 72px;
-      font-weight: 300;
-      color: var(--black);
-      letter-spacing: 8px;
-      display: block;
-    }
-
-    /* B: Inline with dot separator */
-    .logo-b {
-      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 48px;
-      font-weight: 700;
       color: var(--black);
       letter-spacing: -1px;
     }
-    .logo-b .dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      background: var(--yellow);
-      border-radius: 50%;
-      margin: 0 4px;
-      vertical-align: middle;
+    .logo-1 .dish {
+      font-weight: 800;
+    }
+    .logo-1 .course {
+      font-weight: 300;
     }
 
-    /* C: Lowercase connected script-feel */
-    .logo-c {
+    /* 2: Reversed weight */
+    .logo-2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 48px;
+      color: var(--black);
+      letter-spacing: -1px;
+    }
+    .logo-2 .dish {
+      font-weight: 300;
+    }
+    .logo-2 .course {
+      font-weight: 800;
+    }
+
+    /* 3: Plus Jakarta weight contrast */
+    .logo-3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 44px;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+    .logo-3 .dish {
+      font-weight: 700;
+    }
+    .logo-3 .course {
+      font-weight: 400;
+    }
+
+    /* 4: Sora with subtle weight */
+    .logo-4 {
       font-family: 'Sora', sans-serif;
-      font-size: 56px;
+      font-size: 44px;
+      color: var(--black);
+      letter-spacing: -1px;
+    }
+    .logo-4 .dish {
+      font-weight: 600;
+    }
+    .logo-4 .course {
+      font-weight: 400;
+    }
+
+    /* ============================================
+       COLOR DIFFERENTIATION
+       ============================================ */
+
+    /* 5: Yellow Dish */
+    .logo-5 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .logo-5 .dish {
+      color: var(--yellow);
+    }
+    .logo-5 .course {
+      color: var(--black);
+    }
+
+    /* 6: Yellow Course */
+    .logo-6 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .logo-6 .dish {
+      color: var(--black);
+    }
+    .logo-6 .course {
+      color: var(--yellow);
+    }
+
+    /* 7: Weight + Color combo */
+    .logo-7 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 44px;
+      letter-spacing: -0.5px;
+    }
+    .logo-7 .dish {
+      font-weight: 800;
+      color: var(--black);
+    }
+    .logo-7 .course {
+      font-weight: 400;
+      color: var(--yellow-dark);
+    }
+
+    /* 8: Subtle yellow on D only */
+    .logo-8 {
+      font-family: 'Lexend', sans-serif;
+      font-size: 44px;
       font-weight: 600;
       color: var(--black);
       letter-spacing: -1px;
     }
-    .logo-c .highlight {
+    .logo-8 .d-letter {
       color: var(--yellow);
     }
 
-    /* D: Stacked with yellow accent bar */
-    .logo-d {
-      font-family: 'Nunito', sans-serif;
-      position: relative;
-      display: inline-block;
-    }
-    .logo-d .top {
-      font-size: 64px;
-      font-weight: 900;
-      color: var(--black);
-      letter-spacing: -1px;
-      display: block;
-      line-height: 1;
-    }
-    .logo-d .bar {
-      height: 6px;
-      background: var(--yellow);
-      border-radius: 3px;
-      margin: 8px 0;
-    }
-    .logo-d .bottom {
-      font-size: 64px;
-      font-weight: 400;
-      color: var(--black);
-      letter-spacing: 6px;
-      display: block;
-      line-height: 1;
-    }
+    /* ============================================
+       CASE VARIATIONS
+       ============================================ */
 
-    /* E: Bold with inline yellow "i" dot */
-    .logo-e {
-      font-family: 'Poppins', sans-serif;
-      font-size: 52px;
-      font-weight: 700;
-      color: var(--black);
-      letter-spacing: -1px;
-      position: relative;
-    }
-    .logo-e .i-dot {
-      position: relative;
-    }
-    .logo-e .i-dot::after {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 12px;
-      height: 12px;
-      background: var(--yellow);
-      border-radius: 50%;
-    }
-
-    /* F: Uppercase bold mono-width */
-    .logo-f {
-      font-family: 'Outfit', sans-serif;
-      font-size: 48px;
-      font-weight: 800;
-      color: var(--black);
-      letter-spacing: 6px;
-      text-transform: uppercase;
-    }
-
-    /* G: Stacked tight with yellow underline on "ali" */
-    .logo-g {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      display: inline-block;
-      text-align: left;
-    }
-    .logo-g .top {
-      font-size: 56px;
-      font-weight: 800;
-      color: var(--black);
-      letter-spacing: -1px;
-      display: block;
-      line-height: 1;
-      border-bottom: 5px solid var(--yellow);
-      padding-bottom: 4px;
-    }
-    .logo-g .bottom {
-      font-size: 56px;
-      font-weight: 300;
-      color: var(--black);
-      letter-spacing: 4px;
-      display: block;
-      line-height: 1.2;
-    }
-
-    /* H: Circle badge with initials */
-    .logo-h {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .logo-h .badge {
-      width: 72px;
-      height: 72px;
-      background: var(--black);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .logo-h .badge span {
-      font-family: 'Outfit', sans-serif;
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--white);
-    }
-    .logo-h .text {
-      font-family: 'Outfit', sans-serif;
-      text-align: left;
-      line-height: 0.9;
-    }
-    .logo-h .text .top {
-      font-size: 40px;
-      font-weight: 800;
-      color: var(--black);
-      display: block;
-    }
-    .logo-h .text .bottom {
-      font-size: 40px;
-      font-weight: 300;
-      color: var(--black);
-      letter-spacing: 3px;
-      display: block;
-    }
-
-    /* I: Minimal with period */
-    .logo-i {
-      font-family: 'Sora', sans-serif;
-      font-size: 56px;
+    /* 9: dishCourse (lowercase d) */
+    .logo-9 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 46px;
       font-weight: 500;
       color: var(--black);
       letter-spacing: -1px;
     }
-    .logo-i .period {
-      color: var(--yellow);
+    .logo-9 .course {
       font-weight: 700;
+    }
+
+    /* 10: DISH lowercase course */
+    .logo-10 {
+      font-family: 'Archivo', sans-serif;
+      font-size: 42px;
+      color: var(--black);
+    }
+    .logo-10 .dish {
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .logo-10 .course {
+      font-weight: 400;
+      text-transform: lowercase;
+      letter-spacing: 0;
+    }
+
+    /* 11: All caps with color */
+    .logo-11 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .logo-11 .dish {
+      color: var(--black);
+    }
+    .logo-11 .course {
+      color: var(--yellow);
     }
 
     /* ============================================
-       SCRIPT / HANDWRITTEN OPTIONS
+       CREATIVE SEPARATORS
        ============================================ */
 
-    /* J: Pacifico - Classic script */
-    .logo-j {
-      font-family: 'Pacifico', cursive;
-      font-size: 56px;
-      color: var(--black);
-    }
-
-    /* K: Lobster - Bold script */
-    .logo-k {
-      font-family: 'Lobster', cursive;
-      font-size: 64px;
-      color: var(--black);
-    }
-
-    /* L: Satisfy - Elegant script */
-    .logo-l {
-      font-family: 'Satisfy', cursive;
-      font-size: 64px;
-      color: var(--black);
-    }
-
-    /* M: Caveat - Casual handwriting */
-    .logo-m {
-      font-family: 'Caveat', cursive;
-      font-size: 72px;
+    /* 12: Dot separator */
+    .logo-12 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 42px;
       font-weight: 600;
       color: var(--black);
+      letter-spacing: -0.5px;
     }
-
-    /* N: Dancing Script - Flowing */
-    .logo-n {
-      font-family: 'Dancing Script', cursive;
-      font-size: 60px;
-      font-weight: 600;
-      color: var(--black);
-    }
-
-    /* O: Kalam - Handwritten with character */
-    .logo-o {
-      font-family: 'Kalam', cursive;
-      font-size: 56px;
-      font-weight: 700;
-      color: var(--black);
-    }
-
-    /* P: Comfortaa - Rounded geometric (script-like) */
-    .logo-p {
-      font-family: 'Comfortaa', sans-serif;
-      font-size: 52px;
-      font-weight: 600;
-      color: var(--black);
-      letter-spacing: 2px;
-    }
-
-    /* Q: Baloo 2 - Bubbly rounded */
-    .logo-q {
-      font-family: 'Baloo 2', cursive;
-      font-size: 56px;
-      font-weight: 700;
-      color: var(--black);
-    }
-
-    /* R: Script + Sans combo */
-    .logo-r {
+    .logo-12 .dot {
       display: inline-block;
-      text-align: left;
-    }
-    .logo-r .top {
-      font-family: 'Pacifico', cursive;
-      font-size: 52px;
-      color: var(--black);
-      display: block;
-      line-height: 1.1;
-    }
-    .logo-r .bottom {
-      font-family: 'Outfit', sans-serif;
-      font-size: 36px;
-      font-weight: 300;
-      color: var(--black);
-      letter-spacing: 8px;
-      display: block;
+      width: 8px;
+      height: 8px;
+      background: var(--yellow);
+      border-radius: 50%;
+      margin: 0 2px;
+      vertical-align: middle;
     }
 
-    /* S: Script with yellow swash/underline */
-    .logo-s {
-      font-family: 'Lobster', cursive;
-      font-size: 60px;
+    /* 13: Slash separator */
+    .logo-13 {
+      font-family: 'Sora', sans-serif;
+      font-size: 42px;
+      font-weight: 600;
       color: var(--black);
+      letter-spacing: -1px;
+    }
+    .logo-13 .slash {
+      color: var(--yellow);
+      font-weight: 300;
+      margin: 0 -2px;
+    }
+
+    /* 14: Pipe separator */
+    .logo-14 {
+      font-family: 'Inter', sans-serif;
+      font-size: 40px;
+      font-weight: 600;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+    .logo-14 .pipe {
+      color: var(--yellow);
+      font-weight: 200;
+      margin: 0 4px;
+    }
+
+    /* 15: Yellow bar underline on Dish */
+    .logo-15 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 46px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -1px;
+    }
+    .logo-15 .dish {
       position: relative;
       display: inline-block;
     }
-    .logo-s::after {
+    .logo-15 .dish::after {
       content: '';
       position: absolute;
       bottom: 2px;
       left: 0;
       right: 0;
-      height: 8px;
+      height: 6px;
       background: var(--yellow);
-      border-radius: 4px;
+      border-radius: 3px;
       z-index: -1;
     }
 
+    /* 16: Highlight background on Course */
+    .logo-16 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+    .logo-16 .course {
+      background: var(--yellow);
+      padding: 0 8px;
+      border-radius: 6px;
+      margin-left: 2px;
+    }
+
     /* ============================================
-       DARK PREVIEW SECTION
+       STACKED / STRUCTURED
+       ============================================ */
+
+    /* 17: Stacked with bar */
+    .logo-17 {
+      font-family: 'Outfit', sans-serif;
+      display: inline-block;
+      text-align: left;
+    }
+    .logo-17 .dish {
+      font-size: 52px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -1px;
+      display: block;
+      line-height: 1;
+    }
+    .logo-17 .bar {
+      height: 5px;
+      background: var(--yellow);
+      border-radius: 3px;
+      margin: 6px 0;
+    }
+    .logo-17 .course {
+      font-size: 52px;
+      font-weight: 300;
+      color: var(--black);
+      letter-spacing: 4px;
+      display: block;
+      line-height: 1;
+    }
+
+    /* 18: Compact stacked */
+    .logo-18 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      display: inline-block;
+      text-align: left;
+      line-height: 0.9;
+    }
+    .logo-18 .dish {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--black);
+      display: block;
+    }
+    .logo-18 .course {
+      font-size: 42px;
+      font-weight: 300;
+      color: var(--yellow-dark);
+      letter-spacing: 2px;
+      display: block;
+    }
+
+    /* ============================================
+       ICON + WORDMARK COMBOS
+       ============================================ */
+
+    /* 19: Circle D badge */
+    .logo-19 {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo-19 .badge {
+      width: 56px;
+      height: 56px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-19 .badge span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--black);
+    }
+    .logo-19 .text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 36px;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+    .logo-19 .text .dish {
+      font-weight: 700;
+    }
+    .logo-19 .text .course {
+      font-weight: 300;
+    }
+
+    /* 20: Square badge */
+    .logo-20 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-20 .badge {
+      width: 52px;
+      height: 52px;
+      background: var(--black);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-20 .badge span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--yellow);
+    }
+    .logo-20 .text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 34px;
+      font-weight: 600;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+
+    /* ============================================
+       UNIQUE / EXPERIMENTAL
+       ============================================ */
+
+    /* 21: Bricolage Grotesque */
+    .logo-21 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 46px;
+      color: var(--black);
+      letter-spacing: -1px;
+    }
+    .logo-21 .dish {
+      font-weight: 700;
+    }
+    .logo-21 .course {
+      font-weight: 400;
+      color: var(--gray-500);
+    }
+
+    /* 22: Lexend clean */
+    .logo-22 {
+      font-family: 'Lexend', sans-serif;
+      font-size: 44px;
+      color: var(--black);
+      letter-spacing: -1px;
+    }
+    .logo-22 .dish {
+      font-weight: 700;
+    }
+    .logo-22 .course {
+      font-weight: 300;
+    }
+
+    /* 23: Period accent */
+    .logo-23 {
+      font-family: 'Sora', sans-serif;
+      font-size: 44px;
+      font-weight: 500;
+      color: var(--black);
+      letter-spacing: -1px;
+    }
+    .logo-23 .period {
+      color: var(--yellow);
+      font-weight: 700;
+    }
+
+    /* 24: Italic Course */
+    .logo-24 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 44px;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+    .logo-24 .dish {
+      font-weight: 700;
+    }
+    .logo-24 .course {
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    /* ============================================
+       DARK MODE PREVIEW
        ============================================ */
     .dark-section {
       background: var(--gray-900);
@@ -440,77 +600,469 @@
       padding: 24px;
     }
 
-    /* Dark versions */
-    .logo-a.dark .top,
-    .logo-a.dark .bottom {
+    /* Dark mode variants */
+    .logo-1.dark .dish,
+    .logo-1.dark .course {
       color: var(--white);
     }
 
-    .logo-d.dark .top,
-    .logo-d.dark .bottom {
+    .logo-5.dark .course {
       color: var(--white);
     }
 
-    .logo-g.dark .top,
-    .logo-g.dark .bottom {
+    .logo-15.dark {
+      color: var(--white);
+    }
+
+    .logo-19.dark .text {
       color: var(--white);
     }
 
     /* ============================================
-       SIZE TESTS
+       REFINED VARIATIONS — Yellow Dish
        ============================================ */
-    .size-section {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 48px;
-      margin-top: 48px;
-      max-width: 1400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
 
-    .size-section h2 {
+    /* R1: Outfit Bold */
+    .logo-r1 {
       font-family: 'Outfit', sans-serif;
-      font-size: 18px;
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .logo-r1 .dish { color: var(--yellow); }
+    .logo-r1 .course { color: var(--black); }
+    .logo-r1.dark .course { color: var(--white); }
+
+    /* R2: Outfit Extra Bold */
+    .logo-r2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .logo-r2 .dish { color: var(--yellow); }
+    .logo-r2 .course { color: var(--black); }
+    .logo-r2.dark .course { color: var(--white); }
+
+    /* R3: Plus Jakarta */
+    .logo-r3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 46px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .logo-r3 .dish { color: var(--yellow); }
+    .logo-r3 .course { color: var(--black); }
+    .logo-r3.dark .course { color: var(--white); }
+
+    /* R4: Manrope */
+    .logo-r4 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 46px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .logo-r4 .dish { color: var(--yellow); }
+    .logo-r4 .course { color: var(--black); }
+    .logo-r4.dark .course { color: var(--white); }
+
+    /* R5: Lexend */
+    .logo-r5 {
+      font-family: 'Lexend', sans-serif;
+      font-size: 44px;
       font-weight: 600;
-      color: var(--gray-900);
-      margin-bottom: 32px;
-      text-align: center;
+      letter-spacing: -1px;
     }
+    .logo-r5 .dish { color: var(--yellow); }
+    .logo-r5 .course { color: var(--black); }
+    .logo-r5.dark .course { color: var(--white); }
 
-    .size-row {
+    /* R6: Sora */
+    .logo-r6 {
+      font-family: 'Sora', sans-serif;
+      font-size: 44px;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+    .logo-r6 .dish { color: var(--yellow); }
+    .logo-r6 .course { color: var(--black); }
+    .logo-r6.dark .course { color: var(--white); }
+
+    /* R7: Space Grotesk */
+    .logo-r7 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 46px;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+    .logo-r7 .dish { color: var(--yellow); }
+    .logo-r7 .course { color: var(--black); }
+    .logo-r7.dark .course { color: var(--white); }
+
+    /* R8: Bricolage */
+    .logo-r8 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 46px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .logo-r8 .dish { color: var(--yellow); }
+    .logo-r8 .course { color: var(--black); }
+    .logo-r8.dark .course { color: var(--white); }
+
+    /* ============================================
+       COMBINED — Weight + Color
+       ============================================ */
+
+    /* C1: Outfit Bold/Light + Color */
+    .logo-c1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 48px;
+      letter-spacing: -1px;
+    }
+    .logo-c1 .dish { 
+      font-weight: 800; 
+      color: var(--yellow); 
+    }
+    .logo-c1 .course { 
+      font-weight: 300; 
+      color: var(--black); 
+    }
+    .logo-c1.dark .course { color: var(--white); }
+
+    /* C2: Plus Jakarta Bold/Light + Color */
+    .logo-c2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 46px;
+      letter-spacing: -0.5px;
+    }
+    .logo-c2 .dish { 
+      font-weight: 800; 
+      color: var(--yellow); 
+    }
+    .logo-c2 .course { 
+      font-weight: 400; 
+      color: var(--black); 
+    }
+    .logo-c2.dark .course { color: var(--white); }
+
+    /* C3: Manrope Bold/Light + Color */
+    .logo-c3 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 46px;
+      letter-spacing: -0.5px;
+    }
+    .logo-c3 .dish { 
+      font-weight: 800; 
+      color: var(--yellow); 
+    }
+    .logo-c3 .course { 
+      font-weight: 400; 
+      color: var(--black); 
+    }
+    .logo-c3.dark .course { color: var(--white); }
+
+    /* C4: Lexend Bold/Light + Color */
+    .logo-c4 {
+      font-family: 'Lexend', sans-serif;
+      font-size: 44px;
+      letter-spacing: -1px;
+    }
+    .logo-c4 .dish { 
+      font-weight: 700; 
+      color: var(--yellow); 
+    }
+    .logo-c4 .course { 
+      font-weight: 300; 
+      color: var(--black); 
+    }
+    .logo-c4.dark .course { color: var(--white); }
+
+    /* ============================================
+       BADGE VARIATIONS
+       ============================================ */
+
+    /* B1: Original Circle Badge */
+    .logo-b1 {
       display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo-b1 .badge {
+      width: 56px;
+      height: 56px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      align-items: flex-end;
-      gap: 48px;
-      flex-wrap: wrap;
+      flex-shrink: 0;
     }
+    .logo-b1 .badge span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--black);
+    }
+    .logo-b1 .text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 36px;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+    .logo-b1 .text .dish { font-weight: 700; }
+    .logo-b1 .text .course { font-weight: 300; }
+    .logo-b1.dark .text { color: var(--white); }
 
-    .size-item {
+    /* B2: Circle + Yellow Dish */
+    .logo-b2 {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo-b2 .badge {
+      width: 56px;
+      height: 56px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-b2 .badge span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--black);
+    }
+    .logo-b2 .text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 36px;
+      letter-spacing: -0.5px;
+    }
+    .logo-b2 .text .dish { 
+      font-weight: 700; 
+      color: var(--yellow);
+    }
+    .logo-b2 .text .course { 
+      font-weight: 300; 
+      color: var(--black);
+    }
+    .logo-b2.dark .text .course { color: var(--white); }
+
+    /* B3: Black Circle, Yellow D */
+    .logo-b3 {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo-b3 .badge {
+      width: 56px;
+      height: 56px;
+      background: var(--black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-b3 .badge span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--yellow);
+    }
+    .logo-b3 .text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 36px;
+      letter-spacing: -0.5px;
+    }
+    .logo-b3 .text .dish { 
+      font-weight: 700; 
+      color: var(--yellow);
+    }
+    .logo-b3 .text .course { 
+      font-weight: 300; 
+      color: var(--black);
+    }
+    .logo-b3.dark .badge { background: var(--white); }
+    .logo-b3.dark .badge span { color: var(--yellow); }
+    .logo-b3.dark .text .course { color: var(--white); }
+
+    /* B4: Rounded Square */
+    .logo-b4 {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo-b4 .badge {
+      width: 52px;
+      height: 52px;
+      background: var(--yellow);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-b4 .badge span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--black);
+    }
+    .logo-b4 .text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 34px;
+      letter-spacing: -0.5px;
+    }
+    .logo-b4 .text .dish { 
+      font-weight: 700; 
+      color: var(--yellow);
+    }
+    .logo-b4 .text .course { 
+      font-weight: 300; 
+      color: var(--black);
+    }
+    .logo-b4.dark .text .course { color: var(--white); }
+
+    /* B5: Pill Badge with DC */
+    .logo-b5 {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo-b5 .badge {
+      background: var(--yellow);
+      border-radius: 24px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-b5 .badge span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: 1px;
+    }
+    .logo-b5 .text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 34px;
+      letter-spacing: -0.5px;
+    }
+    .logo-b5 .text .dish { 
+      font-weight: 700; 
+      color: var(--black);
+    }
+    .logo-b5 .text .course { 
+      font-weight: 300; 
+      color: var(--black);
+    }
+    .logo-b5.dark .text { color: var(--white); }
+
+    /* B6: Minimal Circle */
+    .logo-b6 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-b6 .badge {
+      width: 44px;
+      height: 44px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-b6 .badge span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--black);
+    }
+    .logo-b6 .text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+    .logo-b6.dark .text { color: var(--white); }
+
+    /* B7: Stacked Badge */
+    .logo-b7 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-b7 .badge {
+      width: 64px;
+      height: 64px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-b7 .badge span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--black);
+    }
+    .logo-b7 .text {
+      font-family: 'Outfit', sans-serif;
       text-align: center;
+      line-height: 0.95;
+    }
+    .logo-b7 .text .dish {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--black);
+      display: block;
+    }
+    .logo-b7 .text .course {
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--black);
+      letter-spacing: 2px;
+      display: block;
+    }
+    .logo-b7.dark .text .dish,
+    .logo-b7.dark .text .course { color: var(--white); }
+
+    /* B8: Badge Only */
+    .logo-b8 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-b8 .badge {
+      width: 80px;
+      height: 80px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-b8 .badge span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--black);
     }
 
-    .size-item p {
-      font-size: 11px;
-      color: var(--gray-500);
-      margin-top: 12px;
-    }
-
-    /* Scaled versions */
-    .logo-a.scale-md {
-      transform: scale(0.5);
-      transform-origin: center;
-    }
-    .logo-a.scale-sm {
-      transform: scale(0.3);
-      transform-origin: center;
-    }
-    .logo-a.scale-xs {
-      transform: scale(0.18);
-      transform-origin: center;
-    }
-
-    /* Actions */
+    /* ============================================
+       ACTIONS
+       ============================================ */
     .actions {
       display: flex;
       gap: 16px;
@@ -545,7 +1097,7 @@
     }
 
     .btn-secondary:hover {
-      background: var(--gray-500);
+      background: var(--gray-400);
       color: var(--white);
     }
   </style>
@@ -553,305 +1105,549 @@
 <body>
 
   <div class="header">
-    <h1>DishCourse — Typography First</h1>
-    <p>Making the wordmark itself the logo</p>
+    <h1>DishCourse Logo Exploration</h1>
+    <p>One word, clear distinction between "Dish" and "Course"</p>
+  </div>
+
+  <!-- WEIGHT CONTRAST -->
+  <div class="section-header">
+    <h2>Weight Contrast</h2>
+    <p>CamelCase with font weight differentiation</p>
   </div>
 
   <div class="logo-grid">
-
-    <!-- A: Stacked weight contrast -->
     <div class="logo-card" onclick="selectLogo(this)">
-      <h3>A — Stacked Contrast</h3>
+      <h3>1 — Bold + Light</h3>
       <div class="logo-display">
-        <div class="logo-a">
-          <span class="top">ali</span>
-          <span class="bottom">cooks</span>
-        </div>
+        <div class="logo-1"><span class="dish">Dish</span><span class="course">Course</span></div>
       </div>
-      <div class="logo-notes">
-        Outfit font. Heavy "ali", light "cooks". Tight leading creates unity. Classic weight contrast.
-      </div>
+      <div class="logo-notes">Outfit. Bold "Dish", light "Course". Strong contrast, reads as one word.</div>
     </div>
 
-    <!-- B: Inline with dot -->
     <div class="logo-card" onclick="selectLogo(this)">
-      <h3>B — Dot Separator</h3>
+      <h3>2 — Light + Bold</h3>
       <div class="logo-display">
-        <div class="logo-b">
-          ali<span class="dot"></span>cooks
-        </div>
+        <div class="logo-2"><span class="dish">Dish</span><span class="course">Course</span></div>
       </div>
-      <div class="logo-notes">
-        Plus Jakarta Sans. Yellow dot as visual pause. Reads as one word but with personality.
-      </div>
+      <div class="logo-notes">Reversed — light "Dish", bold "Course". Emphasis on destination.</div>
     </div>
 
-    <!-- C: Highlighted letter -->
     <div class="logo-card" onclick="selectLogo(this)">
-      <h3>C — Color Pop</h3>
+      <h3>3 — Jakarta Weight</h3>
       <div class="logo-display">
-        <div class="logo-c">
-          <span class="highlight">a</span>licooks
-        </div>
+        <div class="logo-3"><span class="dish">Dish</span><span class="course">Course</span></div>
       </div>
-      <div class="logo-notes">
-        Sora font. Yellow "a" creates a distinctive mark. Simple, modern, memorable.
-      </div>
+      <div class="logo-notes">Plus Jakarta Sans. Subtle weight contrast. Professional, clean.</div>
     </div>
 
-    <!-- D: Bar separator -->
     <div class="logo-card" onclick="selectLogo(this)">
-      <h3>D — Yellow Bar</h3>
+      <h3>4 — Sora Subtle</h3>
       <div class="logo-display">
-        <div class="logo-d">
-          <span class="top">ali</span>
+        <div class="logo-4"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Sora. Gentle weight shift. Modern, tech-friendly.</div>
+    </div>
+  </div>
+
+  <!-- COLOR DIFFERENTIATION -->
+  <div class="section-header">
+    <h2>Color Differentiation</h2>
+    <p>Using the sunflower yellow to distinguish</p>
+  </div>
+
+  <div class="logo-grid">
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>5 — Yellow Dish</h3>
+      <div class="logo-display">
+        <div class="logo-5"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Yellow "Dish", black "Course". Warm entry, grounded finish.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>6 — Yellow Course</h3>
+      <div class="logo-display">
+        <div class="logo-6"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Black "Dish", yellow "Course". Highlights the journey/destination.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>7 — Weight + Color</h3>
+      <div class="logo-display">
+        <div class="logo-7"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Manrope. Bold black + light golden. Double distinction.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>8 — Yellow D Only</h3>
+      <div class="logo-display">
+        <div class="logo-8"><span class="d-letter">D</span>ishCourse</div>
+      </div>
+      <div class="logo-notes">Lexend. Just the "D" in yellow. Minimal but distinctive.</div>
+    </div>
+  </div>
+
+  <!-- CASE VARIATIONS -->
+  <div class="section-header">
+    <h2>Case Variations</h2>
+    <p>Playing with uppercase/lowercase</p>
+  </div>
+
+  <div class="logo-grid">
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>9 — dishCourse</h3>
+      <div class="logo-display">
+        <div class="logo-9">dish<span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Space Grotesk. Lowercase "dish", CamelCase "Course". Modern dev-style.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>10 — DISH + course</h3>
+      <div class="logo-display">
+        <div class="logo-10"><span class="dish">DISH</span><span class="course">course</span></div>
+      </div>
+      <div class="logo-notes">Archivo. Uppercase + lowercase. Strong contrast.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>11 — ALL CAPS Color</h3>
+      <div class="logo-display">
+        <div class="logo-11"><span class="dish">DISH</span><span class="course">COURSE</span></div>
+      </div>
+      <div class="logo-notes">Outfit. Full uppercase with color split. Bold, app-store ready.</div>
+    </div>
+  </div>
+
+  <!-- CREATIVE SEPARATORS -->
+  <div class="section-header">
+    <h2>Creative Separators</h2>
+    <p>Subtle visual breaks between words</p>
+  </div>
+
+  <div class="logo-grid">
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>12 — Dot Separator</h3>
+      <div class="logo-display">
+        <div class="logo-12">Dish<span class="dot"></span>Course</div>
+      </div>
+      <div class="logo-notes">Plus Jakarta. Yellow dot as gentle pause. Reads as one, seen as two.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>13 — Slash</h3>
+      <div class="logo-display">
+        <div class="logo-13">Dish<span class="slash">/</span>Course</div>
+      </div>
+      <div class="logo-notes">Sora. Yellow slash divider. Tech-forward, URL-inspired.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>14 — Pipe</h3>
+      <div class="logo-display">
+        <div class="logo-14">Dish<span class="pipe">|</span>Course</div>
+      </div>
+      <div class="logo-notes">Inter. Thin pipe separator. Clean, structured.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>15 — Underline Dish</h3>
+      <div class="logo-display">
+        <div class="logo-15"><span class="dish">Dish</span>Course</div>
+      </div>
+      <div class="logo-notes">Outfit. Yellow underline on "Dish". Highlights without breaking.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>16 — Highlight Course</h3>
+      <div class="logo-display">
+        <div class="logo-16">Dish<span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Manrope. Yellow background on "Course". Bold statement.</div>
+    </div>
+  </div>
+
+  <!-- STACKED -->
+  <div class="section-header">
+    <h2>Stacked Layouts</h2>
+    <p>Vertical arrangement for app icons and headers</p>
+  </div>
+
+  <div class="logo-grid">
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>17 — Stacked with Bar</h3>
+      <div class="logo-display">
+        <div class="logo-17">
+          <span class="dish">Dish</span>
           <div class="bar"></div>
-          <span class="bottom">cooks</span>
+          <span class="course">Course</span>
         </div>
       </div>
-      <div class="logo-notes">
-        Nunito font. Yellow bar divides and connects. Strong vertical rhythm.
-      </div>
+      <div class="logo-notes">Outfit. Yellow bar divides. Works great as app icon foundation.</div>
     </div>
 
-    <!-- E: Yellow i-dot -->
     <div class="logo-card" onclick="selectLogo(this)">
-      <h3>E — Yellow Dot</h3>
+      <h3>18 — Compact Stack</h3>
       <div class="logo-display">
-        <div class="logo-e">
-          al<span class="i-dot">i</span>cooks
+        <div class="logo-18">
+          <span class="dish">Dish</span>
+          <span class="course">Course</span>
         </div>
       </div>
-      <div class="logo-notes">
-        Poppins font. The dot on the "i" becomes yellow — subtle but ownable detail.
-      </div>
+      <div class="logo-notes">Plus Jakarta. Tight leading. Bold + golden lightweight.</div>
     </div>
+  </div>
 
-    <!-- F: Uppercase spaced -->
+  <!-- ICON + WORDMARK -->
+  <div class="section-header">
+    <h2>Icon + Wordmark</h2>
+    <p>Badge that works alone or with full name</p>
+  </div>
+
+  <div class="logo-grid">
     <div class="logo-card" onclick="selectLogo(this)">
-      <h3>F — All Caps</h3>
+      <h3>19 — Circle D Badge</h3>
       <div class="logo-display">
-        <div class="logo-f">
-          ALICOOKS
+        <div class="logo-19">
+          <div class="badge"><span>D</span></div>
+          <div class="text"><span class="dish">Dish</span><span class="course">Course</span></div>
         </div>
       </div>
-      <div class="logo-notes">
-        Outfit Extra Bold. Uppercase with wide tracking. Bold, confident, app-store ready.
-      </div>
+      <div class="logo-notes">Yellow circle with "D". Badge works as standalone app icon.</div>
     </div>
 
-    <!-- G: Underline accent -->
     <div class="logo-card" onclick="selectLogo(this)">
-      <h3>G — Underline</h3>
+      <h3>20 — Square Badge</h3>
       <div class="logo-display">
-        <div class="logo-g">
-          <span class="top">ali</span>
-          <span class="bottom">cooks</span>
+        <div class="logo-20">
+          <div class="badge"><span>D</span></div>
+          <div class="text">DishCourse</div>
         </div>
       </div>
-      <div class="logo-notes">
-        Plus Jakarta Sans. Yellow underline on "ali" — highlights the name. Left-aligned for app headers.
+      <div class="logo-notes">Black rounded square, yellow "D". Modern app aesthetic.</div>
+    </div>
+  </div>
+
+  <!-- UNIQUE -->
+  <div class="section-header">
+    <h2>Unique Typefaces</h2>
+    <p>Distinctive fonts with personality</p>
+  </div>
+
+  <div class="logo-grid">
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>21 — Bricolage</h3>
+      <div class="logo-display">
+        <div class="logo-21"><span class="dish">Dish</span><span class="course">Course</span></div>
       </div>
+      <div class="logo-notes">Bricolage Grotesque. Quirky, distinctive. Gray "Course" for contrast.</div>
     </div>
 
-    <!-- H: Badge + wordmark -->
     <div class="logo-card" onclick="selectLogo(this)">
-      <h3>H — Badge Combo</h3>
+      <h3>22 — Lexend Clean</h3>
       <div class="logo-display">
-        <div class="logo-h">
-          <div class="badge"><span>A</span></div>
+        <div class="logo-22"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Lexend. Designed for readability. Clean, accessible.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>23 — Period Accent</h3>
+      <div class="logo-display">
+        <div class="logo-23">DishCourse<span class="period">.</span></div>
+      </div>
+      <div class="logo-notes">Sora with yellow period. Minimal, tech-forward, domain-ready.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>24 — Italic Course</h3>
+      <div class="logo-display">
+        <div class="logo-24"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">DM Sans. Italic "Course" adds motion, suggests progression.</div>
+    </div>
+  </div>
+
+  <!-- COMBINED: Weight + Color -->
+  <div class="section-header">
+    <h2>🏆 Combined — Weight + Color</h2>
+    <p>Bold yellow "Dish" + light "Course" — double distinction</p>
+  </div>
+
+  <div class="logo-grid">
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>C1 — Outfit Combined</h3>
+      <div class="logo-display">
+        <div class="logo-c1"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Outfit. Bold yellow "Dish" (800) + light "Course" (300). Maximum distinction.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>C2 — Jakarta Combined</h3>
+      <div class="logo-display">
+        <div class="logo-c2"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Plus Jakarta Sans. Bold yellow + regular weight. Balanced contrast.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>C3 — Manrope Combined</h3>
+      <div class="logo-display">
+        <div class="logo-c3"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Manrope. Bold yellow + light. Friendly, modern.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>C4 — Lexend Combined</h3>
+      <div class="logo-display">
+        <div class="logo-c4"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Lexend. Bold yellow + light. Clean, accessible.</div>
+    </div>
+  </div>
+
+  <!-- REFINEMENT SECTION: Yellow Dish variations -->
+  <div class="section-header">
+    <h2>⭐ Yellow Dish — Same Weight Variations</h2>
+    <p>Color contrast only, explored with different typefaces</p>
+  </div>
+
+  <div class="logo-grid">
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>R1 — Outfit Bold</h3>
+      <div class="logo-display">
+        <div class="logo-r1"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">The original. Outfit 700. Strong, geometric, app-store ready.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>R2 — Outfit Extra Bold</h3>
+      <div class="logo-display">
+        <div class="logo-r2"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Outfit 800. Even bolder presence. Maximum impact.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>R3 — Plus Jakarta</h3>
+      <div class="logo-display">
+        <div class="logo-r3"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Plus Jakarta Sans 700. Slightly softer, very readable.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>R4 — Manrope</h3>
+      <div class="logo-display">
+        <div class="logo-r4"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Manrope 700. Modern, slightly rounded. Friendly tech.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>R5 — Lexend</h3>
+      <div class="logo-display">
+        <div class="logo-r5"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Lexend 600. Designed for readability. Clean, accessible.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>R6 — Sora</h3>
+      <div class="logo-display">
+        <div class="logo-r6"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Sora 600. Geometric, tech-forward. Subtle personality.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>R7 — Space Grotesk</h3>
+      <div class="logo-display">
+        <div class="logo-r7"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Space Grotesk 600. Quirky, distinctive. Developer-friendly.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>R8 — Bricolage</h3>
+      <div class="logo-display">
+        <div class="logo-r8"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="logo-notes">Bricolage Grotesque 700. Unique character. Stands out.</div>
+    </div>
+  </div>
+
+  <!-- BADGE REFINEMENTS -->
+  <div class="section-header">
+    <h2>🎯 Badge + Wordmark — Refined</h2>
+    <p>Your favorite (#19), explored with variations</p>
+  </div>
+
+  <div class="logo-grid">
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>B1 — Original Circle</h3>
+      <div class="logo-display">
+        <div class="logo-b1">
+          <div class="badge"><span>D</span></div>
+          <div class="text"><span class="dish">Dish</span><span class="course">Course</span></div>
+        </div>
+      </div>
+      <div class="logo-notes">Yellow circle, black "D". Weight contrast wordmark. The original.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>B2 — Circle + Yellow Dish</h3>
+      <div class="logo-display">
+        <div class="logo-b2">
+          <div class="badge"><span>D</span></div>
+          <div class="text"><span class="dish">Dish</span><span class="course">Course</span></div>
+        </div>
+      </div>
+      <div class="logo-notes">Yellow badge + yellow "Dish" in wordmark. Cohesive color story.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>B3 — Black Circle</h3>
+      <div class="logo-display">
+        <div class="logo-b3">
+          <div class="badge"><span>D</span></div>
+          <div class="text"><span class="dish">Dish</span><span class="course">Course</span></div>
+        </div>
+      </div>
+      <div class="logo-notes">Black circle, yellow "D". Inverted. Yellow "Dish" ties it together.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>B4 — Rounded Square</h3>
+      <div class="logo-display">
+        <div class="logo-b4">
+          <div class="badge"><span>D</span></div>
+          <div class="text"><span class="dish">Dish</span><span class="course">Course</span></div>
+        </div>
+      </div>
+      <div class="logo-notes">Yellow rounded square badge. More app-icon-like. Modern.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>B5 — Pill Badge</h3>
+      <div class="logo-display">
+        <div class="logo-b5">
+          <div class="badge"><span>DC</span></div>
+          <div class="text"><span class="dish">Dish</span><span class="course">Course</span></div>
+        </div>
+      </div>
+      <div class="logo-notes">Yellow pill with "DC" initials. Compact, distinctive.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>B6 — Minimal Circle</h3>
+      <div class="logo-display">
+        <div class="logo-b6">
+          <div class="badge"><span>D</span></div>
+          <div class="text">DishCourse</div>
+        </div>
+      </div>
+      <div class="logo-notes">Smaller badge, uniform weight wordmark. Clean, balanced.</div>
+    </div>
+
+    <div class="logo-card" onclick="selectLogo(this)">
+      <h3>B7 — Stacked Badge</h3>
+      <div class="logo-display">
+        <div class="logo-b7">
+          <div class="badge"><span>D</span></div>
           <div class="text">
-            <span class="top">ali</span>
-            <span class="bottom">cooks</span>
+            <span class="dish">Dish</span>
+            <span class="course">Course</span>
           </div>
         </div>
       </div>
-      <div class="logo-notes">
-        Black circle badge with "A" initial. Works as icon alone or with full wordmark.
-      </div>
+      <div class="logo-notes">Badge with stacked wordmark below. Works great for app splash.</div>
     </div>
 
-    <!-- I: Minimal period -->
     <div class="logo-card" onclick="selectLogo(this)">
-      <h3>I — Period Mark</h3>
+      <h3>B8 — Badge Only</h3>
       <div class="logo-display">
-        <div class="logo-i">
-          dishcourse<span class="period">.</span>
+        <div class="logo-b8">
+          <div class="badge"><span>D</span></div>
         </div>
       </div>
-      <div class="logo-notes">
-        Sora font. Simple period in yellow. Minimal, tech-forward, domain-ready.
-      </div>
+      <div class="logo-notes">Just the badge. How it looks as app icon. Yellow circle, black D.</div>
     </div>
-
   </div>
 
-  <!-- SCRIPT SECTION -->
-  <div class="header" style="margin-top: 64px;">
-    <h1>✨ Script & Handwritten Options</h1>
-    <p>Warmer, more personal feel</p>
-  </div>
-
-  <div class="logo-grid">
-
-    <!-- J: Pacifico -->
-    <div class="logo-card" onclick="selectLogo(this)">
-      <h3>J — Pacifico</h3>
-      <div class="logo-display">
-        <div class="logo-j">dishcourse</div>
-      </div>
-      <div class="logo-notes">
-        Classic script font. Friendly, approachable, slightly retro diner feel.
-      </div>
-    </div>
-
-    <!-- K: Lobster -->
-    <div class="logo-card" onclick="selectLogo(this)">
-      <h3>K — Lobster</h3>
-      <div class="logo-display">
-        <div class="logo-k">Alicooks</div>
-      </div>
-      <div class="logo-notes">
-        Bold script with character. Strong presence, works well at large sizes.
-      </div>
-    </div>
-
-    <!-- L: Satisfy -->
-    <div class="logo-card" onclick="selectLogo(this)">
-      <h3>L — Satisfy</h3>
-      <div class="logo-display">
-        <div class="logo-l">Alicooks</div>
-      </div>
-      <div class="logo-notes">
-        Elegant flowing script. More refined, slightly feminine energy.
-      </div>
-    </div>
-
-    <!-- M: Caveat -->
-    <div class="logo-card" onclick="selectLogo(this)">
-      <h3>M — Caveat</h3>
-      <div class="logo-display">
-        <div class="logo-m">dishcourse</div>
-      </div>
-      <div class="logo-notes">
-        Casual handwriting. Feels personal, like a note on a recipe card.
-      </div>
-    </div>
-
-    <!-- N: Dancing Script -->
-    <div class="logo-card" onclick="selectLogo(this)">
-      <h3>N — Dancing Script</h3>
-      <div class="logo-display">
-        <div class="logo-n">Alicooks</div>
-      </div>
-      <div class="logo-notes">
-        Flowing, celebratory script. Elegant but still friendly.
-      </div>
-    </div>
-
-    <!-- O: Kalam -->
-    <div class="logo-card" onclick="selectLogo(this)">
-      <h3>O — Kalam</h3>
-      <div class="logo-display">
-        <div class="logo-o">dishcourse</div>
-      </div>
-      <div class="logo-notes">
-        Handwritten with character. Feels authentic, homemade, personal.
-      </div>
-    </div>
-
-    <!-- P: Comfortaa -->
-    <div class="logo-card" onclick="selectLogo(this)">
-      <h3>P — Comfortaa</h3>
-      <div class="logo-display">
-        <div class="logo-p">dishcourse</div>
-      </div>
-      <div class="logo-notes">
-        Rounded geometric sans. Modern but soft. Not script, but feels friendly.
-      </div>
-    </div>
-
-    <!-- Q: Baloo 2 -->
-    <div class="logo-card" onclick="selectLogo(this)">
-      <h3>Q — Baloo</h3>
-      <div class="logo-display">
-        <div class="logo-q">dishcourse</div>
-      </div>
-      <div class="logo-notes">
-        Bubbly, playful rounded font. Fun, approachable, family-friendly.
-      </div>
-    </div>
-
-    <!-- R: Script + Sans Combo -->
-    <div class="logo-card" onclick="selectLogo(this)">
-      <h3>R — Script + Sans</h3>
-      <div class="logo-display">
-        <div class="logo-r">
-          <span class="top">Ali</span>
-          <span class="bottom">COOKS</span>
+  <!-- Badge Dark Mode -->
+  <div class="dark-section">
+    <h2>🌙 Badge Variations — Dark Mode</h2>
+    <div class="dark-row">
+      <div class="dark-logo">
+        <div class="logo-b1 dark">
+          <div class="badge"><span>D</span></div>
+          <div class="text"><span class="dish">Dish</span><span class="course">Course</span></div>
         </div>
       </div>
-      <div class="logo-notes">
-        Pacifico script for "Ali" + Outfit light sans for "COOKS". Best of both worlds.
+      <div class="dark-logo">
+        <div class="logo-b2 dark">
+          <div class="badge"><span>D</span></div>
+          <div class="text"><span class="dish">Dish</span><span class="course">Course</span></div>
+        </div>
+      </div>
+      <div class="dark-logo">
+        <div class="logo-b3 dark">
+          <div class="badge"><span>D</span></div>
+          <div class="text"><span class="dish">Dish</span><span class="course">Course</span></div>
+        </div>
       </div>
     </div>
-
-    <!-- S: Script with underline -->
-    <div class="logo-card" onclick="selectLogo(this)">
-      <h3>S — Script + Swash</h3>
-      <div class="logo-display">
-        <div class="logo-s">Alicooks</div>
+    <div class="dark-row" style="margin-top: 32px;">
+      <div class="dark-logo">
+        <div class="logo-b4 dark">
+          <div class="badge"><span>D</span></div>
+          <div class="text"><span class="dish">Dish</span><span class="course">Course</span></div>
+        </div>
       </div>
-      <div class="logo-notes">
-        Lobster with yellow underline swash. Adds the brand color in a subtle way.
+      <div class="dark-logo">
+        <div class="logo-b8 dark">
+          <div class="badge"><span>D</span></div>
+        </div>
       </div>
     </div>
-
   </div>
 
   <!-- Dark mode preview -->
-  <div class="dark-section">
-    <h2>🌙 Dark Mode Test</h2>
+  <div class="dark-section" style="margin-top: 24px;">
+    <h2>🌙 Dark Mode — Combined (Weight + Color)</h2>
     <div class="dark-row">
       <div class="dark-logo">
-        <div class="logo-a dark">
-          <span class="top">ali</span>
-          <span class="bottom">cooks</span>
-        </div>
+        <div class="logo-c1 dark"><span class="dish">Dish</span><span class="course">Course</span></div>
       </div>
       <div class="dark-logo">
-        <div class="logo-g dark">
-          <span class="top">ali</span>
-          <span class="bottom">cooks</span>
-        </div>
+        <div class="logo-c2 dark"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="dark-logo">
+        <div class="logo-c3 dark"><span class="dish">Dish</span><span class="course">Course</span></div>
+      </div>
+      <div class="dark-logo">
+        <div class="logo-c4 dark"><span class="dish">Dish</span><span class="course">Course</span></div>
       </div>
     </div>
   </div>
 
-  <!-- Size test -->
-  <div class="size-section">
-    <h2>📏 Size Test — Scalability</h2>
-    <div class="size-row">
-      <div class="size-item">
-        <div class="logo-a">
-          <span class="top">ali</span>
-          <span class="bottom">cooks</span>
-        </div>
-        <p>Full size</p>
+  <div class="dark-section" style="margin-top: 24px;">
+    <h2>🌙 Dark Mode — Same Weight (Color Only)</h2>
+    <div class="dark-row">
+      <div class="dark-logo">
+        <div class="logo-r1 dark"><span class="dish">Dish</span><span class="course">Course</span></div>
       </div>
-      <div class="size-item">
-        <div class="logo-a scale-md">
-          <span class="top">ali</span>
-          <span class="bottom">cooks</span>
-        </div>
-        <p>50%</p>
+      <div class="dark-logo">
+        <div class="logo-r3 dark"><span class="dish">Dish</span><span class="course">Course</span></div>
       </div>
-      <div class="size-item">
-        <div class="logo-a scale-sm">
-          <span class="top">ali</span>
-          <span class="bottom">cooks</span>
-        </div>
-        <p>30%</p>
+      <div class="dark-logo">
+        <div class="logo-r6 dark"><span class="dish">Dish</span><span class="course">Course</span></div>
       </div>
     </div>
   </div>

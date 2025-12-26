@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DishCourse Mascot Mockup</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #1A1A1A;
+      --charcoal: #2C2C2C;
+      --white: #FFFFFF;
+      --yellow: #FFB800;
+      --yellow-light: #FFF4D6;
+      --bg: #FFFEF7;
+      --text-muted: #6B6B6B;
+      --radius: 20px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #1a1a1a;
+      min-height: 100vh;
+      padding: 40px;
+      display: flex;
+      gap: 40px;
+    }
+
+    /* ========== Left Panel ========== */
+    .info-panel {
+      width: 360px;
+      flex-shrink: 0;
+      color: #fff;
+    }
+
+    .info-panel h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .info-panel h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      margin-bottom: 12px;
+      margin-top: 24px;
+    }
+
+    .info-panel p {
+      color: #888;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .mascot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .mascot-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .mascot-card img {
+      max-width: 100%;
+      height: 100px;
+      object-fit: contain;
+    }
+
+    .mascot-card .label {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .mascot-card .use-case {
+      font-size: 11px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .color-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .color-var {
+      flex: 1;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    .color-var img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .color-var.inverted img {
+      filter: invert(1);
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 24px 0;
+    }
+
+    .notes {
+      font-size: 14px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    .notes strong {
+      color: #fff;
+    }
+
+    .notes ul {
+      margin: 8px 0 16px 20px;
+    }
+
+    /* ========== Phone Mockups ========== */
+    .phones-container {
+      flex: 1;
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .phone-wrapper {
+      text-align: center;
+    }
+
+    .phone-label {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .phone-frame {
+      width: 320px;
+      height: 693px;
+      background: #000;
+      border-radius: 44px;
+      padding: 10px;
+      box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      border-radius: 36px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ========== App UI ========== */
+    .app-header {
+      background: var(--charcoal);
+      padding: 48px 18px 20px;
+      color: #fff;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .greeting {
+      font-size: 13px;
+      opacity: 0.7;
+      margin-bottom: 4px;
+    }
+
+    .app-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .app-title .dish {
+      color: var(--yellow);
+    }
+
+    /* Avatar with mascot image */
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .avatar.mascot {
+      background: var(--yellow);
+      padding: 6px;
+    }
+
+    .avatar.mascot img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      border-radius: 14px;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .action-btn.accent {
+      background: var(--yellow);
+      color: var(--charcoal);
+    }
+
+    .action-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Content */
+    .app-content {
+      padding: 18px;
+      height: calc(100% - 150px);
+      overflow-y: auto;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+
+    .section-action {
+      font-size: 13px;
+      color: var(--yellow);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Plan Card */
+    .plan-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .plan-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .plan-title {
+      font-weight: 600;
+      color: var(--charcoal);
+      font-size: 14px;
+    }
+
+    .plan-badge {
+      background: var(--yellow);
+      color: var(--charcoal);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .plan-days {
+      display: flex;
+      gap: 5px;
+    }
+
+    .day-dot {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: var(--text-muted);
+    }
+
+    .day-dot.filled {
+      background: var(--charcoal);
+      color: #fff;
+    }
+
+    .day-dot span:first-child {
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    /* Dish Cards */
+    .dish-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .dish-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .dish-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .dish-icon.entree {
+      background: #FFE4B5;
+    }
+
+    .dish-icon.side {
+      background: #C8E6C9;
+    }
+
+    .dish-info {
+      flex: 1;
+    }
+
+    .dish-name {
+      font-weight: 600;
+      color: var(--charcoal);
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .dish-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 10px;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .nav-item.active {
+      color: var(--charcoal);
+    }
+
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* ========== Splash Screen ========== */
+    .splash-screen {
+      background: var(--charcoal);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #fff;
+    }
+
+    .splash-mascot {
+      width: 180px;
+      margin-bottom: 24px;
+    }
+
+    .splash-mascot img {
+      width: 100%;
+      height: auto;
+    }
+
+    .splash-logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .splash-logo .dish {
+      color: var(--yellow);
+    }
+
+    .splash-tagline {
+      font-size: 14px;
+      opacity: 0.6;
+      margin-top: 8px;
+    }
+
+    /* ========== Empty State ========== */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .empty-mascot {
+      width: 140px;
+      margin: 0 auto 16px;
+    }
+
+    .empty-mascot img {
+      width: 100%;
+      height: auto;
+    }
+
+    .empty-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+
+    .empty-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .empty-btn {
+      background: var(--yellow);
+      color: var(--charcoal);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Info Panel -->
+  <div class="info-panel">
+    <h1>DishCourse Mascots</h1>
+    <p>Two versions for different contexts — single for small sizes, duo for larger illustrations.</p>
+
+    <div class="mascot-grid">
+      <div class="mascot-card">
+        <img src="public/mascot.png" alt="Single mascot">
+        <div class="label">Single</div>
+        <div class="use-case">Avatar, App Icon</div>
+      </div>
+      <div class="mascot-card">
+        <img src="public/mascot-duo.png" alt="Duo mascot">
+        <div class="label">Duo</div>
+        <div class="use-case">Splash, Empty States</div>
+      </div>
+    </div>
+
+    <h2>Single — Color Variations</h2>
+    <div class="color-row">
+      <div class="color-var" style="background: #fff;">
+        <img src="public/mascot.png" alt="On white">
+      </div>
+      <div class="color-var inverted" style="background: #2C2C2C;">
+        <img src="public/mascot.png" alt="On dark">
+      </div>
+      <div class="color-var" style="background: #FFB800;">
+        <img src="public/mascot.png" alt="On yellow">
+      </div>
+    </div>
+
+    <h2>Duo — Color Variations</h2>
+    <div class="color-row">
+      <div class="color-var" style="background: #fff;">
+        <img src="public/mascot-duo.png" alt="On white">
+      </div>
+      <div class="color-var inverted" style="background: #2C2C2C;">
+        <img src="public/mascot-duo.png" alt="On dark">
+      </div>
+      <div class="color-var" style="background: #FFB800;">
+        <img src="public/mascot-duo.png" alt="On yellow">
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="notes">
+      <p><strong>Usage Guide:</strong></p>
+      <ul>
+        <li><strong>Single:</strong> App icon, header avatar, favicon</li>
+        <li><strong>Duo:</strong> Splash screen, empty states, onboarding, marketing</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phone Mockups -->
+  <div class="phones-container">
+    <!-- Phone 1: Main App with Single Mascot Avatar -->
+    <div class="phone-wrapper">
+      <div class="phone-label">Main App — Single Mascot</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="app-header">
+            <div class="header-top">
+              <div>
+                <div class="greeting">Good evening, Aliya 👋</div>
+                <div class="app-title"><span class="dish">Dish</span>Course</div>
+              </div>
+              <div class="avatar mascot">
+                <img src="public/mascot.png" alt="Mascot">
+              </div>
+            </div>
+            <div class="quick-actions">
+              <button class="action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                Plan
+              </button>
+              <button class="action-btn accent">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <rect x="2" y="2" width="20" height="20" rx="2.5"/>
+                  <circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none"/>
+                  <circle cx="16" cy="8" r="1.5" fill="currentColor" stroke="none"/>
+                  <circle cx="8" cy="16" r="1.5" fill="currentColor" stroke="none"/>
+                  <circle cx="16" cy="16" r="1.5" fill="currentColor" stroke="none"/>
+                  <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+                </svg>
+                Suggest
+              </button>
+            </div>
+          </div>
+
+          <div class="app-content">
+            <div class="section-header">
+              <h2 class="section-title">This Week</h2>
+              <a href="#" class="section-action">View all</a>
+            </div>
+
+            <div class="plan-card">
+              <div class="plan-header">
+                <span class="plan-title">Week of Dec 21</span>
+                <span class="plan-badge">Active</span>
+              </div>
+              <div class="plan-days">
+                <div class="day-dot filled"><span>S</span><span>21</span></div>
+                <div class="day-dot filled"><span>M</span><span>22</span></div>
+                <div class="day-dot"><span>T</span><span>23</span></div>
+                <div class="day-dot"><span>W</span><span>24</span></div>
+                <div class="day-dot filled"><span>T</span><span>25</span></div>
+                <div class="day-dot"><span>F</span><span>26</span></div>
+                <div class="day-dot"><span>S</span><span>27</span></div>
+              </div>
+            </div>
+
+            <div class="section-header">
+              <h2 class="section-title">My Dishes</h2>
+              <a href="#" class="section-action">+ Add</a>
+            </div>
+
+            <div class="dish-list">
+              <div class="dish-card">
+                <div class="dish-icon entree">🍝</div>
+                <div class="dish-info">
+                  <div class="dish-name">Spaghetti Bolognese</div>
+                  <div class="dish-meta">Entree · 45 min</div>
+                </div>
+              </div>
+              <div class="dish-card">
+                <div class="dish-icon entree">🍗</div>
+                <div class="dish-info">
+                  <div class="dish-name">Lemon Herb Chicken</div>
+                  <div class="dish-meta">Entree · 35 min</div>
+                </div>
+              </div>
+              <div class="dish-card">
+                <div class="dish-icon side">🥗</div>
+                <div class="dish-info">
+                  <div class="dish-name">Garden Salad</div>
+                  <div class="dish-meta">Side · 10 min</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bottom-nav">
+            <div class="nav-item active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              Home
+            </div>
+            <div class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+              Search
+            </div>
+            <div class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              Plans
+            </div>
+            <div class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+              </svg>
+              Settings
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 2: Splash Screen with Duo -->
+    <div class="phone-wrapper">
+      <div class="phone-label">Splash Screen — Duo Mascot</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="splash-screen">
+            <div class="splash-mascot">
+              <img src="public/mascot-duo.png" alt="DishCourse Mascot Duo">
+            </div>
+            <div class="splash-logo"><span class="dish">Dish</span>Course</div>
+            <div class="splash-tagline">What's for dinner?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 3: Empty State with Duo -->
+    <div class="phone-wrapper">
+      <div class="phone-label">Empty State — Duo Mascot</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="app-header">
+            <div class="header-top">
+              <div>
+                <div class="greeting">Good evening, Aliya 👋</div>
+                <div class="app-title"><span class="dish">Dish</span>Course</div>
+              </div>
+              <div class="avatar mascot">
+                <img src="public/mascot.png" alt="Mascot">
+              </div>
+            </div>
+            <div class="quick-actions">
+              <button class="action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                Plan
+              </button>
+              <button class="action-btn accent">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <rect x="2" y="2" width="20" height="20" rx="2.5"/>
+                  <circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none"/>
+                  <circle cx="16" cy="8" r="1.5" fill="currentColor" stroke="none"/>
+                  <circle cx="8" cy="16" r="1.5" fill="currentColor" stroke="none"/>
+                  <circle cx="16" cy="16" r="1.5" fill="currentColor" stroke="none"/>
+                  <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+                </svg>
+                Suggest
+              </button>
+            </div>
+          </div>
+
+          <div class="app-content">
+            <div class="empty-state">
+              <div class="empty-mascot">
+                <img src="public/mascot-duo.png" alt="DishCourse Mascot Duo">
+              </div>
+              <div class="empty-title">Let's get cooking!</div>
+              <div class="empty-text">Add your first dish to start building your meal rotation.</div>
+              <button class="empty-btn">+ Add a Dish</button>
+            </div>
+          </div>
+
+          <div class="bottom-nav">
+            <div class="nav-item active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              Home
+            </div>
+            <div class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+              Search
+            </div>
+            <div class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              Plans
+            </div>
+            <div class="nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+              </svg>
+              Settings
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
