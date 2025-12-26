@@ -42,16 +42,18 @@ Before we end, please:
 **Current Branch**: `master`  
 **Repository**: <https://github.com/cabynum/dishcourse>  
 **Live URL**: <https://dishcourse.vercel.app>  
-**Current Phase**: Rename & Branding
+**Current Phase**: Ready for Next Feature
 
 ### Completed This Session
 
 - ✅ **Renamed app**: AliCooks → DishCourse (per Aliya's feedback)
 - ✅ **Updated all references**: UI, manifest, package.json, tests, docs, blog, commands
 - ✅ **Updated storage keys**: `alicooks_*` → `dishcourse_*` (clean slate, no migration)
-- ✅ **Updated logo exploration**: Now shows "DishCourse" instead of "AliCooks"
-- ✅ **Updated app icon SVG**: New "D" lettermark with sunflower/charcoal palette
 - ✅ **Renamed slash commands**: `/alicooks.*` → `/dishcourse.*`
+- ✅ **Mascot created**: Friendly plate characters via Midjourney
+  - `public/mascot.png` — single character for avatars/app icon
+  - `public/mascot-duo.png` — duo for splash screens/empty states
+- ✅ **Mascot mockups**: `mascot-mockup.html` shows mascots in app contexts
 - ✅ **Tests passing**: 626/627 (1 pre-existing failure unrelated to rename)
 
 ### Phase Summary
@@ -114,12 +116,13 @@ Core features:
 
 ### Recommended Next Steps
 
-1. **Review logo exploration** — Open `logo-exploration.html` and pick a direction for "DishCourse"
-   - The existing concepts now show "DishCourse" — evaluate which work best for the new name
-   - May need to adjust letter spacing for the longer word
-2. **Refine chosen logo** — Polish typography, spacing, and create final SVG assets
-3. **Regenerate app icons** — Run `scripts/generate-icons.mjs` after finalizing logo
-4. **Scope collaboration feature** — Capture Aliya's vision for family collaboration in ideas backlog
+1. **Integrate mascots into app** — Replace placeholder graphics with mascot images
+   - Splash/loading screen with duo mascot
+   - Empty states with duo mascot
+   - Header avatar with single mascot (optional)
+2. **Regenerate app icons** — Create app icon using single mascot, run `scripts/generate-icons.mjs`
+3. **Scope collaboration feature** — Capture Aliya's vision for family collaboration in ideas backlog
+4. **Consider onboarding flow** — Use mascots to create a welcoming first-run experience
 
 ### Key Files
 
@@ -137,19 +140,26 @@ Core features:
 | **App Icon SVG** | `public/icons/icon-512.svg` |
 | Icon Generation | `scripts/generate-icons.mjs` |
 | **Design Mockup** | `design-mockup.html` |
+| **Mascot Mockup** | `mascot-mockup.html` |
 | **Logo Exploration** | `logo-exploration.html` |
+| **Mascot (Single)** | `public/mascot.png` |
+| **Mascot (Duo)** | `public/mascot-duo.png` |
 | Markdown Rules | `.cursor/rules/markdown-linting.mdc` |
 | This Guide | `.specify/memory/session-guide.md` |
 
 ### Open Decisions
 
-- **Logo direction for DishCourse**: 19 typography-first options now show "DishCourse"
-  - Palette: Black, white, sunflower yellow (`#FFB800`)
-  - Sans-serif vs script style to be decided
-  - May need new explorations — "DishCourse" is longer than "AliCooks"
 - **Collaboration feature**: Aliya wants the app to be family-collaborative
   - Needs proper specification before implementation
   - Possible directions: shared data, user accounts, real-time sync
+
+### Branding Assets (Finalized)
+
+- **Mascots**: Friendly anthropomorphic plate characters
+  - Single (`public/mascot.png`) — for small contexts (avatar, app icon)
+  - Duo (`public/mascot-duo.png`) — for large contexts (splash, empty states, marketing)
+- **Palette**: Black (#1A1A1A), Charcoal (#2C2C2C), White, Sunflower Yellow (#FFB800)
+- **Typography**: "DishCourse" with yellow "Dish" + white "Course" (Outfit font)
 
 ### Notes
 
