@@ -291,6 +291,8 @@ export function DayAssignmentPage() {
             >
               {dishes.length === 0 ? (
                 <EmptyState
+                  imageSrc="/mascot-duo.png"
+                  imageAlt="DishCourse mascots"
                   title="No Dishes Yet"
                   message="Add some dishes to your collection first."
                   action={{

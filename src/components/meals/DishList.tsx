@@ -32,31 +32,8 @@ export interface DishListProps {
   showFilters?: boolean;
 }
 
-/**
- * A simple bowl/plate icon for the empty state
- */
-function PlateIcon() {
-  return (
-    <svg
-      width="64"
-      height="64"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      {/* Plate/bowl shape */}
-      <ellipse cx="12" cy="14" rx="9" ry="4" />
-      <path d="M3 14c0-4 4-8 9-8s9 4 9 8" />
-      {/* Steam lines */}
-      <path d="M8 6c0-1 .5-2 1-2" opacity="0.5" />
-      <path d="M12 5c0-1.5.5-3 1-3" opacity="0.5" />
-      <path d="M16 6c0-1 .5-2 1-2" opacity="0.5" />
-    </svg>
-  );
-}
+/** Path to the duo mascot for empty states */
+const MASCOT_DUO_PATH = '/mascot-duo.png';
 
 /**
  * Filter configuration for each dish type
@@ -124,7 +101,8 @@ export function DishList({
   if (dishes.length === 0) {
     return (
       <EmptyState
-        icon={<PlateIcon />}
+        imageSrc={MASCOT_DUO_PATH}
+        imageAlt="DishCourse mascots welcoming you"
         title={emptyTitle}
         message={emptyMessage}
         action={

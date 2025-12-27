@@ -144,11 +144,11 @@ describe('HomePage', () => {
       expect(navigatedTo).toBe('/add');
     });
 
-    it('does not show FAB in empty state', () => {
+    it('shows FAB in empty state for quick adding', () => {
       renderHomePage();
 
-      // The FAB has aria-label "Add a dish" (lowercase)
-      expect(screen.queryByRole('button', { name: 'Add a dish' })).not.toBeInTheDocument();
+      // FAB should always be visible as a quick way to add dishes
+      expect(screen.getByRole('button', { name: 'Add a dish' })).toBeInTheDocument();
     });
   });
 

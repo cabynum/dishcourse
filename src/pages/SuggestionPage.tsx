@@ -6,7 +6,7 @@
  */
 
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Sparkles } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useSuggestion } from '@/hooks';
 import { SuggestionCard } from '@/components/meals';
 import { Button, EmptyState } from '@/components/ui';
@@ -92,13 +92,8 @@ export function SuggestionPage() {
         {!isLoading && !isAvailable && (
           <div className="py-8">
             <EmptyState
-              icon={
-                <Sparkles
-                  size={48}
-                  strokeWidth={1.5}
-                  style={{ color: 'var(--color-accent)' }}
-                />
-              }
+              imageSrc="/mascot-duo.png"
+              imageAlt="DishCourse mascots"
               title="Need More Dishes"
               message={message}
               action={{

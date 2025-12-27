@@ -75,12 +75,13 @@ describe('DishList', () => {
       expect(handleAddClick).toHaveBeenCalledTimes(1);
     });
 
-    it('renders plate icon in empty state', () => {
+    it('renders mascot image in empty state', () => {
       render(<DishList dishes={[]} />);
 
-      // The icon should have aria-hidden
-      const icon = document.querySelector('svg');
-      expect(icon).toBeInTheDocument();
+      // The mascot image should be present and have aria-hidden via the container
+      const mascotImage = screen.getByAltText('DishCourse mascots welcoming you');
+      expect(mascotImage).toBeInTheDocument();
+      expect(mascotImage).toHaveAttribute('src', '/mascot-duo.png');
     });
   });
 

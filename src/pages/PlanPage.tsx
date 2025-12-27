@@ -167,13 +167,8 @@ export function PlanPage() {
         <main className="max-w-lg mx-auto px-4 py-8">
           {dishes.length === 0 ? (
             <EmptyState
-              icon={
-                <Calendar
-                  size={48}
-                  strokeWidth={1.5}
-                  style={{ color: 'var(--color-accent)' }}
-                />
-              }
+              imageSrc="/mascot-duo.png"
+              imageAlt="DishCourse mascots"
               title="Add Some Dishes First"
               message="You'll need dishes in your collection before you can plan meals."
               action={{
