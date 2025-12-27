@@ -198,3 +198,5 @@ The core app is now feature-complete for MVP. Remaining phases:
 - Built multi-day meal planning with day selection
 - Added cascade delete for data integrity
 - 454 tests now passing
+
+December 2025

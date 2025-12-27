@@ -139,3 +139,5 @@ The app now has a cohesive visual identity. Remaining polish items:
 **Commit**: `style: apply Sunflower & Charcoal design system to all pages`
 
 [← Part 8: Data Export](./part-8-data-export.md) | [README](./README.md)
+
+December 2025

@@ -111,4 +111,4 @@ In [Part 2](./part-2-specification.md), we establish the constitution and create
 
 **Next:** [Part 2 — Constitution, Specification & Planning](./part-2-specification.md)
 
-December 2024
+December 2025

@@ -11,7 +11,8 @@
 <p align="center">
   <a href="https://havedishcourse.vercel.app">Live App</a> •
   <a href="#features">Features</a> •
-  <a href="#getting-started">Getting Started</a>
+  <a href="#getting-started">Getting Started</a> •
+  <a href="blog/README.md">Blog</a>
 </p>
 
 ---

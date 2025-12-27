@@ -103,3 +103,5 @@ This will likely be a v2 milestone.
 ---
 
 *The rename is done. Now DishCourse needs its visual identity.*
+
+December 2025

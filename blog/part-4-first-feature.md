@@ -162,4 +162,6 @@ We're building a meal planner, one small piece at a time.
 
 ---
 
-**Next:** Part 5 — View My Dishes (coming soon)
+**Next:** [Part 5 — View My Dishes](./part-5-view-dishes.md)
+
+December 2025
