@@ -51,13 +51,14 @@ Before we end, please:
   - SuggestionPage "need more dishes" state
   - PlanPage "add dishes first" state
   - DayAssignmentPage "no dishes" state
+- ✅ **Header mascot avatar**: Single mascot replaces egg emoji in header
 - ✅ **App icons regenerated**: Now feature the single mascot on yellow background
   - Updated `scripts/generate-icons.mjs` to use mascot.png
   - Generated new icons at 192px and 512px (regular + maskable)
 - ✅ **EmptyState component enhanced**: Now supports `imageSrc` prop for mascot images
 - ✅ **GitHub repo renamed**: `alicooks` → `dishcourse`
 - ✅ **Local folder renamed**: `~/projects/alicooks` → `~/projects/dishcourse`
-- ✅ **Tests passing**: 627/627 (fixed test that expected old icon behavior)
+- ✅ **Tests passing**: 627/627
 
 ### Phase Summary
 
@@ -119,10 +120,10 @@ Core features:
 
 ### Recommended Next Steps
 
-1. **Add mascot to header** — Use single mascot as avatar in the header (optional, per mockup)
-2. **Create onboarding flow** — Use mascots to create a welcoming first-run experience
+1. **Create onboarding flow** — Use mascots to create a welcoming first-run experience
+2. **Add splash/loading screen** — Show duo mascot during initial app load
 3. **Scope collaboration feature** — Capture Aliya's vision for family collaboration in ideas backlog
-4. **Add splash/loading screen** — Show duo mascot during initial app load
+4. **Deploy to Vercel** — Push latest changes to production
 
 ### Key Files
 

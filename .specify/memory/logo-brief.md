@@ -1,6 +1,7 @@
 # DishCourse Logo Brief
 
 ## Status
+
 **Phase:** AI Generation (Midjourney)  
 **Next Step:** User obtaining Midjourney access, then generating concepts
 
@@ -9,12 +10,14 @@
 ## Brand Direction
 
 ### Name Treatment
+
 - **Name:** DishCourse (one word, clear distinction between "Dish" and "Course")
 - **Typeface:** Outfit (Google Font)
 - **Weight Contrast:** Bold "Dish" + Light "Course"
 - **Color Accent:** Yellow (#FACC15) on "Dish" in dark mode variants
 
 ### Logo Concept
+
 - **Type:** Character-based icon + wordmark
 - **Character:** Anthropomorphic plate, speaking/in dialog
 - **Personality:** Friendly, conversational, approachable
@@ -30,6 +33,7 @@
 4. **Tesla** — Clean, works in any single color
 
 ### Common Traits
+
 - Simple enough to work at small sizes (app icon)
 - Timeless, not trendy
 - Works in any 2-color combination (black/white essential)
@@ -41,14 +45,17 @@
 ## AI Generation Strategy
 
 ### Tool Selection
+
 **Midjourney v6** chosen over DALL-E 3 because:
+
 - Superior artistic quality for stylized work
 - `--style raw` produces cleaner, logo-appropriate results
 - Better at capturing sophisticated line-art style
 - More control over aesthetic refinement
 
 ### Primary Prompt
-```
+
+```text
 Professional logo mark, friendly anthropomorphic plate character 
 with open mouth speaking, single continuous line illustration. 
 Minimalist geometric style, works in solid black or solid white. 
@@ -61,17 +68,20 @@ design suitable for app icon. White background.
 ### Prompt Variations
 
 **More Playful:**
-```
+
+```text
 ...friendly talking plate with wide open mouth, excited expression...
 ```
 
 **More Sophisticated:**
-```
+
+```text
 ...elegant plate silhouette with subtle open mouth detail, refined minimalist...
 ```
 
 **With Utensils:**
-```
+
+```text
 ...plate character speaking, flanked by fork and knife, continuous line art...
 ```
 
@@ -115,4 +125,3 @@ design suitable for app icon. White background.
 - **U1, U2, U3, U4** — Upscale specific image
 - Enable **Remix mode** (`/settings`) to tweak between variations
 - Use web UI at midjourney.com for cleaner experience
-
