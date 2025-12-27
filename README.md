@@ -23,23 +23,27 @@ A mobile-first meal planning app that helps your family decide what to cook. Add
 ## Features
 
 ### Dish Collection
+
 - Add dishes with type classification (Entree, Side, Other)
 - Edit and delete dishes anytime
 - Filter by dish type when your collection grows
 - Automatic title case formatting
 
 ### Meal Suggestions
+
 - Random entree + side pairing with one tap
 - "Try Another" for instant re-rolls
 - Works with any collection size
 
 ### Meal Planning
+
 - Create plans for 3, 5, 7, or 14 days
 - Assign dishes to each day
 - See progress at a glance
 - Access saved plans from the homepage
 
 ### Data Ownership
+
 - Export your data as JSON anytime
 - Import data to restore or migrate
 - No accounts, no cloud lock-in
@@ -66,7 +70,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173 in your browser (or scan the QR code for mobile).
+Open <http://localhost:5173> in your browser (or scan the QR code for mobile).
 
 ### Build for Production
 
@@ -79,7 +83,7 @@ The built files will be in the `dist/` directory, ready to deploy to any static 
 ## Tech Stack
 
 | Layer | Technology |
-|-------|------------|
+| ----- | ---------- |
 | Framework | React 18 with TypeScript |
 | Build Tool | Vite |
 | Styling | Tailwind CSS |
@@ -89,7 +93,7 @@ The built files will be in the `dist/` directory, ready to deploy to any static 
 
 ## Project Structure
 
-```
+```text
 src/
   components/
     meals/      # Domain components (DishCard, PlanCard, etc.)
