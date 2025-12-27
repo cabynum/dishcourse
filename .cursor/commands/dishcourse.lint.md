@@ -6,14 +6,18 @@ description: Check all markdown files for linting errors
 
 Please run a lint check on all markdown files in the project:
 
-1. Check these directories for markdown linting errors:
-   - `blog/`
-   - `specs/`
-   - `.specify/memory/`
-   - Root `.md` files
+```bash
+npx markdownlint-cli2 "*.md" ".specify/**/*.md" "blog/**/*.md" "specs/**/*.md" ".cursor/**/*.md"
+```
 
-2. Report any errors found
+This covers:
 
-3. Fix all errors before continuing
+- `*.md` — Root files (README.md, etc.)
+- `.specify/**/*.md` — Memory and ideas
+- `blog/**/*.md` — Development blog
+- `specs/**/*.md` — Feature specifications
+- `.cursor/**/*.md` — Cursor commands and rules
+
+Report any errors found and fix them before continuing.
 
 This should be run before any commit and at the end of editing sessions.

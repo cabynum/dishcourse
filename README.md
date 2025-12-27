@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://dishcourse.vercel.app">Live App</a> •
+  <a href="https://havedishcourse.vercel.app">Live App</a> •
   <a href="#features">Features</a> •
   <a href="#getting-started">Getting Started</a>
 </p>

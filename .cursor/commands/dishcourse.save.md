@@ -8,11 +8,13 @@ Before we end this session, please complete these steps:
 
 ### 0. Lint Check (FIRST!)
 
-Run lint checks on ALL markdown files edited this session:
+Run lint checks on ALL markdown files in the project:
 
-- `blog/`
-- `specs/`
-- `.specify/memory/`
+```bash
+npx markdownlint-cli2 "*.md" ".specify/**/*.md" "blog/**/*.md" "specs/**/*.md" ".cursor/**/*.md"
+```
+
+This covers root files, memory, blog, specs, and Cursor commands.
 
 Fix any errors before proceeding. Do not skip this step.
 
