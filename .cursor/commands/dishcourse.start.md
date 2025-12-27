@@ -22,4 +22,3 @@ After reading, provide:
 Read the "Recommended Next Steps" section from the session guide and **propose these options to the user**. Don't just list them — explain what each option involves and make a recommendation.
 
 Then ask: "Which approach would you like to take, or did you have something else in mind?"
-

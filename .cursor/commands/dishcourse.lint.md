@@ -17,4 +17,3 @@ Please run a lint check on all markdown files in the project:
 3. Fix all errors before continuing
 
 This should be run before any commit and at the end of editing sessions.
-

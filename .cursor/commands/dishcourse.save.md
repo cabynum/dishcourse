@@ -47,4 +47,3 @@ type(scope): brief description
 ```
 
 Types: feat, fix, docs, refactor, chore
-

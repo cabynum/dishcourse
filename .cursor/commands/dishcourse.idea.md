@@ -27,11 +27,10 @@ Add this idea to the backlog at `.specify/memory/ideas.md`.
 *Consideration*: [Any notes about scope, complexity, or constitution alignment]
 ```
 
-4. **Confirm** what was added (brief summary)
+1. **Confirm** what was added (brief summary)
 
 ### Keep It Light
 
 - Don't overthink — capture the spark, refine later
 - One idea per entry (split if user gives multiple)
 - Constitution considerations are optional but helpful
-
