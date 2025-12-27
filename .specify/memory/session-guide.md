@@ -38,7 +38,7 @@ Before we end, please:
 
 ## Current Status
 
-**Last Updated**: 2024-12-26  
+**Last Updated**: 2024-12-27  
 **Current Branch**: `master`  
 **Repository**: <https://github.com/cabynum/dishcourse>  
 **Live URL**: <https://dishcourse.vercel.app>  
@@ -46,15 +46,18 @@ Before we end, please:
 
 ### Completed This Session
 
-- ✅ **Renamed app**: AliCooks → DishCourse (per Aliya's feedback)
-- ✅ **Updated all references**: UI, manifest, package.json, tests, docs, blog, commands
-- ✅ **Updated storage keys**: `alicooks_*` → `dishcourse_*` (clean slate, no migration)
-- ✅ **Renamed slash commands**: `/alicooks.*` → `/dishcourse.*`
-- ✅ **Mascot created**: Friendly plate characters via Midjourney
-  - `public/mascot.png` — single character for avatars/app icon
-  - `public/mascot-duo.png` — duo for splash screens/empty states
-- ✅ **Mascot mockups**: `mascot-mockup.html` shows mascots in app contexts
-- ✅ **Tests passing**: 626/627 (1 pre-existing failure unrelated to rename)
+- ✅ **Mascots integrated into app**: Duo mascot now appears in all empty states
+  - HomePage empty state
+  - SuggestionPage "need more dishes" state
+  - PlanPage "add dishes first" state
+  - DayAssignmentPage "no dishes" state
+- ✅ **App icons regenerated**: Now feature the single mascot on yellow background
+  - Updated `scripts/generate-icons.mjs` to use mascot.png
+  - Generated new icons at 192px and 512px (regular + maskable)
+- ✅ **EmptyState component enhanced**: Now supports `imageSrc` prop for mascot images
+- ✅ **GitHub repo renamed**: `alicooks` → `dishcourse`
+- ✅ **Local folder renamed**: `~/projects/alicooks` → `~/projects/dishcourse`
+- ✅ **Tests passing**: 627/627 (fixed test that expected old icon behavior)
 
 ### Phase Summary
 
@@ -116,13 +119,10 @@ Core features:
 
 ### Recommended Next Steps
 
-1. **Integrate mascots into app** — Replace placeholder graphics with mascot images
-   - Splash/loading screen with duo mascot
-   - Empty states with duo mascot
-   - Header avatar with single mascot (optional)
-2. **Regenerate app icons** — Create app icon using single mascot, run `scripts/generate-icons.mjs`
+1. **Add mascot to header** — Use single mascot as avatar in the header (optional, per mockup)
+2. **Create onboarding flow** — Use mascots to create a welcoming first-run experience
 3. **Scope collaboration feature** — Capture Aliya's vision for family collaboration in ideas backlog
-4. **Consider onboarding flow** — Use mascots to create a welcoming first-run experience
+4. **Add splash/loading screen** — Show duo mascot during initial app load
 
 ### Key Files
 
