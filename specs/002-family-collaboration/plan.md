@@ -92,6 +92,7 @@ household data and higher learning curve for RLS-equivalent security rules.
 ### Migration Path
 
 Existing users with local-only data will see:
+
 1. Prompt to create account (optional)
 2. If they create account → local dishes become their personal collection
 3. When they create/join household → personal dishes merge into shared collection

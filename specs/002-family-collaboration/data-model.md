@@ -240,6 +240,7 @@ CREATE INDEX idx_dishes_added_by ON dishes(added_by);
 **Migration from Local Storage**:
 
 When a user creates/joins a household, their local dishes are migrated:
+
 1. Each local dish gets the user's `userId` as `addedBy`
 2. Each dish gets the household's `id` as `householdId`
 3. Local dishes are cleared after successful migration
@@ -466,6 +467,7 @@ export const db = new DishCourseDB();
 ### Sync Status
 
 Each cached item has a `_syncStatus`:
+
 - `synced`: Matches server state
 - `pending`: Local changes not yet uploaded
 - `conflict`: Local and server changes conflict (rare, needs resolution)
