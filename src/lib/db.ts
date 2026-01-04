@@ -211,6 +211,7 @@ class DishCourseDB extends Dexie {
   mealPlans!: Table<CachedMealPlan>;
   syncMeta!: Table<SyncMeta>;
   offlineQueue!: Table<QueuedOperation>;
+  conflicts!: Table<ConflictRecord>;
 
   constructor() {
     super('dishcourse');
@@ -234,6 +235,18 @@ class DishCourseDB extends Dexie {
       mealPlans: 'id, householdId, _syncStatus',
       syncMeta: 'key',
       offlineQueue: 'id, entityType, entityId, createdAt',
+    });
+
+    // Version 3: Add conflicts table for conflict resolution
+    this.version(3).stores({
+      profiles: 'id',
+      households: 'id',
+      members: 'id, householdId, userId',
+      dishes: 'id, householdId, _syncStatus',
+      mealPlans: 'id, householdId, _syncStatus',
+      syncMeta: 'key',
+      offlineQueue: 'id, entityType, entityId, createdAt',
+      conflicts: 'id, entityType, entityId',
     });
   }
 }
@@ -298,6 +311,7 @@ export async function clearAllData(): Promise<void> {
   await db.mealPlans.clear();
   await db.syncMeta.clear();
   await db.offlineQueue.clear();
+  await db.conflicts.clear();
 }
 
 /**
@@ -449,3 +463,87 @@ export async function clearOfflineQueue(): Promise<void> {
  * Maximum number of retries before an operation is considered failed.
  */
 export const MAX_QUEUE_RETRIES = 5;
+
+// ============================================================================
+// CONFLICT DETECTION
+// ============================================================================
+
+/**
+ * A record of a sync conflict that needs user resolution.
+ * Stores both the local and server versions of an entity.
+ */
+export interface ConflictRecord {
+  /** Unique ID for this conflict (same as entity ID) */
+  id: string;
+  /** Type of entity: dish or mealPlan */
+  entityType: QueuedEntityType;
+  /** ID of the entity in conflict */
+  entityId: string;
+  /** The local version of the entity (user's changes) */
+  localVersion: Dish | MealPlan;
+  /** The server version of the entity (other user's changes) */
+  serverVersion: Dish | MealPlan;
+  /** When the conflict was detected */
+  detectedAt: string;
+  /** Who made the local change (current user) */
+  localChangedBy?: string;
+  /** Who made the server change (other user) */
+  serverChangedBy?: string;
+}
+
+/**
+ * Add a conflict record to the database.
+ */
+export async function addConflict(conflict: ConflictRecord): Promise<void> {
+  // Remove any existing conflict for this entity
+  await db.conflicts.delete(conflict.entityId);
+  await db.conflicts.add(conflict);
+}
+
+/**
+ * Get all unresolved conflicts.
+ */
+export async function getConflicts(): Promise<ConflictRecord[]> {
+  return db.conflicts.toArray();
+}
+
+/**
+ * Get the count of unresolved conflicts.
+ */
+export async function getConflictCount(): Promise<number> {
+  return db.conflicts.count();
+}
+
+/**
+ * Get a specific conflict by entity ID.
+ */
+export async function getConflict(entityId: string): Promise<ConflictRecord | undefined> {
+  return db.conflicts.get(entityId);
+}
+
+/**
+ * Remove a conflict (after resolution).
+ */
+export async function removeConflict(entityId: string): Promise<void> {
+  await db.conflicts.delete(entityId);
+}
+
+/**
+ * Clear all conflicts.
+ */
+export async function clearConflicts(): Promise<void> {
+  await db.conflicts.clear();
+}
+
+/**
+ * Mark an entity as having a conflict.
+ * Updates the sync status to 'conflict'.
+ */
+export async function markAsConflict<T extends CacheMetadata>(
+  table: Table<T>,
+  id: string
+): Promise<void> {
+  await table.where('id').equals(id).modify((item) => {
+    item._syncStatus = 'conflict';
+  });
+}

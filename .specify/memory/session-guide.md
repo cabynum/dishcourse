@@ -42,7 +42,7 @@ Before we end, please:
 **Current Branch**: `002-family-collaboration`  
 **Repository**: <https://github.com/cabynum/dishcourse>  
 **Live URL**: <https://havedishcourse.vercel.app>  
-**Current Phase**: Phase 3 In Progress — Sync Infrastructure (Offline Queue Complete!)
+**Current Phase**: Phase 3 In Progress — Sync Infrastructure (Conflict Detection Complete!)
 
 ### Completed This Session
 
@@ -52,7 +52,14 @@ Before we end, please:
   - Queue operations processed in FIFO order with retry logic
   - `MAX_QUEUE_RETRIES` (5) prevents infinite retry loops
   - All write operations now queue when offline, sync when back online
-  - Added 17 new tests for queue operations (now 715 total tests)
+  - Added 17 new tests for queue operations
+- ✅ **Implemented Conflict Detection (Task 3.9)** — Detect concurrent edits during sync:
+  - Added `conflicts` table to IndexedDB (Dexie v3 migration)
+  - Real-time handlers now detect when server changes conflict with pending local changes
+  - Stores both local and server versions for user resolution
+  - `resolveConflict()` function to choose 'local' or 'server' version
+  - `onConflict()` callback for UI notifications
+  - Added 11 new tests for conflict detection (now 726 total tests)
 
 ### Phase Summary
 
@@ -113,14 +120,14 @@ Core features:
 | DayAssignmentPage | 22 |
 | HomePage | 26 |
 | App | 2 |
-| Local DB (Dexie) | 29 |
-| **Total** | **715** |
+| Local DB (Dexie) | 40 |
+| **Total** | **726** |
 
 ### Recommended Next Steps
 
-1. **Implement conflict detection** (Task 3.9) — Detect concurrent edits during sync
-2. **Build ConflictResolver component** (Task 3.10) — UI for resolving sync conflicts
-3. **Start Phase 4: Collaborative Planning** — Implement plan locking for multi-user editing
+1. **Build ConflictResolver component** (Task 3.10) — UI for resolving sync conflicts
+2. **Start Phase 4: Collaborative Planning** — Implement plan locking for multi-user editing
+3. **Polish Phase 3** — Add loading states, error handling for sync edge cases
 
 ### Key Files
 
@@ -146,11 +153,12 @@ Core features:
 ### Open Decisions
 
 - **Collaboration feature**: Phase 1 & 2 complete, Phase 3 (Sync Infrastructure) nearly complete
-  - ✅ Tasks 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8 verified working
+  - ✅ Tasks 3.1–3.9 verified working
   - ✅ Real-time sync for both dishes AND meal plans confirmed working
   - ✅ Export/import works in both local and synced modes
   - ✅ Offline queue implemented with deduplication and retry logic
-  - Remaining: 3.9-3.10 (conflict detection/resolution)
+  - ✅ Conflict detection implemented (stores both versions for resolution)
+  - Remaining: 3.10 (ConflictResolver UI component)
   - Two test users ready: `test@dishcourse.local`, `test2@dishcourse.local` in "Test Family"
 - **User experience**: Zero-friction start implemented — auth only required for collaboration
 - **Sync approach**: All household dishes and plans sync automatically (decided)

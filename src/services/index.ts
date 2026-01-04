@@ -92,6 +92,12 @@ export {
   updatePlanInCache,
   deletePlanFromCache,
   getPlansFromCache,
+  // Conflict detection and resolution
+  onConflict,
+  getConflicts,
+  getConflictCount,
+  resolveConflict,
+  type ConflictResolution,
   // Cleanup
   cleanupSync,
 } from './sync';

@@ -19,8 +19,17 @@ import {
   clearQueueForEntity,
   clearOfflineQueue,
   MAX_QUEUE_RETRIES,
+  addConflict,
+  getConflicts,
+  getConflictCount,
+  getConflict,
+  removeConflict,
+  clearConflicts,
+  markAsConflict,
   type CachedDish,
   type DishType,
+  type ConflictRecord,
+  type Dish,
 } from '../../src/lib/db';
 
 describe('Local Database (Dexie)', () => {
@@ -394,10 +403,15 @@ describe('Local Database (Dexie)', () => {
 
       it('only removes the specified operation', async () => {
         await enqueueOperation('add', 'dish', 'dish-1');
+        // Small delay to ensure different timestamps
+        await new Promise((resolve) => setTimeout(resolve, 10));
         await enqueueOperation('add', 'dish', 'dish-2');
         const operations = await getQueuedOperations();
 
-        await dequeueOperation(operations[0].id);
+        // Find and remove the operation for dish-1
+        const dish1Op = operations.find((op) => op.entityId === 'dish-1');
+        expect(dish1Op).toBeDefined();
+        await dequeueOperation(dish1Op!.id);
 
         const remaining = await getQueuedOperations();
         expect(remaining).toHaveLength(1);
@@ -462,6 +476,225 @@ describe('Local Database (Dexie)', () => {
       it('is defined and has a reasonable value', () => {
         expect(MAX_QUEUE_RETRIES).toBeGreaterThan(0);
         expect(MAX_QUEUE_RETRIES).toBeLessThanOrEqual(10);
+      });
+    });
+  });
+
+  describe('conflicts', () => {
+    const createTestDish = (id: string, name: string): Dish => ({
+      id,
+      householdId: 'household-1',
+      name,
+      type: 'entree',
+      addedBy: 'user-1',
+      createdAt: '2024-12-28T00:00:00Z',
+      updatedAt: '2024-12-28T00:00:00Z',
+    });
+
+    describe('addConflict', () => {
+      it('adds a conflict to the database', async () => {
+        const conflict: ConflictRecord = {
+          id: 'dish-1',
+          entityType: 'dish',
+          entityId: 'dish-1',
+          localVersion: createTestDish('dish-1', 'Local Name'),
+          serverVersion: createTestDish('dish-1', 'Server Name'),
+          detectedAt: '2024-12-28T00:00:00Z',
+        };
+
+        await addConflict(conflict);
+
+        const conflicts = await getConflicts();
+        expect(conflicts).toHaveLength(1);
+        expect(conflicts[0].entityId).toBe('dish-1');
+      });
+
+      it('replaces existing conflict for same entity', async () => {
+        const conflict1: ConflictRecord = {
+          id: 'dish-1',
+          entityType: 'dish',
+          entityId: 'dish-1',
+          localVersion: createTestDish('dish-1', 'Local V1'),
+          serverVersion: createTestDish('dish-1', 'Server V1'),
+          detectedAt: '2024-12-28T00:00:00Z',
+        };
+
+        const conflict2: ConflictRecord = {
+          id: 'dish-1',
+          entityType: 'dish',
+          entityId: 'dish-1',
+          localVersion: createTestDish('dish-1', 'Local V2'),
+          serverVersion: createTestDish('dish-1', 'Server V2'),
+          detectedAt: '2024-12-28T01:00:00Z',
+        };
+
+        await addConflict(conflict1);
+        await addConflict(conflict2);
+
+        const conflicts = await getConflicts();
+        expect(conflicts).toHaveLength(1);
+        expect((conflicts[0].localVersion as Dish).name).toBe('Local V2');
+      });
+    });
+
+    describe('getConflicts', () => {
+      it('returns all conflicts', async () => {
+        await addConflict({
+          id: 'dish-1',
+          entityType: 'dish',
+          entityId: 'dish-1',
+          localVersion: createTestDish('dish-1', 'Local 1'),
+          serverVersion: createTestDish('dish-1', 'Server 1'),
+          detectedAt: '2024-12-28T00:00:00Z',
+        });
+
+        await addConflict({
+          id: 'dish-2',
+          entityType: 'dish',
+          entityId: 'dish-2',
+          localVersion: createTestDish('dish-2', 'Local 2'),
+          serverVersion: createTestDish('dish-2', 'Server 2'),
+          detectedAt: '2024-12-28T00:00:00Z',
+        });
+
+        const conflicts = await getConflicts();
+        expect(conflicts).toHaveLength(2);
+      });
+    });
+
+    describe('getConflictCount', () => {
+      it('returns 0 when no conflicts', async () => {
+        const count = await getConflictCount();
+        expect(count).toBe(0);
+      });
+
+      it('returns correct count', async () => {
+        await addConflict({
+          id: 'dish-1',
+          entityType: 'dish',
+          entityId: 'dish-1',
+          localVersion: createTestDish('dish-1', 'Local'),
+          serverVersion: createTestDish('dish-1', 'Server'),
+          detectedAt: '2024-12-28T00:00:00Z',
+        });
+
+        const count = await getConflictCount();
+        expect(count).toBe(1);
+      });
+    });
+
+    describe('getConflict', () => {
+      it('returns specific conflict by entity ID', async () => {
+        await addConflict({
+          id: 'dish-1',
+          entityType: 'dish',
+          entityId: 'dish-1',
+          localVersion: createTestDish('dish-1', 'Local'),
+          serverVersion: createTestDish('dish-1', 'Server'),
+          detectedAt: '2024-12-28T00:00:00Z',
+        });
+
+        const conflict = await getConflict('dish-1');
+        expect(conflict).toBeDefined();
+        expect(conflict?.entityId).toBe('dish-1');
+      });
+
+      it('returns undefined for non-existent conflict', async () => {
+        const conflict = await getConflict('nonexistent');
+        expect(conflict).toBeUndefined();
+      });
+    });
+
+    describe('removeConflict', () => {
+      it('removes a conflict', async () => {
+        await addConflict({
+          id: 'dish-1',
+          entityType: 'dish',
+          entityId: 'dish-1',
+          localVersion: createTestDish('dish-1', 'Local'),
+          serverVersion: createTestDish('dish-1', 'Server'),
+          detectedAt: '2024-12-28T00:00:00Z',
+        });
+
+        await removeConflict('dish-1');
+
+        const count = await getConflictCount();
+        expect(count).toBe(0);
+      });
+
+      it('only removes specified conflict', async () => {
+        await addConflict({
+          id: 'dish-1',
+          entityType: 'dish',
+          entityId: 'dish-1',
+          localVersion: createTestDish('dish-1', 'Local 1'),
+          serverVersion: createTestDish('dish-1', 'Server 1'),
+          detectedAt: '2024-12-28T00:00:00Z',
+        });
+
+        await addConflict({
+          id: 'dish-2',
+          entityType: 'dish',
+          entityId: 'dish-2',
+          localVersion: createTestDish('dish-2', 'Local 2'),
+          serverVersion: createTestDish('dish-2', 'Server 2'),
+          detectedAt: '2024-12-28T00:00:00Z',
+        });
+
+        await removeConflict('dish-1');
+
+        const remaining = await getConflicts();
+        expect(remaining).toHaveLength(1);
+        expect(remaining[0].entityId).toBe('dish-2');
+      });
+    });
+
+    describe('clearConflicts', () => {
+      it('removes all conflicts', async () => {
+        await addConflict({
+          id: 'dish-1',
+          entityType: 'dish',
+          entityId: 'dish-1',
+          localVersion: createTestDish('dish-1', 'Local 1'),
+          serverVersion: createTestDish('dish-1', 'Server 1'),
+          detectedAt: '2024-12-28T00:00:00Z',
+        });
+
+        await addConflict({
+          id: 'dish-2',
+          entityType: 'dish',
+          entityId: 'dish-2',
+          localVersion: createTestDish('dish-2', 'Local 2'),
+          serverVersion: createTestDish('dish-2', 'Server 2'),
+          detectedAt: '2024-12-28T00:00:00Z',
+        });
+
+        await clearConflicts();
+
+        const count = await getConflictCount();
+        expect(count).toBe(0);
+      });
+    });
+
+    describe('markAsConflict', () => {
+      it('updates sync status to conflict', async () => {
+        const dish: CachedDish = {
+          id: 'dish-1',
+          householdId: 'household-1',
+          name: 'Test Dish',
+          type: 'entree',
+          addedBy: 'user-1',
+          createdAt: '2024-12-28T00:00:00Z',
+          updatedAt: '2024-12-28T00:00:00Z',
+          _syncStatus: 'pending',
+          _localUpdatedAt: '2024-12-28T00:00:00Z',
+        };
+
+        await db.dishes.add(dish);
+        await markAsConflict(db.dishes, 'dish-1');
+
+        const updated = await db.dishes.get('dish-1');
+        expect(updated?._syncStatus).toBe('conflict');
       });
     });
   });

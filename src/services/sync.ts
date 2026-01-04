@@ -26,11 +26,17 @@ import {
   dequeueOperation,
   markQueueAttempt,
   MAX_QUEUE_RETRIES,
+  addConflict,
+  getConflicts,
+  getConflictCount,
+  removeConflict,
+  markAsConflict,
   type CachedDish,
   type CachedMealPlan,
   type Dish,
   type MealPlan,
   type QueuedOperation,
+  type ConflictRecord,
 } from '@/lib/db';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 
@@ -54,6 +60,11 @@ export type SyncStateCallback = (state: SyncState, pendingCount: number) => void
 export type DataChangeCallback = () => void;
 
 /**
+ * Callback for when a conflict is detected.
+ */
+export type ConflictCallback = (conflictCount: number) => void;
+
+/**
  * Result of a sync operation.
  */
 interface SyncResult {
@@ -70,6 +81,8 @@ let currentChannel: RealtimeChannel | null = null;
 let syncStateCallback: SyncStateCallback | null = null;
 /** Set of data change callbacks - supports multiple subscribers */
 const dataChangeCallbacks = new Set<DataChangeCallback>();
+/** Set of conflict callbacks - supports multiple subscribers */
+const conflictCallbacks = new Set<ConflictCallback>();
 let isOnline = typeof navigator !== 'undefined' ? navigator.onLine : true;
 let currentHouseholdId: string | null = null;
 
@@ -96,6 +109,25 @@ export function onDataChange(callback: DataChangeCallback): () => void {
   return () => {
     dataChangeCallbacks.delete(callback);
   };
+}
+
+/**
+ * Register a callback to receive conflict notifications.
+ * Called when a new conflict is detected during sync.
+ */
+export function onConflict(callback: ConflictCallback): () => void {
+  conflictCallbacks.add(callback);
+  return () => {
+    conflictCallbacks.delete(callback);
+  };
+}
+
+/**
+ * Notify listeners of conflict changes.
+ */
+async function notifyConflicts(): Promise<void> {
+  const count = await getConflictCount();
+  conflictCallbacks.forEach((callback) => callback(count));
 }
 
 /**
@@ -529,6 +561,7 @@ export function unsubscribeFromHousehold(): void {
 
 /**
  * Handle incoming dish changes from real-time subscription.
+ * Detects conflicts when local pending changes exist for the same entity.
  */
 async function handleDishChange(payload: {
   eventType: string;
@@ -541,13 +574,36 @@ async function handleDishChange(payload: {
     switch (eventType) {
       case 'INSERT':
       case 'UPDATE': {
+        const entityId = newRecord.id as string;
+
         // Check if this is a soft delete
         if (newRecord.deleted_at) {
-          await db.dishes.delete(newRecord.id as string);
+          await db.dishes.delete(entityId);
         } else {
-          const dish = transformDishFromServer(newRecord);
-          const cached = withSyncMetadata(dish, 'synced');
-          await db.dishes.put(cached);
+          const serverDish = transformDishFromServer(newRecord);
+
+          // Check for conflict: do we have pending local changes?
+          const localDish = await db.dishes.get(entityId);
+          if (localDish && localDish._syncStatus === 'pending') {
+            // Conflict detected: local pending changes + incoming server changes
+            const conflict: ConflictRecord = {
+              id: entityId,
+              entityType: 'dish',
+              entityId,
+              localVersion: stripCacheMetadataFromDish(localDish),
+              serverVersion: serverDish,
+              detectedAt: new Date().toISOString(),
+              localChangedBy: localDish.addedBy,
+              serverChangedBy: serverDish.addedBy,
+            };
+            await addConflict(conflict);
+            await markAsConflict(db.dishes, entityId);
+            await notifyConflicts();
+          } else {
+            // No conflict - just update local cache
+            const cached = withSyncMetadata(serverDish, 'synced');
+            await db.dishes.put(cached);
+          }
         }
         break;
       }
@@ -566,6 +622,7 @@ async function handleDishChange(payload: {
 
 /**
  * Handle incoming meal plan changes from real-time subscription.
+ * Detects conflicts when local pending changes exist for the same entity.
  */
 async function handlePlanChange(payload: {
   eventType: string;
@@ -578,12 +635,35 @@ async function handlePlanChange(payload: {
     switch (eventType) {
       case 'INSERT':
       case 'UPDATE': {
+        const entityId = newRecord.id as string;
+
         if (newRecord.deleted_at) {
-          await db.mealPlans.delete(newRecord.id as string);
+          await db.mealPlans.delete(entityId);
         } else {
-          const plan = transformPlanFromServer(newRecord);
-          const cached = withSyncMetadata(plan, 'synced');
-          await db.mealPlans.put(cached);
+          const serverPlan = transformPlanFromServer(newRecord);
+
+          // Check for conflict: do we have pending local changes?
+          const localPlan = await db.mealPlans.get(entityId);
+          if (localPlan && localPlan._syncStatus === 'pending') {
+            // Conflict detected: local pending changes + incoming server changes
+            const conflict: ConflictRecord = {
+              id: entityId,
+              entityType: 'mealPlan',
+              entityId,
+              localVersion: stripCacheMetadataFromPlan(localPlan),
+              serverVersion: serverPlan,
+              detectedAt: new Date().toISOString(),
+              localChangedBy: localPlan.createdBy,
+              serverChangedBy: serverPlan.createdBy,
+            };
+            await addConflict(conflict);
+            await markAsConflict(db.mealPlans, entityId);
+            await notifyConflicts();
+          } else {
+            // No conflict - just update local cache
+            const cached = withSyncMetadata(serverPlan, 'synced');
+            await db.mealPlans.put(cached);
+          }
         }
         break;
       }
@@ -840,6 +920,24 @@ function stripCacheMetadata<T extends { _syncStatus?: unknown; _localUpdatedAt?:
   return rest as Omit<T, '_syncStatus' | '_localUpdatedAt' | '_serverUpdatedAt'>;
 }
 
+/**
+ * Strip cache metadata from a cached dish, returning a plain Dish.
+ */
+function stripCacheMetadataFromDish(cached: CachedDish): Dish {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { _syncStatus, _localUpdatedAt, _serverUpdatedAt, ...dish } = cached;
+  return dish;
+}
+
+/**
+ * Strip cache metadata from a cached meal plan, returning a plain MealPlan.
+ */
+function stripCacheMetadataFromPlan(cached: CachedMealPlan): MealPlan {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { _syncStatus, _localUpdatedAt, _serverUpdatedAt, ...plan } = cached;
+  return plan;
+}
+
 // ============================================================================
 // CLEANUP
 // ============================================================================
@@ -851,4 +949,87 @@ function stripCacheMetadata<T extends { _syncStatus?: unknown; _localUpdatedAt?:
 export function cleanupSync(): void {
   unsubscribeFromHousehold();
   currentHouseholdId = null;
+}
+
+// ============================================================================
+// CONFLICT RESOLUTION
+// ============================================================================
+
+/**
+ * Get all unresolved conflicts.
+ */
+export { getConflicts, getConflictCount };
+
+/**
+ * Resolution strategy for a conflict.
+ * - 'local': Keep the local version, discard server changes
+ * - 'server': Keep the server version, discard local changes
+ */
+export type ConflictResolution = 'local' | 'server';
+
+/**
+ * Resolve a conflict by choosing which version to keep.
+ *
+ * @param entityId - The ID of the entity in conflict
+ * @param resolution - Which version to keep: 'local' or 'server'
+ * @returns True if resolution was successful
+ */
+export async function resolveConflict(
+  entityId: string,
+  resolution: ConflictResolution
+): Promise<boolean> {
+  const conflict = await db.conflicts.get(entityId);
+  if (!conflict) {
+    console.warn(`No conflict found for entity: ${entityId}`);
+    return false;
+  }
+
+  try {
+    if (conflict.entityType === 'dish') {
+      if (resolution === 'local') {
+        // Keep local version, mark as pending to push to server
+        const localDish = conflict.localVersion as Dish;
+        const cached = withSyncMetadata(localDish, 'pending');
+        await db.dishes.put(cached);
+        // Queue for sync
+        await enqueueOperation('update', 'dish', entityId);
+      } else {
+        // Keep server version
+        const serverDish = conflict.serverVersion as Dish;
+        const cached = withSyncMetadata(serverDish, 'synced');
+        await db.dishes.put(cached);
+      }
+    } else if (conflict.entityType === 'mealPlan') {
+      if (resolution === 'local') {
+        // Keep local version, mark as pending to push to server
+        const localPlan = conflict.localVersion as MealPlan;
+        const cached = withSyncMetadata(localPlan, 'pending');
+        await db.mealPlans.put(cached);
+        // Queue for sync
+        await enqueueOperation('update', 'mealPlan', entityId);
+      } else {
+        // Keep server version
+        const serverPlan = conflict.serverVersion as MealPlan;
+        const cached = withSyncMetadata(serverPlan, 'synced');
+        await db.mealPlans.put(cached);
+      }
+    }
+
+    // Remove the conflict record
+    await removeConflict(entityId);
+
+    // Notify listeners
+    await notifyConflicts();
+    dataChangeCallbacks.forEach((callback) => callback());
+
+    // If we kept local, try to push now
+    if (resolution === 'local' && isOnline) {
+      pushChanges();
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Failed to resolve conflict:', error);
+    return false;
+  }
 }
