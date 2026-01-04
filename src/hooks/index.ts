@@ -27,3 +27,6 @@ export type { UseInviteReturn } from './useInvite';
 
 export { useSync, useDataChange } from './useSync';
 export type { UseSyncReturn } from './useSync';
+
+export { useConflicts } from './useConflicts';
+export type { UseConflictsReturn } from './useConflicts';

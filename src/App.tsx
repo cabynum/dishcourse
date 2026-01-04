@@ -14,6 +14,8 @@ import {
 } from '@/pages';
 import { ErrorBoundary, BottomNav } from '@/components/ui';
 import { AuthProvider } from '@/components/auth';
+import { ConflictResolver } from '@/components/sync';
+import { useConflicts } from '@/hooks';
 
 /**
  * Pages where the bottom nav should be hidden (forms, detail views, auth, household)
@@ -21,7 +23,25 @@ import { AuthProvider } from '@/components/auth';
 const HIDE_NAV_PATHS = ['/add', '/edit', '/plan/', '/auth', '/household', '/join'];
 
 /**
+ * Global conflict overlay that shows when sync conflicts are detected.
+ * Uses the useConflicts hook to automatically respond to conflict changes.
+ */
+function ConflictOverlay() {
+  const { conflicts, hasConflicts, resolveConflict } = useConflicts();
+
+  if (!hasConflicts) return null;
+
+  return (
+    <ConflictResolver
+      conflicts={conflicts}
+      onResolve={resolveConflict}
+    />
+  );
+}
+
+/**
  * Layout wrapper that conditionally shows the bottom navigation
+ * and handles global overlays like conflict resolution.
  */
 function AppLayout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
@@ -35,6 +55,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
     <>
       {children}
       {showNav && <BottomNav />}
+      <ConflictOverlay />
     </>
   );
 }
