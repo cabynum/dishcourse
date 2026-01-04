@@ -38,27 +38,32 @@ Before we end, please:
 
 ## Current Status
 
-**Last Updated**: 2024-12-31  
+**Last Updated**: 2025-01-03  
 **Current Branch**: `002-family-collaboration`  
 **Repository**: <https://github.com/cabynum/dishcourse>  
 **Live URL**: <https://havedishcourse.vercel.app>  
-**Current Phase**: Phase 0 Complete — Backend Setup Done
+**Current Phase**: Phase 2 Complete — Households Infrastructure Done
 
 ### Completed This Session
 
-- ✅ **Phase 0: Backend Setup** completed (5/5 tasks):
-  - Created Supabase project and configured auth settings
-  - Installed `@supabase/supabase-js`, created `src/lib/supabase.ts`
-  - Created database schema migration with 6 tables + triggers
-  - Configured 15 Row-Level Security policies for data isolation
-  - Set up Dexie (IndexedDB) local cache with sync metadata
-- ✅ **Test count**: 627 → 639 (+12 new database cache tests)
-- ✅ **Files created**:
-  - `src/lib/supabase.ts` — Supabase client initialization
-  - `src/lib/db.ts` — Local IndexedDB cache with Dexie
-  - `supabase/migrations/001_initial_schema.sql` — Tables and triggers
-  - `supabase/migrations/002_row_level_security.sql` — RLS policies
-  - `.env.local` / `.env.example` — Environment configuration
+- ✅ **Phase 1: Authentication** completed:
+  - Created `AuthService` with magic link authentication
+  - Created `useAuth` hook for React integration
+  - Built `MagicLinkForm`, `AuthProvider`, `ProtectedRoute` components
+  - Added `AuthPage` with sign-in flow and verification handling
+- ✅ **Phase 2: Households** completed:
+  - Created `HouseholdService` and `InviteService`
+  - Created `useHousehold` and `useInvite` hooks
+  - Built `HouseholdPage`, `HouseholdCreatePage`, `JoinPage`
+  - Built `MemberList`, `InviteModal`, `HouseholdSwitcher` components
+- ✅ **Auth UX improvements**:
+  - HomePage shows personalized greeting with user's display name
+  - SettingsPage shows Account section with profile info + Sign Out
+  - Share with Family section shows authenticated vs unauthenticated state
+- ✅ **RLS recursion fix**: Fixed infinite recursion in `household_members` policy
+  - Added `get_user_household_ids()` SECURITY DEFINER function
+  - Created migration `003_fix_rls_recursion.sql`
+- ✅ **Test count**: 639 → 694 (+55 new tests for auth/household features)
 
 ### Phase Summary
 
@@ -90,10 +95,12 @@ Core features:
 | ------------------ | ------- |
 | Storage Service | 50 |
 | Suggestion Service | 20 |
+| **Auth Service** | 23 |
 | useDishes Hook | 15 |
 | useSuggestion Hook | 17 |
 | usePlans Hook | 25 |
 | useExport Hook | 14 |
+| **useAuth Hook** | 17 |
 | Button | 26 |
 | Input | 22 |
 | Card | 18 |
@@ -101,6 +108,7 @@ Core features:
 | UrlInput | 31 |
 | EmptyState | 14 |
 | ErrorBoundary | 14 |
+| **MagicLinkForm** | 15 |
 | DishTypeSelector | 18 |
 | DishCard | 32 |
 | DishList | 37 |
@@ -117,13 +125,13 @@ Core features:
 | HomePage | 26 |
 | App | 2 |
 | Local DB (Dexie) | 12 |
-| **Total** | **639** |
+| **Total** | **694** |
 
 ### Recommended Next Steps
 
-1. **Start Phase 1** — Authentication (magic links, AuthService, useAuth hook)
-2. **Create onboarding flow** — Use mascots for welcoming first-run experience (in ideas backlog)
-3. **Add micro-interactions** — Polish touch feedback and transitions (in ideas backlog)
+1. **Test household creation** — Create a household and verify it persists
+2. **Test invite flow** — Generate invite link and test joining
+3. **Add sync infrastructure** — Phase 3 tasks for real-time data sync
 
 ### Key Files
 
@@ -148,9 +156,10 @@ Core features:
 
 ### Open Decisions
 
-- **Collaboration feature**: Phase 0 complete, Phase 1 (Authentication) is next
-  - See `specs/002-family-collaboration/tasks.md` for remaining 52 tasks
-  - Next: Create AuthService, useAuth hook, and MagicLinkForm component
+- **Collaboration feature**: Phase 1 & 2 complete, Phase 3 (Sync) is next
+  - See `specs/002-family-collaboration/tasks.md` for remaining tasks
+  - Next: Test full household/invite flow, then implement sync infrastructure
+- **User experience**: Zero-friction start implemented — auth only required for collaboration
 
 ### Branding Assets (Finalized)
 
