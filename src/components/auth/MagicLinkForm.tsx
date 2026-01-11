@@ -2,7 +2,7 @@
  * OTP Authentication Form Component
  *
  * Two-step email authentication form:
- * 1. User enters email → receives 6-digit code via email
+ * 1. User enters email → receives verification code via email
  * 2. User enters code → gets signed in
  *
  * This works better than magic links for PWA users because
@@ -42,7 +42,7 @@ function isValidEmail(email: string): boolean {
  *
  * Features:
  * - Email input with validation
- * - 6-digit code entry with auto-focus
+ * - Code entry with auto-focus
  * - Loading states during send/verify
  * - Error display for failures
  * - Resend code option
@@ -125,7 +125,7 @@ export function MagicLinkForm({
       return;
     }
     if (!/^\d{6}$/.test(trimmedCode)) {
-      setError('Please enter the 6-digit code.');
+      setError('Please enter the verification code from your email.');
       return;
     }
 
@@ -225,7 +225,7 @@ export function MagicLinkForm({
             className="mt-2 text-sm"
             style={{ color: 'var(--color-text-muted)' }}
           >
-            We sent a 6-digit code to{' '}
+            We sent a code to{' '}
             <span className="font-medium" style={{ color: 'var(--color-text)' }}>
               {email}
             </span>
@@ -243,7 +243,7 @@ export function MagicLinkForm({
             inputMode="numeric"
             pattern="[0-9]*"
             autoComplete="one-time-code"
-            maxLength={6}
+            maxLength={8}
             disabled={loading}
             error={error ?? undefined}
           />
@@ -253,7 +253,7 @@ export function MagicLinkForm({
             variant="primary"
             fullWidth
             loading={loading}
-            disabled={loading || code.length !== 6}
+            disabled={loading || code.length < 6}
           >
             Sign in
           </Button>
