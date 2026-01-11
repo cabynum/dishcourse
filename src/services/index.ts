@@ -37,6 +37,7 @@ export {
   getSession,
   getProfile,
   updateProfile,
+  isDisplayNameAvailable,
   onAuthStateChange,
   refreshSession,
   devAutoLogin,

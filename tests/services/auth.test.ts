@@ -296,14 +296,30 @@ describe('Auth Service', () => {
         updated_at: '2024-01-02T00:00:00Z',
       };
 
-      mockSupabaseFrom.mockReturnValue({
-        update: vi.fn().mockReturnValue({
-          eq: vi.fn().mockReturnValue({
+      // Mock both the availability check and the update
+      mockSupabaseFrom.mockImplementation((table: string) => {
+        if (table === 'profiles') {
+          return {
+            // For isDisplayNameAvailable check
             select: vi.fn().mockReturnValue({
-              single: vi.fn().mockResolvedValue({ data: mockUpdatedProfile, error: null }),
+              ilike: vi.fn().mockReturnValue({
+                neq: vi.fn().mockReturnValue({
+                  limit: vi.fn().mockResolvedValue({ data: [], error: null }),
+                }),
+                limit: vi.fn().mockResolvedValue({ data: [], error: null }),
+              }),
             }),
-          }),
-        }),
+            // For updateProfile
+            update: vi.fn().mockReturnValue({
+              eq: vi.fn().mockReturnValue({
+                select: vi.fn().mockReturnValue({
+                  single: vi.fn().mockResolvedValue({ data: mockUpdatedProfile, error: null }),
+                }),
+              }),
+            }),
+          };
+        }
+        return {};
       });
 
       const profile = await updateProfile('user-123', { displayName: 'Updated Name' });
@@ -311,15 +327,50 @@ describe('Auth Service', () => {
       expect(profile.displayName).toBe('Updated Name');
     });
 
-    it('throws user-friendly error on failure', async () => {
-      mockSupabaseFrom.mockReturnValue({
-        update: vi.fn().mockReturnValue({
-          eq: vi.fn().mockReturnValue({
+    it('throws error when display name is taken', async () => {
+      // Mock availability check returning existing user
+      mockSupabaseFrom.mockImplementation((table: string) => {
+        if (table === 'profiles') {
+          return {
             select: vi.fn().mockReturnValue({
-              single: vi.fn().mockResolvedValue({ data: null, error: { message: 'update failed' } }),
+              ilike: vi.fn().mockReturnValue({
+                neq: vi.fn().mockReturnValue({
+                  limit: vi.fn().mockResolvedValue({ data: [{ id: 'other-user' }], error: null }),
+                }),
+              }),
             }),
-          }),
-        }),
+          };
+        }
+        return {};
+      });
+
+      await expect(updateProfile('user-123', { displayName: 'Taken Name' })).rejects.toThrow(
+        'already taken'
+      );
+    });
+
+    it('throws user-friendly error on update failure', async () => {
+      // Mock availability check passing but update failing
+      mockSupabaseFrom.mockImplementation((table: string) => {
+        if (table === 'profiles') {
+          return {
+            select: vi.fn().mockReturnValue({
+              ilike: vi.fn().mockReturnValue({
+                neq: vi.fn().mockReturnValue({
+                  limit: vi.fn().mockResolvedValue({ data: [], error: null }),
+                }),
+              }),
+            }),
+            update: vi.fn().mockReturnValue({
+              eq: vi.fn().mockReturnValue({
+                select: vi.fn().mockReturnValue({
+                  single: vi.fn().mockResolvedValue({ data: null, error: { message: 'update failed' } }),
+                }),
+              }),
+            }),
+          };
+        }
+        return {};
       });
 
       await expect(updateProfile('user-123', { displayName: 'Test' })).rejects.toThrow(

@@ -215,15 +215,57 @@ export async function getProfile(userId: string): Promise<Profile | null> {
 }
 
 /**
+ * Checks if a display name is available (not already taken).
+ *
+ * Case-insensitive check. Optionally excludes a user ID (for when
+ * a user is checking if they can keep their own name).
+ *
+ * @param displayName - The name to check
+ * @param excludeUserId - Optional user ID to exclude from the check
+ * @returns True if the name is available
+ */
+export async function isDisplayNameAvailable(
+  displayName: string,
+  excludeUserId?: string
+): Promise<boolean> {
+  const trimmed = displayName.trim().toLowerCase();
+  
+  if (!trimmed) {
+    return false;
+  }
+
+  // Check if any other user has this name (case-insensitive)
+  let query = supabase
+    .from('profiles')
+    .select('id')
+    .ilike('display_name', trimmed);
+
+  if (excludeUserId) {
+    query = query.neq('id', excludeUserId);
+  }
+
+  const { data, error } = await query.limit(1);
+
+  if (error) {
+    console.error('Display name availability check error:', error);
+    // Default to available on error to not block user
+    return true;
+  }
+
+  // Available if no matching profiles found
+  return !data || data.length === 0;
+}
+
+/**
  * Updates a user's profile.
  *
- * Only the display name can be updated by the user.
+ * Display names must be unique (case-insensitive).
  * Email changes would require a different flow.
  *
  * @param userId - The user's ID
  * @param updates - The fields to update
  * @returns The updated profile
- * @throws Error if the update fails
+ * @throws Error if the update fails or display name is taken
  */
 export async function updateProfile(
   userId: string,
@@ -240,6 +282,13 @@ export async function updateProfile(
       .split(/\s+/)
       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join(' ');
+
+    // Check if this name is available (excluding current user)
+    const isAvailable = await isDisplayNameAvailable(formatted, userId);
+    if (!isAvailable) {
+      throw new Error('This name is already taken. Please choose a different name.');
+    }
+
     updateData.display_name = formatted;
   }
 

@@ -7,8 +7,8 @@
 
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Download, Upload, Check, Users, ChevronRight, LogOut, User, RefreshCw } from 'lucide-react';
-import { Button, Card } from '@/components/ui';
+import { ArrowLeft, Download, Upload, Check, Users, ChevronRight, LogOut, User, RefreshCw, Pencil, X } from 'lucide-react';
+import { Button, Card, Input } from '@/components/ui';
 import { useExport, useDishes, usePlans, useHousehold } from '@/hooks';
 import { useAuthContext } from '@/components/auth';
 import { devSignInWithPassword } from '@/services';
@@ -21,13 +21,19 @@ export function SettingsPage() {
     useExport();
   const { dishes } = useDishes();
   const { plans } = usePlans();
-  const { isAuthenticated, profile, signOut } = useAuthContext();
+  const { isAuthenticated, profile, signOut, updateProfile } = useAuthContext();
   const { currentHousehold } = useHousehold();
 
   const [showImportConfirm, setShowImportConfirm] = useState(false);
   const [pendingFile, setPendingFile] = useState<File | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isSwitchingUser, setIsSwitchingUser] = useState(false);
+  
+  // Display name editing
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [newDisplayName, setNewDisplayName] = useState('');
+  const [nameError, setNameError] = useState<string | null>(null);
+  const [isSavingName, setIsSavingName] = useState(false);
 
   /**
    * Handle back navigation
@@ -120,6 +126,64 @@ export function SettingsPage() {
       navigate('/');
     } catch {
       // Error is handled by the auth context
+    }
+  };
+
+  /**
+   * Start editing display name
+   */
+  const handleStartEditName = () => {
+    setNewDisplayName(profile?.displayName || '');
+    setNameError(null);
+    setIsEditingName(true);
+  };
+
+  /**
+   * Cancel editing display name
+   */
+  const handleCancelEditName = () => {
+    setIsEditingName(false);
+    setNewDisplayName('');
+    setNameError(null);
+  };
+
+  /**
+   * Save new display name
+   */
+  const handleSaveDisplayName = async () => {
+    const trimmed = newDisplayName.trim();
+    
+    // Validation
+    if (!trimmed) {
+      setNameError('Please enter a name.');
+      return;
+    }
+    if (trimmed.length < 2) {
+      setNameError('Name must be at least 2 characters.');
+      return;
+    }
+    if (trimmed.length > 50) {
+      setNameError('Name must be 50 characters or less.');
+      return;
+    }
+    // Check if name hasn't changed
+    if (trimmed.toLowerCase() === profile?.displayName?.toLowerCase()) {
+      setIsEditingName(false);
+      return;
+    }
+
+    setIsSavingName(true);
+    setNameError(null);
+
+    try {
+      await updateProfile({ displayName: trimmed });
+      setIsEditingName(false);
+      setSuccessMessage('Display name updated!');
+      setTimeout(() => setSuccessMessage(null), 3000);
+    } catch (err) {
+      setNameError(getUserFriendlyError(err));
+    } finally {
+      setIsSavingName(false);
     }
   };
 
@@ -239,34 +303,90 @@ export function SettingsPage() {
             </h2>
 
             <Card padding="md">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: 'var(--color-accent)' }}
-                  >
-                    <User size={20} style={{ color: 'var(--color-primary)' }} />
+              {isEditingName ? (
+                /* Edit Name Mode */
+                <div className="space-y-4">
+                  <Input
+                    label="Display name"
+                    value={newDisplayName}
+                    onChange={setNewDisplayName}
+                    placeholder="Your name"
+                    autoFocus
+                    disabled={isSavingName}
+                    error={nameError ?? undefined}
+                  />
+                  <div className="flex gap-2">
+                    <Button
+                      variant="secondary"
+                      onClick={handleCancelEditName}
+                      disabled={isSavingName}
+                      className="flex-1"
+                    >
+                      <span className="flex items-center gap-2">
+                        <X size={18} strokeWidth={2} />
+                        <span>Cancel</span>
+                      </span>
+                    </Button>
+                    <Button
+                      variant="primary"
+                      onClick={handleSaveDisplayName}
+                      loading={isSavingName}
+                      disabled={isSavingName}
+                      className="flex-1"
+                    >
+                      <span className="flex items-center gap-2">
+                        <Check size={18} strokeWidth={2} />
+                        <span>Save</span>
+                      </span>
+                    </Button>
                   </div>
-                  <div>
-                    <p className="font-medium" style={{ color: 'var(--color-text)' }}>
-                      {profile.displayName || 'User'}
-                    </p>
-                    <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
-                      {profile.email}
-                    </p>
-                  </div>
+                  <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>
+                    Choose a unique name. Names are case-insensitive.
+                  </p>
                 </div>
-                <Button
-                  variant="secondary"
-                  onClick={handleSignOut}
-                  aria-label="Sign out"
-                >
-                  <span className="flex items-center gap-2">
-                    <LogOut size={18} strokeWidth={2} />
-                    <span>Sign Out</span>
-                  </span>
-                </Button>
-              </div>
+              ) : (
+                /* View Mode */
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-10 h-10 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: 'var(--color-accent)' }}
+                      >
+                        <User size={20} style={{ color: 'var(--color-primary)' }} />
+                      </div>
+                      <div>
+                        <p className="font-medium" style={{ color: 'var(--color-text)' }}>
+                          {profile.displayName || 'User'}
+                        </p>
+                        <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
+                          {profile.email}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleStartEditName}
+                      className="p-2 rounded-lg transition-colors hover:bg-black/5"
+                      style={{ color: 'var(--color-text-muted)' }}
+                      aria-label="Edit display name"
+                    >
+                      <Pencil size={18} strokeWidth={2} />
+                    </button>
+                  </div>
+                  <Button
+                    variant="secondary"
+                    onClick={handleSignOut}
+                    fullWidth
+                    aria-label="Sign out"
+                  >
+                    <span className="flex items-center gap-2">
+                      <LogOut size={18} strokeWidth={2} />
+                      <span>Sign Out</span>
+                    </span>
+                  </Button>
+                </div>
+              )}
             </Card>
           </section>
         )}
