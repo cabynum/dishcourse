@@ -17,7 +17,7 @@ export interface ConflictResolverProps {
   /** List of conflicts to resolve */
   conflicts: ConflictRecord[];
   /** Callback when a conflict is resolved */
-  onResolve: (entityId: string, resolution: ConflictResolution) => Promise<void>;
+  onResolve: (entityId: string, resolution: ConflictResolution) => Promise<boolean | void>;
   /** Callback when all conflicts are resolved or dismissed */
   onClose?: () => void;
 }

@@ -191,7 +191,7 @@ export function SyncStatus({
 }: SyncStatusProps) {
   const { syncState, pendingCount, lastSyncTime, syncNow } = useSync();
   const [showTooltip, setShowTooltip] = useState(false);
-  const tooltipTimeout = useRef<NodeJS.Timeout | null>(null);
+  const tooltipTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const config = getStatusConfig(syncState, pendingCount);
   const Icon = config.icon;

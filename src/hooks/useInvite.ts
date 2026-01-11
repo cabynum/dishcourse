@@ -96,6 +96,7 @@ export function useInvite(householdId?: string): UseInviteReturn {
     let isMounted = true;
 
     async function loadActiveInvite() {
+      if (!householdId) return;
       try {
         const activeInvite = await getActiveInvite(householdId);
         if (isMounted) {

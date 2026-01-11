@@ -24,7 +24,6 @@ import { useState, useEffect, useCallback } from 'react';
 import type { MealPlan, DayAssignment } from '@/types';
 import {
   getPlans as getLocalPlans,
-  getPlan as getLocalPlan,
   savePlan as saveLocalPlan,
   updatePlan as updateLocalPlan,
   deletePlan as deleteLocalPlan,

@@ -84,7 +84,9 @@ const dataChangeCallbacks = new Set<DataChangeCallback>();
 /** Set of conflict callbacks - supports multiple subscribers */
 const conflictCallbacks = new Set<ConflictCallback>();
 let isOnline = typeof navigator !== 'undefined' ? navigator.onLine : true;
+// Track current household for real-time subscriptions
 let currentHouseholdId: string | null = null;
+void currentHouseholdId; // Suppress unused warning - variable is set for tracking
 
 // ============================================================================
 // SYNC STATE MANAGEMENT

@@ -33,13 +33,13 @@ export function AuthPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
-  const { user, profile, isLoading, isAuthenticated, signIn, updateProfile } = useAuthContext();
+  const { profile, isLoading, isAuthenticated, signIn, updateProfile } = useAuthContext();
 
   // Track if we're on the verification callback route
   const isVerifyRoute = location.pathname === '/auth/verify';
 
-  // Track if magic link was successfully sent
-  const [magicLinkSent, setMagicLinkSent] = useState(false);
+  // Track if magic link was successfully sent (used by MagicLinkForm)
+  const [, setMagicLinkSent] = useState(false);
 
   // Display name for new users
   const [displayName, setDisplayName] = useState('');

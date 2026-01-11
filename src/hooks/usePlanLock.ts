@@ -40,7 +40,6 @@ import {
   refreshLock as refreshLockService,
   type LockResult,
   type LockStatus,
-  LOCK_TIMEOUT_MS,
 } from '@/services';
 import { useAuthContext } from '@/components/auth';
 import { getUserFriendlyError } from '@/utils';

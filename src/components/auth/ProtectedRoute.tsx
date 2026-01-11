@@ -40,7 +40,7 @@ export interface ProtectedRouteProps {
  */
 export function ProtectedRoute({
   children,
-  requireHousehold = false,
+  requireHousehold: _requireHousehold = false,
 }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading } = useAuthContext();
   const location = useLocation();

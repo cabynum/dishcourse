@@ -13,7 +13,7 @@
  */
 
 import { supabase } from '@/lib/supabase';
-import { db, withSyncMetadata, type CachedMealPlan, type MealPlan } from '@/lib/db';
+import { db, type CachedMealPlan } from '@/lib/db';
 import { getIsOnline } from './sync';
 
 // ============================================================================

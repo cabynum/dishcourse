@@ -16,7 +16,7 @@ import { getUserFriendlyError } from '@/utils';
 
 export function HouseholdPage() {
   const navigate = useNavigate();
-  const { householdId } = useParams<{ householdId?: string }>();
+  useParams<{ householdId?: string }>(); // Future use: load specific household by ID
   const { user } = useAuthContext();
   const {
     currentHousehold,

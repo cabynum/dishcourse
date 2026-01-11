@@ -47,6 +47,7 @@ export function JoinPage() {
     }
 
     async function validate() {
+      if (!code) return;
       try {
         const result = await validateCode(code);
         setValidation(result);

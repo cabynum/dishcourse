@@ -54,7 +54,7 @@ export interface MealPlan {
   id: string;
 
   /** User-provided name (optional, defaults to "Meal Plan") */
-  name: string;
+  name?: string;
 
   /** ISO 8601 date (YYYY-MM-DD) when the plan starts */
   startDate: string;
