@@ -45,6 +45,16 @@ Link a dish to an external recipe source:
 Domain-specific icons (Instagram, YouTube, TikTok, Pinterest). Tap icon on DishCard to
 open URL. Also added `cookTimeMinutes` as bonus. All in expandable "More details" section.
 
+### Restaurant Orders / Go-To Orders
+
+**Added**: 2026-01-11
+
+Store fast food and restaurant orders for household members. Pull up "Olivia's Chick-fil-A order" or "Dad's Chipotle bowl" when you're in the drive-thru and can't remember what everyone wants.
+
+*Consideration*: Extends the concept of a "dish" beyond home cooking. Could be a new dish type (e.g., "Restaurant Order") or a separate section. Ties into Household Favorites — knowing who likes what. Keep it simple: name, restaurant, and the order details as free text.
+
+---
+
 ### Household Favorites Tagging
 
 **Added**: 2024-12-19
