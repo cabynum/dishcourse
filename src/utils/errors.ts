@@ -24,8 +24,11 @@ const ERROR_MAPPINGS: Array<{
       'net::ERR_',
       'Network request failed',
       /fetch.*failed/i,
+      'Load Failed', // Safari/iOS specific error
+      'The network connection was lost',
+      'A server with the specified hostname could not be found',
     ],
-    message: 'Unable to connect. Please check your internet connection.',
+    message: 'Unable to connect. Please check your internet connection and try again.',
   },
 
   // Auth errors

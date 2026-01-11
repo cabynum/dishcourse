@@ -57,6 +57,12 @@ export async function signInWithMagicLink(email: string): Promise<void> {
     if (error.message.includes('invalid email')) {
       throw new Error('Please enter a valid email address.');
     }
+    // Safari/iOS network errors
+    if (error.message.includes('Load Failed') || 
+        error.message.includes('network connection was lost') ||
+        error.message.includes('NetworkError')) {
+      throw new Error('Unable to connect. Please check your internet connection and try again.');
+    }
     throw new Error(`Auth error: ${error.message}`);
   }
 }
