@@ -386,6 +386,12 @@ export async function leaveHousehold(
     .eq('id', membership.id);
 
   if (deleteError) {
+    console.error('Leave household error:', {
+      code: deleteError.code,
+      message: deleteError.message,
+      details: deleteError.details,
+      hint: deleteError.hint,
+    });
     throw new Error('Unable to leave household. Please try again.');
   }
 }
