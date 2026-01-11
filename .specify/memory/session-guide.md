@@ -39,29 +39,21 @@ Before we end, please:
 ## Current Status
 
 **Last Updated**: 2026-01-10  
-**Current Branch**: `002-family-collaboration`  
+**Current Branch**: `master`  
 **Repository**: <https://github.com/cabynum/dishcourse>  
 **Live URL**: <https://havedishcourse.vercel.app>  
-**Current Phase**: Phase 7 Complete — Ready for Merge!
+**Current Phase**: Family Collaboration MERGED ✅
 
 ### Completed This Session
 
-- ✅ **Phase 7.1: Local Dish Migration** — Complete:
-  - Added `migrateLocalDishes()` to sync service
-  - HouseholdCreatePage offers "Bring my X dishes" checkbox
-  - JoinPage offers migration when joining a household
-  - Local dishes uploaded to Supabase, cleared from localStorage
-- ✅ **Phase 7.4: Add Household to HomePage** — Complete:
-  - Shows "[Household Name]'s Dishes" when in synced mode
-  - Shows "Shared with your household" subtitle
-  - SyncStatus indicator already in place
-- ✅ **Phase 7.7: Error Handling** — Complete:
+- ✅ **Merged `002-family-collaboration` → `master`** (115 files)
+- ✅ **Phase 7.1: Local Dish Migration** — Complete
+- ✅ **Phase 7.4: Add Household to HomePage** — Complete
+- ✅ **Phase 7.7: Error Handling** — Complete
   - Added `getUserFriendlyError()` utility with pattern matching
   - Converts technical errors to helpful, actionable messages
-  - Updated all hooks and pages to use the error utility
-- ✅ **InviteModal bug fix** — Phone input now works correctly
-  - Was using wrong `onChange` signature for the Input component
-  - SMS section hidden (A2P 10DLC registration needed for delivery)
+- ✅ **TypeScript build fixes** for Vercel deployment
+- ✅ **SPA routing fix** — Added `vercel.json` for client-side routes
 
 ### Phase Summary
 
@@ -132,10 +124,9 @@ Core features:
 
 ### Recommended Next Steps
 
-1. **Merge to main** — Family collaboration feature is complete!
-2. **Family testing** — Create household, invite family, test full sync flow
-3. **Phase 7.5: Offline Mode Polish** — Clear indicator, graceful degradation (follow-up)
-4. **A2P 10DLC registration** — Enable SMS invites (Toll-Free number ~$2/mo)
+1. **Phase 7.5: Offline Mode Polish** — Clear "offline" indicator, graceful degradation messaging
+2. **Family testing** — Create household, invite family, test full sync flow live
+3. **A2P 10DLC registration** — Enable SMS invites (Toll-Free number ~$2/mo)
 
 ### Key Files
 
@@ -188,10 +179,9 @@ Core features:
   - Code is ready in `InviteModal.tsx` (commented out) and `send-invite-sms` Edge Function
   - For now: Use link/code invite methods instead
 
-- [ ] **User-friendly error messages** — InviteModal shows raw Edge Function errors. Before prod:
-  - Map technical errors to friendly messages (e.g., "Unable to send SMS. Please try again.")
-  - Log technical details to console/monitoring, show simple message to user
-  - Applies to: `InviteModal.tsx` smsError display
+- [x] **User-friendly error messages** — COMPLETE
+  - `getUserFriendlyError()` utility maps technical errors to helpful messages
+  - All hooks and pages updated to use error utility
 
 ### Notes
 
