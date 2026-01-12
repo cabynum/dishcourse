@@ -257,7 +257,7 @@ export async function isDisplayNameAvailable(
 }
 
 /**
- * Updates a user's profile.
+ * Updates a user's profile, creating it if it doesn't exist.
  *
  * Display names must be unique (case-insensitive).
  * Email changes would require a different flow.
@@ -271,42 +271,51 @@ export async function updateProfile(
   userId: string,
   updates: UpdateProfileInput
 ): Promise<Profile> {
-  const updateData: Record<string, unknown> = {
-    updated_at: new Date().toISOString(),
-  };
-
+  // Format the display name if provided
+  let formattedDisplayName: string | undefined;
+  
   if (updates.displayName !== undefined) {
     // Capitalize first letter of each word for proper name formatting
-    const formatted = updates.displayName
+    formattedDisplayName = updates.displayName
       .trim()
       .split(/\s+/)
       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join(' ');
 
     // Check if this name is available (excluding current user)
-    const isAvailable = await isDisplayNameAvailable(formatted, userId);
+    const isAvailable = await isDisplayNameAvailable(formattedDisplayName, userId);
     if (!isAvailable) {
       throw new Error('This name is already taken. Please choose a different name.');
     }
-
-    updateData.display_name = formatted;
   }
+
+  // First, try to get the current user's email from auth
+  const { data: { user } } = await supabase.auth.getUser();
+  const userEmail = user?.email || '';
+
+  // Use upsert to handle cases where profile doesn't exist yet
+  // This can happen if the handle_new_user trigger failed
+  const upsertData = {
+    id: userId,
+    display_name: formattedDisplayName || userEmail.split('@')[0] || 'User',
+    email: userEmail,
+    updated_at: new Date().toISOString(),
+  };
 
   const { data, error } = await supabase
     .from('profiles')
-    .update(updateData)
-    .eq('id', userId)
+    .upsert(upsertData, { onConflict: 'id' })
     .select('id, display_name, email, created_at, updated_at')
     .single();
 
   if (error) {
-    console.error('Profile update error:', {
+    console.error('Profile upsert error:', {
       message: error.message,
       code: error.code,
       details: error.details,
       hint: error.hint,
     });
-    throw new Error(`Unable to update profile: ${error.message}`);
+    throw new Error(`Unable to save profile: ${error.message}`);
   }
 
   return {

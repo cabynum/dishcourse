@@ -73,7 +73,11 @@ const ERROR_MAPPINGS: Array<{
     message: "You're offline. Changes will sync when you're back online.",
   },
 
-  // Database errors
+  // Database errors - new user creation
+  {
+    patterns: [/database.*error.*saving.*new.*user/i, /error.*saving.*user/i],
+    message: 'There was a problem creating your account. Please try again, or contact support if this continues.',
+  },
   {
     patterns: ['duplicate key', 'unique constraint', 'already exists'],
     message: 'This already exists. Please try a different name.',
