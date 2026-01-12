@@ -17,8 +17,8 @@ Last reviewed: 2026-01-12
 
 ### 🔴 High Priority (Core Vision)
 
-1. **Smart Meal Pairing** — Make suggestions smarter than random. User-defined or AI pairings.
-2. **Meal Proposals & Voting** — Propose meals, vote as household, celebrate consensus.
+1. ~~**Smart Meal Pairing**~~ ✅ Complete (2026-01-12)
+2. **Meal Proposals & Voting** — Spec complete! See `specs/004-meal-proposals/`
 
 ### 🟡 Medium Priority
 
@@ -130,10 +130,11 @@ members should be able to:
 implementation. May need a v2 milestone. Constitution principle IV (Data Ownership) must still
 apply — users should be able to export their shared data.
 
-### Meal Proposals & Voting
+### Meal Proposals & Voting ✅ SPEC COMPLETE
 
 **Added**: 2024-12-18  
-**Expanded**: 2026-01-11
+**Expanded**: 2026-01-11  
+**Spec Created**: 2026-01-11
 
 Let household members propose a meal for the night and vote on it:
 
@@ -142,7 +143,15 @@ Let household members propose a meal for the night and vote on it:
 - **Vote** — Thumbs up or thumbs down to accept or reject the proposal
 - **Decide together** — Takes the guesswork out of "what does everyone want?"
 
-*Consideration*: Requires Family Collaboration infrastructure (accounts, households, notifications). Push notifications would enhance this but aren't required — could start with in-app notification badges. Voting UI should be dead simple: see the meal, tap thumbs up/down. **Connects to Family Collaboration above.**
+**Status**: Full spec and task breakdown created in `specs/004-meal-proposals/`. Voting rules finalized 2026-01-11. Ready for implementation (5 phases, ~165 new tests).
+
+**Key Voting Rules** (see spec for full details):
+
+- Rule 1: One "no" = rejected (strict veto)
+- Rule 2: All must vote or proposal expires in 24h
+- Rule 4: Members can dismiss results from view
+- Rule 5: Results auto-clear 24h after closing
+- Rule 6: Feature hidden for solo households
 
 ---
 

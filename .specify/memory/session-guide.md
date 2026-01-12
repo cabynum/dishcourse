@@ -38,24 +38,26 @@ Before we end, please:
 
 ## Current Status
 
-**Last Updated**: 2026-01-12  
+**Last Updated**: 2026-01-11  
 **Current Branch**: `master`  
 **Repository**: <https://github.com/cabynum/dishcourse>  
 **Live URL**: <https://havedishcourse.vercel.app>  
-**Current Phase**: Smart Meal Pairing — Complete & Deployed
+**Current Phase**: Meal Proposals & Voting — Specification Complete
 
 ### Completed This Session
 
-- ✅ Implemented Smart Meal Pairing feature (all phases)
-  - Database migration: `pairs_well_with UUID[]` column
-  - TypeScript types updated (`Dish`, `CreateDishInput`, `UpdateDishInput`)
-  - `PairingSelector` component (chip-based multi-select)
-  - Integrated into `DishForm` for entrees
-  - Updated storage, sync, and `useDishes` hook
-  - Suggestion algorithm: 80% prefer paired sides, 20% random
-- ✅ Added 21 new tests (PairingSelector + suggestion pairing)
-- ✅ Applied migration 012 to Supabase production
-- 🚀 **Next**: Meal Proposals & Voting, or A2P 10DLC registration
+- ✅ Created full specification for **Meal Proposals & Voting** feature (004)
+  - `specs/004-meal-proposals/spec.md` — comprehensive spec with user stories, data model, UI
+  - `specs/004-meal-proposals/tasks.md` — 5 implementation phases, ~165 estimated tests
+- ✅ Defined and documented **6 Voting Rules** (canonical reference for voting behavior)
+  - Rule 1: Strict veto (one "no" = rejected)
+  - Rule 2: All must vote or proposal expires in 24h
+  - Rule 3: Vote results visible to all members
+  - Rule 4: Members can manually dismiss/clear results
+  - Rule 5: Results auto-clear 24h after closing
+  - Rule 6: Feature hidden for solo households
+- ✅ Updated session guide and ideas backlog
+- 🚀 **Next**: Implement Phase 1 (database migration, types, service layer)
 
 ### Phase Summary
 
@@ -127,7 +129,9 @@ Core features:
 
 ### Recommended Next Steps
 
-1. **Meal Proposals & Voting** — Design and build collaborative meal decisions
+1. **Meal Proposals & Voting** — Spec complete with voting rules! Ready to implement Phase 1
+   - See `specs/004-meal-proposals/spec.md` — includes canonical Voting Rules section
+   - 5 phases, ~165 new tests estimated
 2. **A2P 10DLC registration** — Enable SMS invites (Toll-Free number ~$2/mo)
 3. **Quick-add side flow** — Add new side without leaving DishForm (deferred from pairing)
 
@@ -145,6 +149,8 @@ Core features:
 | Collab Checklist | `specs/002-family-collaboration/checklists/requirements.md` |
 | **Pairing Spec** | `specs/003-smart-meal-pairing/spec.md` |
 | **Pairing Tasks** | `specs/003-smart-meal-pairing/tasks.md` |
+| **Proposals Spec** | `specs/004-meal-proposals/spec.md` |
+| **Proposals Tasks** | `specs/004-meal-proposals/tasks.md` |
 | Meal Planner Spec | `specs/001-meal-planner/spec.md` |
 | Meal Planner Plan | `specs/001-meal-planner/plan.md` |
 | Blog Posts | `blog/` (Part 1–10) |
