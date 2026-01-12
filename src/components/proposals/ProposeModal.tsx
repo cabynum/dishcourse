@@ -6,15 +6,16 @@
  *
  * Features:
  * - Date picker (default: today)
- * - Meal preview
+ * - Meal preview OR meal builder
  * - Household notification message
  * - Cancel/Propose actions
  */
 
 import { useState } from 'react';
-import { Calendar, Utensils, Leaf, Users, X } from 'lucide-react';
+import { Calendar, Utensils, Leaf, Users, X, Edit2 } from 'lucide-react';
 import type { Dish, ProposedMeal } from '@/types';
 import { Button } from '../ui';
+import { MealBuilder } from './MealBuilder';
 
 export interface ProposeModalProps {
   /** Pre-filled meal (from suggestion), or undefined to build from scratch */
@@ -85,7 +86,7 @@ function getDateOptions(): { value: string; label: string }[] {
  * ```
  */
 export function ProposeModal({
-  meal,
+  meal: initialMeal,
   dishes,
   memberCount,
   isSubmitting = false,
@@ -93,19 +94,28 @@ export function ProposeModal({
   onCancel,
 }: ProposeModalProps) {
   const [targetDate, setTargetDate] = useState(getTodayDate());
+  const [customMeal, setCustomMeal] = useState<ProposedMeal | undefined>(initialMeal);
+  const [isBuilding, setIsBuilding] = useState(!initialMeal);
   const dateOptions = getDateOptions();
 
-  // Resolve dish names from the meal
-  const entree = meal ? dishes.find((d) => d.id === meal.entreeId) : null;
-  const sides = meal
-    ? meal.sideIds.map((id) => dishes.find((d) => d.id === id)).filter(Boolean) as Dish[]
+  // Use custom meal if set, otherwise use initial
+  const currentMeal = customMeal;
+
+  // Resolve dish names from the current meal
+  const entree = currentMeal ? dishes.find((d) => d.id === currentMeal.entreeId) : null;
+  const sides = currentMeal
+    ? currentMeal.sideIds.map((id) => dishes.find((d) => d.id === id)).filter(Boolean) as Dish[]
     : [];
 
-  const hasMeal = meal && entree;
+  const hasMeal = currentMeal && entree;
 
   const handleSubmit = () => {
-    if (!meal) return;
-    onPropose(meal, targetDate);
+    if (!currentMeal) return;
+    onPropose(currentMeal, targetDate);
+  };
+
+  const handleMealChange = (meal: ProposedMeal | undefined) => {
+    setCustomMeal(meal);
   };
 
   return (
@@ -126,7 +136,7 @@ export function ProposeModal({
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-stone-100">
             <h2 id="propose-modal-title" className="text-lg font-semibold text-stone-800">
-              Propose This Meal?
+              {isBuilding ? 'Propose a Meal' : 'Propose This Meal?'}
             </h2>
             <button
               type="button"
@@ -140,18 +150,26 @@ export function ProposeModal({
 
           {/* Content */}
           <div className="p-4 space-y-4">
-            {/* Meal preview */}
-            {hasMeal && (
+            {/* Meal preview - shown when we have a meal and not building */}
+            {hasMeal && !isBuilding && (
               <div className="p-4 bg-stone-50 rounded-xl">
                 {/* Entree */}
                 <div className="flex items-center gap-3 mb-3">
                   <div className="flex items-center justify-center w-10 h-10 rounded-full bg-amber-100">
                     <Utensils size={20} className="text-amber-600" aria-hidden="true" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <p className="font-semibold text-stone-800">{entree.name}</p>
                     <p className="text-xs text-stone-500">Main Course</p>
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsBuilding(true)}
+                    className="p-2 text-stone-400 hover:text-amber-600 rounded-lg transition-colors"
+                    aria-label="Edit meal"
+                  >
+                    <Edit2 size={16} aria-hidden="true" />
+                  </button>
                 </div>
 
                 {/* Sides */}
@@ -171,12 +189,14 @@ export function ProposeModal({
               </div>
             )}
 
-            {/* No meal message */}
-            {!hasMeal && (
-              <div className="p-6 text-center bg-stone-50 rounded-xl">
-                <p className="text-stone-500">
-                  No meal selected. Go to Suggestions to pick a meal first!
-                </p>
+            {/* Meal builder - shown when building or no initial meal */}
+            {isBuilding && (
+              <div className="p-4 bg-stone-50 rounded-xl">
+                <MealBuilder
+                  dishes={dishes}
+                  initialMeal={customMeal}
+                  onChange={handleMealChange}
+                />
               </div>
             )}
 

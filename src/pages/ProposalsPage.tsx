@@ -5,11 +5,13 @@
  * recent results, and lets users vote or create new proposals.
  */
 
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Plus, Vote } from 'lucide-react';
 import { useProposals, useDishes, useHousehold } from '@/hooks';
-import { ProposalList, CelebrationModal } from '@/components/proposals';
+import { ProposalList, CelebrationModal, ProposeModal } from '@/components/proposals';
 import { Button, EmptyState } from '@/components/ui';
+import type { ProposedMeal } from '@/types';
 
 export function ProposalsPage() {
   const navigate = useNavigate();
@@ -26,7 +28,11 @@ export function ProposalsPage() {
     votingProposalId,
     celebratingProposal,
     clearCelebration,
+    propose,
   } = useProposals();
+
+  const [showProposeModal, setShowProposeModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Get current user ID from members
   const currentUserId = members[0]?.userId ?? '';
@@ -36,8 +42,20 @@ export function ProposalsPage() {
   };
 
   const handleCreateProposal = () => {
-    // Navigate to suggestion page to pick a meal
-    navigate('/suggest');
+    // Open the propose modal to build a meal
+    setShowProposeModal(true);
+  };
+
+  const handlePropose = async (meal: ProposedMeal, targetDate: string) => {
+    setIsSubmitting(true);
+    try {
+      await propose(meal, targetDate);
+      setShowProposeModal(false);
+    } catch (err) {
+      console.error('Propose failed:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleVote = async (proposalId: string, voteValue: 'approve' | 'reject') => {
@@ -238,6 +256,17 @@ export function ProposalsPage() {
           dishes={dishes}
           onClose={clearCelebration}
           onAddToPlan={handleAddCelebratingToPlan}
+        />
+      )}
+
+      {/* Propose modal - for building and submitting a new proposal */}
+      {showProposeModal && (
+        <ProposeModal
+          dishes={dishes}
+          memberCount={members.length}
+          isSubmitting={isSubmitting}
+          onPropose={handlePropose}
+          onCancel={() => setShowProposeModal(false)}
         />
       )}
     </div>

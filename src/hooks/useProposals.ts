@@ -60,6 +60,9 @@ export interface UseProposalsReturn {
   /** Create a new proposal */
   createProposal: (meal: ProposedMeal, targetDate: string) => Promise<Proposal>;
 
+  /** Alias for createProposal */
+  propose: (meal: ProposedMeal, targetDate: string) => Promise<Proposal>;
+
   /** Cast a vote on a proposal */
   vote: (proposalId: string, vote: 'approve' | 'reject') => Promise<void>;
 
@@ -347,6 +350,7 @@ export function useProposals(): UseProposalsReturn {
     error,
     pendingCount,
     createProposal,
+    propose: createProposal, // alias
     vote,
     withdraw,
     dismiss,

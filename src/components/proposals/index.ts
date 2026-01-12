@@ -5,6 +5,7 @@
  */
 
 export { VotingButtons, type VotingButtonsProps } from './VotingButtons';
+export { MealBuilder, type MealBuilderProps } from './MealBuilder';
 export { ProposalCard, type ProposalCardProps } from './ProposalCard';
 export { ProposalList, type ProposalListProps } from './ProposalList';
 export { CelebrationModal, type CelebrationModalProps } from './CelebrationModal';
