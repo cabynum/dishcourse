@@ -65,6 +65,31 @@ export function ProposalsPage() {
     }
   };
 
+  const handleAddToPlan = (proposalId: string) => {
+    // Find the proposal to get its details
+    const proposal = proposals.find((p) => p.id === proposalId);
+    if (!proposal) return;
+
+    // Navigate to plan page with the meal data
+    // The plan page will handle adding the meal to the target date
+    navigate('/plan', {
+      state: {
+        addMeal: {
+          targetDate: proposal.targetDate,
+          entreeId: proposal.meal.entreeId,
+          sideIds: proposal.meal.sideIds,
+        },
+      },
+    });
+  };
+
+  const handleAddCelebratingToPlan = () => {
+    if (celebratingProposal) {
+      handleAddToPlan(celebratingProposal.id);
+      clearCelebration();
+    }
+  };
+
   // Not available for solo households (Rule 6)
   if (!isAvailable && !isLoading) {
     return (
@@ -199,6 +224,7 @@ export function ProposalsPage() {
           onVote={handleVote}
           onWithdraw={handleWithdraw}
           onDismiss={handleDismiss}
+          onAddToPlan={handleAddToPlan}
           isLoading={isLoading}
           votingProposalId={votingProposalId ?? undefined}
           onCreateProposal={handleCreateProposal}
@@ -211,6 +237,7 @@ export function ProposalsPage() {
           proposal={celebratingProposal}
           dishes={dishes}
           onClose={clearCelebration}
+          onAddToPlan={handleAddCelebratingToPlan}
         />
       )}
     </div>

@@ -12,7 +12,7 @@
  */
 
 import { useEffect, useState } from 'react';
-import { PartyPopper, Check, Utensils, Leaf } from 'lucide-react';
+import { PartyPopper, Check, Utensils, Leaf, Calendar } from 'lucide-react';
 import type { Proposal, Dish } from '@/types';
 import { Button } from '../ui';
 
@@ -23,6 +23,8 @@ export interface CelebrationModalProps {
   dishes: Dish[];
   /** Called when user dismisses the celebration */
   onClose: () => void;
+  /** Optional: Called when user wants to add meal to a plan */
+  onAddToPlan?: () => void;
 }
 
 /**
@@ -93,6 +95,7 @@ export function CelebrationModal({
   proposal,
   dishes,
   onClose,
+  onAddToPlan,
 }: CelebrationModalProps) {
   // Auto-dismiss after 5 seconds
   useEffect(() => {
@@ -222,14 +225,29 @@ export function CelebrationModal({
               <span className="text-sm font-medium">Everyone approved!</span>
             </div>
 
-            {/* Dismiss button */}
-            <Button
-              variant="primary"
-              fullWidth
-              onClick={onClose}
-            >
-              Awesome!
-            </Button>
+            {/* Actions */}
+            <div className="space-y-3">
+              {/* Dismiss button - primary action */}
+              <Button
+                variant="primary"
+                fullWidth
+                onClick={onClose}
+              >
+                Awesome!
+              </Button>
+
+              {/* Optional: Add to plan */}
+              {onAddToPlan && (
+                <Button
+                  variant="secondary"
+                  fullWidth
+                  onClick={onAddToPlan}
+                >
+                  <Calendar size={18} aria-hidden="true" />
+                  <span>Add to Plan</span>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>

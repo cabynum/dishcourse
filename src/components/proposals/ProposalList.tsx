@@ -26,6 +26,8 @@ export interface ProposalListProps {
   onWithdraw: (proposalId: string) => void;
   /** Called when user dismisses a proposal (Rule 4) */
   onDismiss: (proposalId: string) => void;
+  /** Optional: Called when user wants to add approved meal to a plan */
+  onAddToPlan?: (proposalId: string) => void;
   /** Filter to show only pending, or all */
   filter?: 'pending' | 'all';
   /** Whether data is loading */
@@ -100,6 +102,7 @@ export function ProposalList({
   onVote,
   onWithdraw,
   onDismiss,
+  onAddToPlan,
   filter = 'all',
   isLoading = false,
   votingProposalId,
@@ -177,6 +180,7 @@ export function ProposalList({
                 onVote={(vote) => onVote(proposal.id, vote)}
                 onWithdraw={() => onWithdraw(proposal.id)}
                 onDismiss={() => onDismiss(proposal.id)}
+                onAddToPlan={onAddToPlan ? () => onAddToPlan(proposal.id) : undefined}
                 isVoting={votingProposalId === proposal.id}
               />
             ))}
@@ -201,6 +205,7 @@ export function ProposalList({
                 onVote={(vote) => onVote(proposal.id, vote)}
                 onWithdraw={() => onWithdraw(proposal.id)}
                 onDismiss={() => onDismiss(proposal.id)}
+                onAddToPlan={onAddToPlan ? () => onAddToPlan(proposal.id) : undefined}
                 isVoting={votingProposalId === proposal.id}
               />
             ))}

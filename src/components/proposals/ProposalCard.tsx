@@ -26,6 +26,7 @@ import {
   ChevronDown,
   ChevronUp,
   Trash2,
+  Calendar,
 } from 'lucide-react';
 import type { Proposal, Dish, HouseholdMemberWithProfile } from '@/types';
 import { Card, Button } from '../ui';
@@ -46,6 +47,8 @@ export interface ProposalCardProps {
   onWithdraw?: () => void;
   /** Called when user dismisses a closed proposal (Rule 4) */
   onDismiss?: () => void;
+  /** Optional: Called when user wants to add approved meal to a plan */
+  onAddToPlan?: () => void;
   /** Whether a vote is being submitted */
   isVoting?: boolean;
 }
@@ -143,6 +146,7 @@ export function ProposalCard({
   onVote,
   onWithdraw,
   onDismiss,
+  onAddToPlan,
   isVoting = false,
 }: ProposalCardProps) {
   const [showVoteDetails, setShowVoteDetails] = useState(false);
@@ -168,9 +172,11 @@ export function ProposalCard({
 
   // Determine if user can vote
   const isPending = proposal.status === 'pending';
+  const isApproved = proposal.status === 'approved';
   const canVote = isPending;
   const canWithdraw = isPending && isProposer && onWithdraw;
   const canDismiss = !isPending && onDismiss;
+  const canAddToPlan = isApproved && onAddToPlan;
 
   return (
     <Card padding="none" className="overflow-hidden">
@@ -309,7 +315,7 @@ export function ProposalCard({
       </div>
 
       {/* Actions footer */}
-      {(canWithdraw || canDismiss) && (
+      {(canWithdraw || canDismiss || canAddToPlan) && (
         <div className="flex gap-2 px-4 pb-4 border-t border-stone-100 pt-3">
           {canWithdraw && (
             <Button
@@ -320,6 +326,16 @@ export function ProposalCard({
             >
               <Trash2 size={16} aria-hidden="true" />
               <span>Withdraw</span>
+            </Button>
+          )}
+          {canAddToPlan && (
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={onAddToPlan}
+            >
+              <Calendar size={16} aria-hidden="true" />
+              <span>Add to Plan</span>
             </Button>
           )}
           {canDismiss && (
