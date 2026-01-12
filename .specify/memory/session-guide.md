@@ -46,20 +46,13 @@ Before we end, please:
 
 ### Completed This Session
 
-- ✅ **Implemented Meal Proposals & Voting feature** (004) — All 5 phases complete!
-  - Phase 1: Database migration, TypeScript types, proposals service, Dexie cache, sync
-  - Phase 2: VotingButtons, ProposalCard, ProposalList, CelebrationModal, ProposeModal
-  - Phase 3: useProposals hook, ProposalsPage, SuggestionPage integration, HomePage banner, BottomNav tab
-  - Phase 4: Optional "Add to Plan" action (per user feedback - assignment is optional)
-  - Phase 5: 69 new tests, CSS animations for modals
-- ✅ All **6 Voting Rules** implemented and tested:
-  - Rule 1: Strict veto (one "no" = rejected)
-  - Rule 2: All must vote or proposal expires in 24h
-  - Rule 3: Vote results visible to all members
-  - Rule 4: Members can manually dismiss/clear results
-  - Rule 5: Results auto-clear 24h after closing
-  - Rule 6: Feature hidden for solo households
-- ✅ Merged to master, ready for production testing
+- ✅ Fixed TypeScript build errors for Vercel deployment
+- ✅ Applied migration 013 (proposals tables) to production Supabase
+- ✅ **Added custom meal builder** — users can now compose their own meals to propose
+  - New `MealBuilder` component to pick entree + sides from dish inventory
+  - `ProposeModal` updated to support building meals from scratch
+  - "Propose" button in ProposalsPage header opens meal builder
+  - Users can propose from Suggestions (pre-filled) OR build their own meal
 
 ### Phase Summary
 
@@ -134,10 +127,9 @@ Core features:
 
 ### Recommended Next Steps
 
-1. **Apply migration 013** — Run `supabase db push` to create proposals tables in production
+1. **Test proposals in production** — Family testing of voting workflow
 2. **A2P 10DLC registration** — Enable SMS invites (Toll-Free number ~$2/mo)
 3. **Quick-add side flow** — Add new side without leaving DishForm (deferred from pairing)
-4. **Test proposals in production** — Family testing of voting workflow
 
 ### Key Files
 
