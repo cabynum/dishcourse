@@ -125,6 +125,60 @@ export interface MealPlan {
 }
 
 // ============================================================================
+// PROPOSAL TYPES (for meal proposals and voting)
+// ============================================================================
+
+/**
+ * Proposal status values.
+ */
+export type ProposalStatus = 'pending' | 'approved' | 'rejected' | 'withdrawn' | 'expired';
+
+/**
+ * The meal being proposed.
+ */
+export interface ProposedMeal {
+  entreeId: string;
+  sideIds: string[];
+}
+
+/**
+ * A meal proposal for household voting.
+ */
+export interface Proposal {
+  id: string;
+  householdId: string;
+  proposedBy: string;
+  proposedAt: string;
+  targetDate: string;
+  meal: ProposedMeal;
+  status: ProposalStatus;
+  closedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * A vote on a proposal.
+ */
+export interface ProposalVote {
+  id: string;
+  proposalId: string;
+  voterId: string;
+  vote: 'approve' | 'reject';
+  votedAt: string;
+}
+
+/**
+ * A dismissal of a proposal from a user's view (Rule 4).
+ */
+export interface ProposalDismissal {
+  id: string;
+  proposalId: string;
+  userId: string;
+  dismissedAt: string;
+}
+
+// ============================================================================
 // CACHED ENTITY TYPES (with sync metadata)
 // ============================================================================
 
@@ -145,6 +199,9 @@ export type CachedHousehold = Household & CacheMetadata;
 export type CachedHouseholdMember = HouseholdMember & CacheMetadata;
 export type CachedDish = Dish & CacheMetadata;
 export type CachedMealPlan = MealPlan & CacheMetadata;
+export type CachedProposal = Proposal & CacheMetadata;
+export type CachedProposalVote = ProposalVote & CacheMetadata;
+export type CachedProposalDismissal = ProposalDismissal & CacheMetadata;
 
 // ============================================================================
 // SYNC METADATA
@@ -170,7 +227,7 @@ export type QueuedOperationType = 'add' | 'update' | 'delete';
 /**
  * Entity types that can be synced.
  */
-export type QueuedEntityType = 'dish' | 'mealPlan';
+export type QueuedEntityType = 'dish' | 'mealPlan' | 'proposal' | 'proposalVote' | 'proposalDismissal';
 
 /**
  * A queued operation waiting to be synced to the server.
@@ -211,6 +268,9 @@ class DishCourseDB extends Dexie {
   members!: Table<CachedHouseholdMember>;
   dishes!: Table<CachedDish>;
   mealPlans!: Table<CachedMealPlan>;
+  proposals!: Table<CachedProposal>;
+  proposalVotes!: Table<CachedProposalVote>;
+  proposalDismissals!: Table<CachedProposalDismissal>;
   syncMeta!: Table<SyncMeta>;
   offlineQueue!: Table<QueuedOperation>;
   conflicts!: Table<ConflictRecord>;
@@ -246,6 +306,21 @@ class DishCourseDB extends Dexie {
       members: 'id, householdId, userId',
       dishes: 'id, householdId, _syncStatus',
       mealPlans: 'id, householdId, _syncStatus',
+      syncMeta: 'key',
+      offlineQueue: 'id, entityType, entityId, createdAt',
+      conflicts: 'id, entityType, entityId',
+    });
+
+    // Version 4: Add proposals, votes, and dismissals for meal proposals feature
+    this.version(4).stores({
+      profiles: 'id',
+      households: 'id',
+      members: 'id, householdId, userId',
+      dishes: 'id, householdId, _syncStatus',
+      mealPlans: 'id, householdId, _syncStatus',
+      proposals: 'id, householdId, status, _syncStatus',
+      proposalVotes: 'id, proposalId, voterId, _syncStatus',
+      proposalDismissals: 'id, proposalId, userId, _syncStatus',
       syncMeta: 'key',
       offlineQueue: 'id, entityType, entityId, createdAt',
       conflicts: 'id, entityType, entityId',
@@ -311,6 +386,9 @@ export async function clearAllData(): Promise<void> {
   await db.members.clear();
   await db.dishes.clear();
   await db.mealPlans.clear();
+  await db.proposals.clear();
+  await db.proposalVotes.clear();
+  await db.proposalDismissals.clear();
   await db.syncMeta.clear();
   await db.offlineQueue.clear();
   await db.conflicts.clear();
@@ -323,6 +401,18 @@ export async function clearAllData(): Promise<void> {
  * @param householdId - The ID of the household to clear data for
  */
 export async function clearHouseholdData(householdId: string): Promise<void> {
+  // Get proposal IDs before deleting (needed to clear votes and dismissals)
+  const proposalIds = await db.proposals.where('householdId').equals(householdId).primaryKeys();
+  
+  // Clear votes and dismissals for proposals in this household
+  for (const proposalId of proposalIds) {
+    await db.proposalVotes.where('proposalId').equals(proposalId).delete();
+    await db.proposalDismissals.where('proposalId').equals(proposalId).delete();
+  }
+  
+  // Clear proposals for this household
+  await db.proposals.where('householdId').equals(householdId).delete();
+  
   // Clear dishes for this household
   await db.dishes.where('householdId').equals(householdId).delete();
   
@@ -339,7 +429,7 @@ export async function clearHouseholdData(householdId: string): Promise<void> {
   // Note: We need to check each queued operation's entity
   const dishIds = await db.dishes.where('householdId').equals(householdId).primaryKeys();
   const planIds = await db.mealPlans.where('householdId').equals(householdId).primaryKeys();
-  const entityIds = [...dishIds, ...planIds];
+  const entityIds = [...dishIds, ...planIds, ...proposalIds];
   
   for (const entityId of entityIds) {
     await db.offlineQueue.where('entityId').equals(entityId).delete();

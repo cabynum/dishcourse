@@ -52,3 +52,16 @@ export type {
   InviteValidation,
   HouseholdState,
 } from './household';
+
+// Proposal types
+export type {
+  Proposal,
+  ProposalStatus,
+  Vote,
+  ProposalDismissal,
+  ProposedMeal,
+  CreateProposalInput,
+  ProposalRow,
+  VoteRow,
+  DismissalRow,
+} from './proposal';

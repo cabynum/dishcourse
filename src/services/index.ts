@@ -87,15 +87,24 @@ export {
   // Real-time
   subscribeToHousehold,
   unsubscribeFromHousehold,
-  // Local cache operations
+  // Local cache operations - dishes
   addDishToCache,
   updateDishInCache,
   deleteDishFromCache,
   getDishesFromCache,
+  // Local cache operations - plans
   addPlanToCache,
   updatePlanInCache,
   deletePlanFromCache,
   getPlansFromCache,
+  // Local cache operations - proposals
+  addProposalToCache,
+  updateProposalInCache,
+  getProposalsFromCache,
+  getVotesFromCache,
+  getDismissalsFromCache,
+  addVoteToCache,
+  addDismissalToCache,
   // Conflict detection and resolution
   onConflict,
   getConflicts,
@@ -123,3 +132,24 @@ export {
   isLockStale,
   formatLockTime,
 } from './locks';
+
+// Proposals service for meal proposals and voting
+export {
+  // Resolution logic
+  resolveProposal,
+  shouldExpireProposal,
+  shouldAutoClearResult,
+  isVisibleToUser,
+  // CRUD
+  createProposal,
+  getProposals,
+  getProposal,
+  // Voting
+  castVote,
+  withdrawProposal,
+  dismissProposal,
+  // Status management
+  updateProposalStatus,
+  expirePendingProposals,
+  getPendingProposalCount,
+} from './proposals';

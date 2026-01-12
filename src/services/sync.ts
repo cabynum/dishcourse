@@ -33,8 +33,14 @@ import {
   markAsConflict,
   type CachedDish,
   type CachedMealPlan,
+  type CachedProposal,
+  type CachedProposalVote,
+  type CachedProposalDismissal,
   type Dish,
   type MealPlan,
+  type Proposal,
+  type ProposalVote,
+  type ProposalDismissal,
   type QueuedOperation,
   type ConflictRecord,
 } from '@/lib/db';
@@ -253,6 +259,72 @@ export async function fullSync(householdId: string): Promise<SyncResult> {
     await db.mealPlans.where('householdId').equals(householdId).delete();
     if (cachedPlans.length > 0) {
       await db.mealPlans.bulkAdd(cachedPlans);
+    }
+
+    // Fetch proposals from Supabase
+    const { data: proposals, error: proposalsError } = await supabase
+      .from('proposals')
+      .select('*')
+      .eq('household_id', householdId);
+
+    if (proposalsError) throw proposalsError;
+
+    // Get all proposal IDs for fetching votes and dismissals
+    const proposalIds = (proposals || []).map((p) => p.id);
+
+    // Fetch votes for all proposals
+    let votes: Record<string, unknown>[] = [];
+    if (proposalIds.length > 0) {
+      const { data: voteData, error: votesError } = await supabase
+        .from('proposal_votes')
+        .select('*')
+        .in('proposal_id', proposalIds);
+
+      if (votesError) throw votesError;
+      votes = voteData || [];
+    }
+
+    // Fetch dismissals for all proposals
+    let dismissals: Record<string, unknown>[] = [];
+    if (proposalIds.length > 0) {
+      const { data: dismissalData, error: dismissalsError } = await supabase
+        .from('proposal_dismissals')
+        .select('*')
+        .in('proposal_id', proposalIds);
+
+      if (dismissalsError) throw dismissalsError;
+      dismissals = dismissalData || [];
+    }
+
+    // Clear and store proposals
+    await db.proposals.where('householdId').equals(householdId).delete();
+    if (proposals && proposals.length > 0) {
+      const cachedProposals: CachedProposal[] = proposals.map((p) =>
+        withSyncMetadata(transformProposalFromServer(p), 'synced')
+      );
+      await db.proposals.bulkAdd(cachedProposals);
+    }
+
+    // Clear and store votes
+    for (const proposalId of proposalIds) {
+      await db.proposalVotes.where('proposalId').equals(proposalId).delete();
+    }
+    if (votes.length > 0) {
+      const cachedVotes: CachedProposalVote[] = votes.map((v) =>
+        withSyncMetadata(transformVoteFromServer(v), 'synced')
+      );
+      await db.proposalVotes.bulkAdd(cachedVotes);
+    }
+
+    // Clear and store dismissals
+    for (const proposalId of proposalIds) {
+      await db.proposalDismissals.where('proposalId').equals(proposalId).delete();
+    }
+    if (dismissals.length > 0) {
+      const cachedDismissals: CachedProposalDismissal[] = dismissals.map((d) =>
+        withSyncMetadata(transformDismissalFromServer(d), 'synced')
+      );
+      await db.proposalDismissals.bulkAdd(cachedDismissals);
     }
 
     // Record last sync time
@@ -542,6 +614,34 @@ export function subscribeToHousehold(householdId: string): void {
       },
       handlePlanChange
     )
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'proposals',
+        filter: `household_id=eq.${householdId}`,
+      },
+      handleProposalChange
+    )
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'proposal_votes',
+      },
+      handleProposalVoteChange
+    )
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'proposal_dismissals',
+      },
+      handleProposalDismissalChange
+    )
     .subscribe((status) => {
       if (status === 'SUBSCRIBED') {
         console.log('Subscribed to household changes:', householdId);
@@ -679,6 +779,106 @@ async function handlePlanChange(payload: {
     dataChangeCallbacks.forEach((callback) => callback());
   } catch (error) {
     console.error('Failed to handle plan change:', error);
+  }
+}
+
+/**
+ * Handle incoming proposal changes from real-time subscription.
+ */
+async function handleProposalChange(payload: {
+  eventType: string;
+  new: Record<string, unknown>;
+  old: Record<string, unknown>;
+}): Promise<void> {
+  const { eventType, new: newRecord, old: oldRecord } = payload;
+
+  try {
+    switch (eventType) {
+      case 'INSERT':
+      case 'UPDATE': {
+        const proposal = transformProposalFromServer(newRecord);
+        const cached = withSyncMetadata(proposal, 'synced');
+        await db.proposals.put(cached);
+        break;
+      }
+      case 'DELETE': {
+        const proposalId = oldRecord.id as string;
+        await db.proposals.delete(proposalId);
+        // Also clean up votes and dismissals for this proposal
+        await db.proposalVotes.where('proposalId').equals(proposalId).delete();
+        await db.proposalDismissals.where('proposalId').equals(proposalId).delete();
+        break;
+      }
+    }
+
+    // Notify all listeners that data has changed
+    dataChangeCallbacks.forEach((callback) => callback());
+  } catch (error) {
+    console.error('Failed to handle proposal change:', error);
+  }
+}
+
+/**
+ * Handle incoming proposal vote changes from real-time subscription.
+ */
+async function handleProposalVoteChange(payload: {
+  eventType: string;
+  new: Record<string, unknown>;
+  old: Record<string, unknown>;
+}): Promise<void> {
+  const { eventType, new: newRecord, old: oldRecord } = payload;
+
+  try {
+    switch (eventType) {
+      case 'INSERT':
+      case 'UPDATE': {
+        const vote = transformVoteFromServer(newRecord);
+        const cached = withSyncMetadata(vote, 'synced');
+        await db.proposalVotes.put(cached);
+        break;
+      }
+      case 'DELETE': {
+        await db.proposalVotes.delete(oldRecord.id as string);
+        break;
+      }
+    }
+
+    // Notify all listeners that data has changed
+    dataChangeCallbacks.forEach((callback) => callback());
+  } catch (error) {
+    console.error('Failed to handle vote change:', error);
+  }
+}
+
+/**
+ * Handle incoming proposal dismissal changes from real-time subscription.
+ */
+async function handleProposalDismissalChange(payload: {
+  eventType: string;
+  new: Record<string, unknown>;
+  old: Record<string, unknown>;
+}): Promise<void> {
+  const { eventType, new: newRecord, old: oldRecord } = payload;
+
+  try {
+    switch (eventType) {
+      case 'INSERT':
+      case 'UPDATE': {
+        const dismissal = transformDismissalFromServer(newRecord);
+        const cached = withSyncMetadata(dismissal, 'synced');
+        await db.proposalDismissals.put(cached);
+        break;
+      }
+      case 'DELETE': {
+        await db.proposalDismissals.delete(oldRecord.id as string);
+        break;
+      }
+    }
+
+    // Notify all listeners that data has changed
+    dataChangeCallbacks.forEach((callback) => callback());
+  } catch (error) {
+    console.error('Failed to handle dismissal change:', error);
   }
 }
 
@@ -830,6 +1030,107 @@ export async function getPlansFromCache(householdId: string): Promise<MealPlan[]
 }
 
 // ============================================================================
+// PROPOSAL CACHE OPERATIONS
+// ============================================================================
+
+/**
+ * Add a proposal to local cache.
+ * Will be synced to server in background, or queued for later if offline.
+ */
+export async function addProposalToCache(proposal: Proposal): Promise<void> {
+  const cached = withSyncMetadata(proposal, 'pending');
+  await db.proposals.put(cached);
+
+  if (isOnline) {
+    pushChanges();
+  } else {
+    await enqueueOperation('add', 'proposal', proposal.id);
+    await notifySyncState('offline');
+  }
+}
+
+/**
+ * Update a proposal in local cache.
+ */
+export async function updateProposalInCache(proposal: Proposal): Promise<void> {
+  const cached = withSyncMetadata(proposal, 'pending');
+  await db.proposals.put(cached);
+
+  if (isOnline) {
+    pushChanges();
+  } else {
+    await enqueueOperation('update', 'proposal', proposal.id);
+    await notifySyncState('offline');
+  }
+}
+
+/**
+ * Get all proposals from local cache for a household.
+ */
+export async function getProposalsFromCache(householdId: string): Promise<Proposal[]> {
+  const proposals = await db.proposals
+    .where('householdId')
+    .equals(householdId)
+    .toArray();
+
+  return proposals.map((p) => stripCacheMetadata(p));
+}
+
+/**
+ * Get votes for a proposal from local cache.
+ */
+export async function getVotesFromCache(proposalId: string): Promise<ProposalVote[]> {
+  const votes = await db.proposalVotes
+    .where('proposalId')
+    .equals(proposalId)
+    .toArray();
+
+  return votes.map((v) => stripCacheMetadata(v));
+}
+
+/**
+ * Get dismissals for a proposal from local cache.
+ */
+export async function getDismissalsFromCache(proposalId: string): Promise<ProposalDismissal[]> {
+  const dismissals = await db.proposalDismissals
+    .where('proposalId')
+    .equals(proposalId)
+    .toArray();
+
+  return dismissals.map((d) => stripCacheMetadata(d));
+}
+
+/**
+ * Add a vote to local cache.
+ */
+export async function addVoteToCache(vote: ProposalVote): Promise<void> {
+  const cached = withSyncMetadata(vote, 'pending');
+  await db.proposalVotes.put(cached);
+
+  if (isOnline) {
+    pushChanges();
+  } else {
+    await enqueueOperation('add', 'proposalVote', vote.id);
+    await notifySyncState('offline');
+  }
+}
+
+/**
+ * Add a dismissal to local cache.
+ */
+export async function addDismissalToCache(dismissal: ProposalDismissal): Promise<void> {
+  const cached = withSyncMetadata(dismissal, 'pending');
+  await db.proposalDismissals.put(cached);
+
+  if (isOnline) {
+    pushChanges();
+  } else {
+    await enqueueOperation('add', 'proposalDismissal', dismissal.id);
+    await notifySyncState('offline');
+  }
+}
+
+// ============================================================================
 // TRANSFORM FUNCTIONS
 // ============================================================================
 
@@ -945,6 +1246,49 @@ function stripCacheMetadataFromPlan(cached: CachedMealPlan): MealPlan {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _syncStatus, _localUpdatedAt, _serverUpdatedAt, ...plan } = cached;
   return plan;
+}
+
+/**
+ * Transform a proposal from Supabase format to app format.
+ */
+function transformProposalFromServer(record: Record<string, unknown>): Proposal {
+  return {
+    id: record.id as string,
+    householdId: record.household_id as string,
+    proposedBy: record.proposed_by as string,
+    proposedAt: record.proposed_at as string,
+    targetDate: record.target_date as string,
+    meal: record.meal as Proposal['meal'],
+    status: record.status as Proposal['status'],
+    closedAt: record.closed_at as string | undefined,
+    createdAt: record.created_at as string,
+    updatedAt: record.updated_at as string,
+  };
+}
+
+/**
+ * Transform a proposal vote from Supabase format to app format.
+ */
+function transformVoteFromServer(record: Record<string, unknown>): ProposalVote {
+  return {
+    id: record.id as string,
+    proposalId: record.proposal_id as string,
+    voterId: record.voter_id as string,
+    vote: record.vote as 'approve' | 'reject',
+    votedAt: record.voted_at as string,
+  };
+}
+
+/**
+ * Transform a proposal dismissal from Supabase format to app format.
+ */
+function transformDismissalFromServer(record: Record<string, unknown>): ProposalDismissal {
+  return {
+    id: record.id as string,
+    proposalId: record.proposal_id as string,
+    userId: record.user_id as string,
+    dismissedAt: record.dismissed_at as string,
+  };
 }
 
 // ============================================================================
