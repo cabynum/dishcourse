@@ -10,12 +10,11 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Calendar, Dices } from 'lucide-react';
+import { Plus, Calendar, Dices, Vote, ChevronRight } from 'lucide-react';
 import { DishList, PlanCard } from '@/components/meals';
 import { SyncStatus } from '@/components/ui';
-import { useDishes, usePlans } from '@/hooks';
+import { useDishes, usePlans, useProposals, useHousehold } from '@/hooks';
 import { useAuthContext } from '@/components/auth';
-import { useHousehold } from '@/hooks';
 
 /**
  * Food photos from Unsplash (free, high-quality, open license)
@@ -57,8 +56,9 @@ export function HomePage() {
   const navigate = useNavigate();
   const { dishes, isLoading: dishesLoading, isSyncedMode } = useDishes();
   const { plans, isLoading: plansLoading } = usePlans();
+  const { proposals, pendingCount, isAvailable: proposalsAvailable } = useProposals();
   const { profile, isAuthenticated } = useAuthContext();
-  const { currentHousehold } = useHousehold();
+  const { currentHousehold, members } = useHousehold();
   const [photoIndex] = useState(getRandomPhotoIndex);
 
   // Show sync status when user is authenticated and has a household
@@ -101,6 +101,10 @@ export function HomePage() {
 
   const handlePlanCardClick = (planId: string) => {
     navigate(`/plan/${planId}`);
+  };
+
+  const handleProposalsClick = () => {
+    navigate('/proposals');
   };
 
   // Get the "active" plan - one that includes today or the most recent one
@@ -236,6 +240,30 @@ export function HomePage() {
 
       {/* Main content - extra padding at bottom for nav bar */}
       <main className="max-w-lg mx-auto px-4 py-6 pb-32">
+        {/* Pending Proposals Banner */}
+        {proposalsAvailable && pendingCount > 0 && (
+          <button
+            type="button"
+            onClick={handleProposalsClick}
+            className="w-full mb-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl flex items-center gap-3 text-left transition-all hover:shadow-md active:scale-[0.99]"
+          >
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-amber-100">
+              <Vote size={20} className="text-amber-600" aria-hidden="true" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-stone-800">
+                {pendingCount === 1
+                  ? '1 meal proposal waiting'
+                  : `${pendingCount} meal proposals waiting`}
+              </p>
+              <p className="text-sm text-stone-600 truncate">
+                Tap to vote on dinner ideas
+              </p>
+            </div>
+            <ChevronRight size={20} className="text-stone-400" aria-hidden="true" />
+          </button>
+        )}
+
         {/* My Plans Section - only show if there are plans */}
         {plans.length > 0 && (
           <section className="mb-6">

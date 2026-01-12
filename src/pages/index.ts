@@ -10,5 +10,6 @@ export { HouseholdCreatePage } from './HouseholdCreatePage';
 export { HouseholdPage } from './HouseholdPage';
 export { JoinPage } from './JoinPage';
 export { PlanPage } from './PlanPage';
+export { ProposalsPage } from './ProposalsPage';
 export { SettingsPage } from './SettingsPage';
 export { SuggestionPage } from './SuggestionPage';

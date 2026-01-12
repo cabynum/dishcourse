@@ -7,6 +7,7 @@ import {
   HouseholdCreatePage,
   HouseholdPage,
   JoinPage,
+  ProposalsPage,
   SuggestionPage,
   PlanPage,
   DayAssignmentPage,
@@ -76,6 +77,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
  * - "/household/create" : HouseholdCreatePage (create new household)
  * - "/household/:householdId" : HouseholdPage (specific household settings)
  * - "/join/:code" : JoinPage (accept invite and join household)
+ * - "/proposals" : ProposalsPage (view and vote on meal proposals)
  * - "/suggest" : SuggestionPage (get meal suggestions)
  * - "/plan" : PlanPage (create new meal plan)
  * - "/plan/:planId" : PlanPage (view/edit existing plan)
@@ -98,6 +100,7 @@ function App() {
               <Route path="/household/create" element={<HouseholdCreatePage />} />
               <Route path="/household/:householdId" element={<HouseholdPage />} />
               <Route path="/join/:code" element={<JoinPage />} />
+              <Route path="/proposals" element={<ProposalsPage />} />
               <Route path="/suggest" element={<SuggestionPage />} />
               <Route path="/plan" element={<PlanPage />} />
               <Route path="/plan/:planId" element={<PlanPage />} />

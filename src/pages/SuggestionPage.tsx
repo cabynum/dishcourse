@@ -3,18 +3,28 @@
  *
  * This is the "magic moment" of DishCourse - where users get dinner ideas.
  * Generates random meal suggestions and lets users try different options.
+ * Now includes "Propose This" for household voting.
  */
 
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import { useSuggestion } from '@/hooks';
+import { ArrowLeft, Hand } from 'lucide-react';
+import { useSuggestion, useDishes, useHousehold, useProposals } from '@/hooks';
 import { SuggestionCard } from '@/components/meals';
+import { ProposeModal } from '@/components/proposals';
 import { Button, EmptyState } from '@/components/ui';
+import type { ProposedMeal } from '@/types';
 
 export function SuggestionPage() {
   const navigate = useNavigate();
   const { suggestion, generate, isAvailable, message, isLoading } =
     useSuggestion();
+  const { dishes } = useDishes();
+  const { members } = useHousehold();
+  const { createProposal, isAvailable: proposalsAvailable } = useProposals();
+
+  const [showProposeModal, setShowProposeModal] = useState(false);
+  const [isSubmittingProposal, setIsSubmittingProposal] = useState(false);
 
   const handleBack = () => {
     navigate('/');
@@ -23,6 +33,32 @@ export function SuggestionPage() {
   const handleAddDish = () => {
     navigate('/add');
   };
+
+  const handleProposeClick = () => {
+    setShowProposeModal(true);
+  };
+
+  const handlePropose = async (meal: ProposedMeal, targetDate: string) => {
+    setIsSubmittingProposal(true);
+    try {
+      await createProposal(meal, targetDate);
+      setShowProposeModal(false);
+      // Navigate to proposals page to see the new proposal
+      navigate('/proposals');
+    } catch (err) {
+      console.error('Failed to create proposal:', err);
+    } finally {
+      setIsSubmittingProposal(false);
+    }
+  };
+
+  // Build the meal from the current suggestion
+  const currentMeal: ProposedMeal | undefined = suggestion
+    ? {
+        entreeId: suggestion.entree.id,
+        sideIds: suggestion.sides.map((s) => s.id),
+      }
+    : undefined;
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
@@ -121,6 +157,18 @@ export function SuggestionPage() {
               onTryAnother={generate}
             />
 
+            {/* Propose This button (only for multi-member households) */}
+            {proposalsAvailable && (
+              <Button
+                variant="secondary"
+                fullWidth
+                onClick={handleProposeClick}
+              >
+                <Hand size={18} aria-hidden="true" />
+                <span>Propose This</span>
+              </Button>
+            )}
+
             {/* Helpful tip */}
             <p
               className="text-center text-sm"
@@ -140,6 +188,18 @@ export function SuggestionPage() {
           </div>
         )}
       </main>
+
+      {/* Propose Modal */}
+      {showProposeModal && currentMeal && (
+        <ProposeModal
+          meal={currentMeal}
+          dishes={dishes}
+          memberCount={members.length}
+          isSubmitting={isSubmittingProposal}
+          onPropose={handlePropose}
+          onCancel={() => setShowProposeModal(false)}
+        />
+      )}
     </div>
   );
 }

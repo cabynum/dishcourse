@@ -33,3 +33,6 @@ export type { UseConflictsReturn } from './useConflicts';
 
 export { usePlanLock } from './usePlanLock';
 export type { UsePlanLockReturn } from './usePlanLock';
+
+export { useProposals } from './useProposals';
+export type { UseProposalsReturn } from './useProposals';

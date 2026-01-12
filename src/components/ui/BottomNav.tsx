@@ -6,7 +6,8 @@
  */
 
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Home, Dices, Calendar, Settings } from 'lucide-react';
+import { Home, Dices, Vote, Calendar, Settings } from 'lucide-react';
+import { useProposals } from '@/hooks';
 
 interface NavItem {
   path: string;
@@ -14,9 +15,16 @@ interface NavItem {
   icon: React.ReactNode;
   /** Match these paths as "active" for this tab */
   matchPaths?: string[];
+  /** Show badge with count */
+  badgeCount?: number;
+  /** Only show this item if condition is true */
+  showIf?: boolean;
 }
 
-const navItems: NavItem[] = [
+/**
+ * Base nav items (proposals is added dynamically based on availability)
+ */
+const baseNavItems: Omit<NavItem, 'badgeCount' | 'showIf'>[] = [
   {
     path: '/',
     label: 'Home',
@@ -26,6 +34,12 @@ const navItems: NavItem[] = [
     path: '/suggest',
     label: 'Suggest',
     icon: <Dices size={24} strokeWidth={2} />,
+  },
+  {
+    path: '/proposals',
+    label: 'Proposals',
+    icon: <Vote size={24} strokeWidth={2} />,
+    matchPaths: ['/proposals'],
   },
   {
     path: '/plan',
@@ -44,7 +58,9 @@ const navItems: NavItem[] = [
  * Bottom navigation bar for mobile app navigation.
  *
  * Features:
- * - 4 main tabs: Home, Suggest, Plans, Settings
+ * - 5 main tabs: Home, Suggest, Proposals*, Plans, Settings
+ * - Proposals tab only visible for multi-member households (Rule 6)
+ * - Badge showing pending proposal count
  * - Active state highlighting with accent color
  * - Glassmorphism blur effect
  * - Safe area padding for iOS devices
@@ -53,6 +69,19 @@ const navItems: NavItem[] = [
 export function BottomNav() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { pendingCount, isAvailable: proposalsAvailable } = useProposals();
+
+  // Build nav items with dynamic proposals visibility and badge
+  const navItems: NavItem[] = baseNavItems.map((item) => {
+    if (item.path === '/proposals') {
+      return {
+        ...item,
+        badgeCount: pendingCount,
+        showIf: proposalsAvailable,
+      };
+    }
+    return { ...item, showIf: true };
+  }).filter((item) => item.showIf !== false);
 
   /**
    * Check if a nav item should be shown as active
@@ -104,7 +133,7 @@ export function BottomNav() {
             >
               <span
                 className={[
-                  'flex items-center justify-center',
+                  'relative flex items-center justify-center',
                   'w-10 h-10 rounded-full',
                   'transition-all duration-150',
                 ].join(' ')}
@@ -118,6 +147,15 @@ export function BottomNav() {
                 }
               >
                 {item.icon}
+                {/* Badge for pending count */}
+                {item.badgeCount !== undefined && item.badgeCount > 0 && (
+                  <span
+                    className="absolute -top-1 -right-1 flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-rose-500 rounded-full"
+                    aria-label={`${item.badgeCount} pending`}
+                  >
+                    {item.badgeCount > 9 ? '9+' : item.badgeCount}
+                  </span>
+                )}
               </span>
               <span
                 className="text-xs font-medium"
